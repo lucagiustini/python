@@ -1,0 +1,9 @@
+{% if todos %}
+    <ul>
+    {% for todo in todos %}
+    <li>{{todo.title}} {{todo.pk}}</li>
+    {% endfor %}
+    <ul>
+{% else %}
+No todo
+{% endif %}
