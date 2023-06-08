@@ -1,9 +1,32 @@
-{% if todos %}
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if todoapp %}
     <ul>
-    {% for todo in todos %}
+    {% for todo in todoapp %}
     <li>{{todo.title}} {{todo.pk}}</li>
     {% endfor %}
     <ul>
 {% else %}
 No todo
 {% endif %}
+
+Hai fatto {{stats.done}} cose.
+Devi fare {{stats.to_do}} cose.
+Non devi fare più {{stats.to_do_deleted}} cose.
+
+<pre>
+    const stats = {
+        done: {{stats.done}},
+        to_do: {{stats.to_do}},
+        to_do_deleted: {{stats.to_do_deleted}}
+        total: {{stats.total}}
+    }
+</pre>
+
+
+
+
+
+{% endblock %}

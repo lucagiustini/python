@@ -1,6 +1,7 @@
 <h3>{{todo.title}}</h3>
 
-<form>
+<form method="POST">
+{% csrf_token %}
 {{form}}
 <input type="submit" value="save"/>
 </form>
