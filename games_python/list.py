@@ -48,3 +48,17 @@ print("Hello" in abc)
 # to add new value at the end
 myList.append("luca")
 print(myList)
+
+
+# converting list of string to integer
+string_list = ['4', '5', '87', '6']
+integer_list = [int(element) for element in string_list]
+print(integer_list)
+print(type(integer_list[0]))
+
+
+# converting list of string to integer using map
+string_list = ['4', '5', '87', '6']
+integer_list = list(map(int, string_list))
+print(integer_list)
+print(type(integer_list[1]))
