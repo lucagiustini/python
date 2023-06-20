@@ -44,8 +44,15 @@ def update_wait_time(wait_time):
     # create in the directory txt a file called wait_time.txt and write the wait_time in it
     with open(WAIT_TIME_FILE, "w") as file: 
         file.write(str(wait_time))
-        
+
 ask_password()
+
+# insert __name__ == "__main__" to run the code only if the file is executed directly
+if __name__ == "__main__":
+    ask_password()
+
+if __name__ == "authentication":
+    print("This is the authentication module")
 
 # do the same thing using os.path.dirname
 # import os
