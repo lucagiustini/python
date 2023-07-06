@@ -1,7 +1,5 @@
 import tracemalloc
-
-tracemalloc.start()
-# ... start your application ...
+import time
 
 def function_with_memory_leak():
     """
@@ -10,6 +8,10 @@ def function_with_memory_leak():
     # Simulating a memory leak by creating a large list
     large_list = [0] * (10**7)  # A list with ten million elements
 
+tracemalloc.start()
+# ... start your application ...
+
+time.sleep(1)
 snapshot1 = tracemalloc.take_snapshot()
 # ... call the function leaking memory ...
 
@@ -17,7 +19,21 @@ function_with_memory_leak()
 
 snapshot2 = tracemalloc.take_snapshot()
 
-top_stats = snapshot2.compare_to(snapshot1, 'lineno')
+function_with_memory_leak()
+
+snapshot3 = tracemalloc.take_snapshot()
+
+function_with_memory_leak()
+
+snapshot4 = tracemalloc.take_snapshot()
+
+function_with_memory_leak()
+
+snapshot5 = tracemalloc.take_snapshot()
+
+#top_stats = snapshot2.compare_to(snapshot1, 'lineno')
+#top_stats = snapshot3.compare_to(snapshot2, 'lineno')
+top_stats = snapshot5.compare_to(snapshot4, 'lineno')
 
 print("[ Top 10 differences ]")
 for stat in top_stats[:10]:

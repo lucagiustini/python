@@ -1,0 +1,120 @@
+              total        used        free      shared  buff/cache   available
+Mem:          2.9Gi       1.8Gi       383Mi       107Mi       702Mi       806Mi
+Swap:         1.4Gi       795Mi       605Mi
+              total        used        free      shared  buff/cache   available
+Mem:          2.9Gi       1.9Gi       281Mi       111Mi       705Mi       705Mi
+Swap:         1.4Gi       795Mi       605Mi
+              total        used        free      shared  buff/cache   available
+Mem:          2.9Gi       1.9Gi       280Mi       111Mi       705Mi       703Mi
+Swap:         1.4Gi       795Mi       605Mi
+              total        used        free      shared  buff/cache   available
+Mem:          2.9Gi       2.0Gi       129Mi       112Mi       706Mi       553Mi
+Swap:         1.4Gi       795Mi       605Mi
+              total        used        free      shared  buff/cache   available
+Mem:          2.9Gi       2.1Gi       182Mi       116Mi       647Mi       542Mi
+Swap:         1.4Gi       819Mi       581Mi
+              total        used        free      shared  buff/cache   available
+Mem:          2.9Gi       2.1Gi       182Mi       116Mi       647Mi       543Mi
+Swap:         1.4Gi       819Mi       581Mi
+
+svmem(total=3077201920, available=846118912, percent=72.5, used=1939079168, free=401797120, active=795815936, inactive=1126133760, buffers=58130432, cached=678195200, shared=113188864, slab=215756800)
+
+sswap(total=1469710336, used=834318336, free=635392000, percent=56.8, sin=1035014144, sout=2417893376)
+
+
+################################
+
+Function create_large_list() called.
+
+################################
+
+
+
+Memory allocation trace:
+taken snapshot
+
+
+svmem(total=3077201920, available=581369856, percent=81.1, used=2199330816, free=136822784, active=796073984, inactive=1390747648, buffers=58167296, cached=682881024, shared=117682176, slab=215863296)
+
+sswap(total=1469710336, used=834318336, free=635392000, percent=56.8, sin=1035030528, sout=2417893376)
+
+
+Memory allocation trace:
+4.9140625 new KiB 4.96875 total KiB 90 new 91 total memory blocks: 
+1.4375 new KiB 4.125 total KiB 23 new 66 total memory blocks: 
+1.09375 new KiB 4.03125 total KiB 22 new 67 total memory blocks: 
+0.921875 new KiB 0.921875 total KiB 2 new 2 total memory blocks: 
+-0.921875 new KiB 0.0 total KiB -2 new 0 total memory blocks: 
+0.8515625 new KiB 2.9921875 total KiB 22 new 67 total memory blocks: 
+0.8046875 new KiB 0.8046875 total KiB 2 new 2 total memory blocks: 
+-0.8046875 new KiB 0.0 total KiB -2 new 0 total memory blocks: 
+0.46875 new KiB 0.46875 total KiB 1 new 1 total memory blocks: 
+-0.46875 new KiB 0.0 total KiB -1 new 0 total memory blocks: 
+
+
+              total        used        free      shared  buff/cache   available
+Mem:          2.9Gi       1.8Gi       451Mi       119Mi       654Mi       817Mi
+Swap:         1.4Gi       818Mi       582Mi
+              total        used        free      shared  buff/cache   available
+Mem:          2.9Gi       1.9Gi       356Mi       122Mi       657Mi       721Mi
+Swap:         1.4Gi       818Mi       582Mi
+              total        used        free      shared  buff/cache   available
+Mem:          2.9Gi       1.9Gi       356Mi       122Mi       657Mi       721Mi
+Swap:         1.4Gi       818Mi       582Mi
+              total        used        free      shared  buff/cache   available
+Mem:          2.9Gi       2.0Gi       214Mi       122Mi       657Mi       579Mi
+Swap:         1.4Gi       818Mi       582Mi
+              total        used        free      shared  buff/cache   available
+Mem:          2.9Gi       2.0Gi       190Mi       120Mi       654Mi       555Mi
+Swap:         1.4Gi       819Mi       582Mi
+              total        used        free      shared  buff/cache   available
+Mem:          2.9Gi       2.0Gi       191Mi       120Mi       654Mi       555Mi
+Swap:         1.4Gi       819Mi       582Mi
+
+svmem(total=3077201920, available=857092096, percent=72.1, used=1916448768, free=474017792, active=790695936, inactive=1069780992, buffers=56713216, cached=630022144, shared=125521920, slab=214433792)
+
+sswap(total=1469710336, used=858411008, free=611299328, percent=58.4, sin=1036648448, sout=2444316672)
+
+
+################################
+
+Function create_large_list() called.
+
+################################
+
+
+
+Memory allocation trace:
+taken snapshot
+
+
+svmem(total=3077201920, available=608985088, percent=80.2, used=2161934336, free=225886208, active=790773760, inactive=1318019072, buffers=56737792, cached=632643584, shared=128143360, slab=214515712)
+
+sswap(total=1469710336, used=858411008, free=611299328, percent=58.4, sin=1036648448, sout=2444316672)
+
+
+Memory allocation trace:
+4.9140625 new KiB 4.96875 total KiB 90 new 91 total memory blocks: 
+1.4375 new KiB 4.125 total KiB 23 new 66 total memory blocks: 
+1.09375 new KiB 4.03125 total KiB 22 new 67 total memory blocks: 
+0.921875 new KiB 0.921875 total KiB 2 new 2 total memory blocks: 
+-0.921875 new KiB 0.0 total KiB -2 new 0 total memory blocks: 
+0.8515625 new KiB 2.9921875 total KiB 22 new 67 total memory blocks: 
+0.8046875 new KiB 0.8046875 total KiB 2 new 2 total memory blocks: 
+-0.8046875 new KiB 0.0 total KiB -2 new 0 total memory blocks: 
+0.46875 new KiB 0.46875 total KiB 1 new 1 total memory blocks: 
+-0.46875 new KiB 0.0 total KiB -1 new 0 total memory blocks: 
+
+
+              total        used        free      shared  buff/cache   available
+Mem:          2.9Gi       1.8Gi       437Mi       126Mi       663Mi       805Mi
+Swap:         1.4Gi       819Mi       582Mi
+              total        used        free      shared  buff/cache   available
+Mem:          2.9Gi       1.9Gi       335Mi       126Mi       663Mi       702Mi
+Swap:         1.4Gi       819Mi       582Mi
+              total        used        free      shared  buff/cache   available
+Mem:          2.9Gi       1.9Gi       334Mi       126Mi       663Mi       702Mi
+Swap:         1.4Gi       819Mi       582Mi
+              total        used        free      shared  buff/cache   available
+Mem:          2.9Gi       2.0Gi       171Mi       126Mi       663Mi       538Mi
+Swap:         1.4Gi       819Mi       582Mi

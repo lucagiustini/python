@@ -34,7 +34,7 @@ class sampleParamiko:
             print(str(exception))
             sys.exit(-1) # to exit the program
 
-    def ececuteCmd(self):
+    def executeCmd(self):
         try:
             channel = self.ssh.invoke_shell() # you are using a blackbox where you see just the input and the output
             timeout = 20 # timeout is in seconds
@@ -71,4 +71,4 @@ print(cmd)
 print('=================================================================')
 print()
 conn_obj = sampleParamiko(host_ip, uname, password)
-conn_obj.ececuteCmd()
+conn_obj.executeCmd()
