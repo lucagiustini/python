@@ -1,6 +1,6 @@
 import tracemalloc
-import psutil
 import subprocess
+import time
 
 s = 0
 
@@ -25,64 +25,32 @@ def memory_leak_check():
         for stat in top_stats[:10]:  # Change the number to display more or fewer entries
             top_stats = tracemalloc.take_snapshot().compare_to(s, 'lineno')
             lines.append(str(stat))  
-            print("{} new KiB {} total KiB {} new {} total memory blocks: ".format(stat.size_diff/1024, stat.size / 1024, stat.count_diff ,stat.count))
+            # KiB = 1024 bytes (https://en.wikipedia.org/wiki/Kibibyte)
+            print("{} new KiB {} total KiB {} new {} total memory blocks: ".format(stat.size_diff/1024, stat.size/1024, stat.count_diff ,stat.count))
         return "\n".join(lines)
 
-def create_large_list():
-    # A function that creates a large list to simulate potential memory leak.
-    large_list = [i for i in range(10**6)]  # A list with one million elements
-    print("################################\n")
-    print("Function create_large_list() called.\n")
-    print("################################\n")
-    return large_list
-
 def main():
-    # Start memory tracing
-    start_memory_trace()
-
-    # using psutil print the memory usage
-    print()
-    print(psutil.virtual_memory())
-    print()
-    print(psutil.swap_memory())
-    print()
     
-    # using subprocess print the memory usage
-    subprocess.call(['free', '-h'])
-    print()
-    
-    # Simulate potential memory leak
-    large_list = create_large_list()
-
-    print()
-    subprocess.call(['free', '-h'])
-    print()
-    subprocess.call(['free', '-h'])
-    # Check memory leak
-    memory_leak_check()
-
-    # using psutil print the memory usage
-    print()
-    print(psutil.virtual_memory())
-    print()
-    print(psutil.swap_memory())
-    print()
-    
-    # using subprocess print the memory usage
-    subprocess.call(['free', '-h'])
-    print()
     # Check memory leak
     memory_leak_check()
     print()
-    subprocess.call(['free', '-h'])
-    # Stop memory tracing
-    # stop_memory_trace()
-    print()
-    subprocess.call(['free', '-h'])
+    
+    # using subprocess print the memory usage
+    #subprocess.call(['free', '-h'])
+    #print()
+    
+    time.sleep(1)
 
 # type the definistion of the main funtion in python
 if __name__ == "__main__":
-    main()
+    # Start memory tracing
+    start_memory_trace()
+    
+    # using subprocess print the memory usage
+    subprocess.call(['free', '-h'])
+    print()
+    while True:
+        main()
     
     
 # Run the program and check the memory usage
