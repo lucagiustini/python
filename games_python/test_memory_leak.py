@@ -14,6 +14,18 @@ def main():
     
     # Simulate potential memory leak
     large_list = create_large_list()
+    large_list = create_large_list()
+    large_list = create_large_list()
+    large_list = create_large_list()
+    large_list = create_large_list()
+    large_list = create_large_list()
+    large_list = create_large_list()
+    large_list = create_large_list()
+    large_list = create_large_list()
+    large_list = create_large_list()
+    large_list = create_large_list()
+    large_list = create_large_list()
+    large_list = create_large_list()
     print()
     
 
@@ -21,7 +33,6 @@ def main():
 if __name__ == "__main__":
     while True:
         main()
-    
     
 # Run the program and check the memory usage
 # in background run the command free -h to check the memory usage
