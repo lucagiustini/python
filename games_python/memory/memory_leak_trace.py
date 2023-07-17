@@ -39,7 +39,7 @@ print("[ Top 10 differences ]")
 for stat in top_stats[:10]:
     print("{} new KiB {} total KiB {} new {} total memory blocks: ".format(stat.size_diff/1024, stat.size / 1024, stat.count_diff ,stat.count))
     
-    
+###############################################################################
     
 import gc
 from flask import Flask
@@ -55,3 +55,17 @@ def get_service_metrics(service):
     data = _get_service_metrics(service)
     gc.collect()
     return data
+
+###############################################################################
+
+
+import subprocess
+
+def run_cpp_script():
+    # Compile the C++ script
+    subprocess.run(["g++", "create_leak.cpp", "-o", "create_leak"])
+
+    # Run the compiled C++ executable
+    subprocess.run(["./create_leak"])
+
+run_cpp_script()
