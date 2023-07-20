@@ -1,0 +1,15 @@
+C:\Users\SESA680124\source\repos\Vettore\Vettore\bin\Debug\net6.0\Vettore.exe
+C:\Users\SESA680124\source\repos\Vettore\Vettore\bin\Debug\net6.0\Vettore.deps.json
+C:\Users\SESA680124\source\repos\Vettore\Vettore\bin\Debug\net6.0\Vettore.runtimeconfig.json
+C:\Users\SESA680124\source\repos\Vettore\Vettore\bin\Debug\net6.0\Vettore.dll
+C:\Users\SESA680124\source\repos\Vettore\Vettore\bin\Debug\net6.0\Vettore.pdb
+C:\Users\SESA680124\source\repos\Vettore\Vettore\obj\Debug\net6.0\Vettore.csproj.AssemblyReference.cache
+C:\Users\SESA680124\source\repos\Vettore\Vettore\obj\Debug\net6.0\Vettore.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\SESA680124\source\repos\Vettore\Vettore\obj\Debug\net6.0\Vettore.AssemblyInfoInputs.cache
+C:\Users\SESA680124\source\repos\Vettore\Vettore\obj\Debug\net6.0\Vettore.AssemblyInfo.cs
+C:\Users\SESA680124\source\repos\Vettore\Vettore\obj\Debug\net6.0\Vettore.csproj.CoreCompileInputs.cache
+C:\Users\SESA680124\source\repos\Vettore\Vettore\obj\Debug\net6.0\Vettore.dll
+C:\Users\SESA680124\source\repos\Vettore\Vettore\obj\Debug\net6.0\refint\Vettore.dll
+C:\Users\SESA680124\source\repos\Vettore\Vettore\obj\Debug\net6.0\Vettore.pdb
+C:\Users\SESA680124\source\repos\Vettore\Vettore\obj\Debug\net6.0\Vettore.genruntimeconfig.cache
+C:\Users\SESA680124\source\repos\Vettore\Vettore\obj\Debug\net6.0\ref\Vettore.dll

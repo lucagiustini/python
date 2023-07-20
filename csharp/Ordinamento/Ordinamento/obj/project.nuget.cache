@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "WKESH5cEjNi6iuLTvHrvcgTp1lcmjv8XVUP+sGdEwB5/lzCS7631Zf91EWX6PIjQ7cRarhWxgUCU6NKbN6kBFg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\SESA680124\\source\\repos\\Ordinamento\\Ordinamento\\Ordinamento.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\SESA680124\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.16\\microsoft.windowsdesktop.app.ref.6.0.16.nupkg.sha512",
+    "C:\\Users\\SESA680124\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.16\\microsoft.netcore.app.ref.6.0.16.nupkg.sha512",
+    "C:\\Users\\SESA680124\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.16\\microsoft.aspnetcore.app.ref.6.0.16.nupkg.sha512",
+    "C:\\Users\\SESA680124\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\6.0.16\\microsoft.netcore.app.host.win-x64.6.0.16.nupkg.sha512"
+  ],
+  "logs": []
+}

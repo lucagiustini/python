@@ -1,0 +1,15 @@
+C:\Users\SESA680124\source\repos\Eredita\Eredita\bin\Debug\net6.0\Eredita.exe
+C:\Users\SESA680124\source\repos\Eredita\Eredita\bin\Debug\net6.0\Eredita.deps.json
+C:\Users\SESA680124\source\repos\Eredita\Eredita\bin\Debug\net6.0\Eredita.runtimeconfig.json
+C:\Users\SESA680124\source\repos\Eredita\Eredita\bin\Debug\net6.0\Eredita.dll
+C:\Users\SESA680124\source\repos\Eredita\Eredita\bin\Debug\net6.0\Eredita.pdb
+C:\Users\SESA680124\source\repos\Eredita\Eredita\obj\Debug\net6.0\Eredita.csproj.AssemblyReference.cache
+C:\Users\SESA680124\source\repos\Eredita\Eredita\obj\Debug\net6.0\Eredita.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\SESA680124\source\repos\Eredita\Eredita\obj\Debug\net6.0\Eredita.AssemblyInfoInputs.cache
+C:\Users\SESA680124\source\repos\Eredita\Eredita\obj\Debug\net6.0\Eredita.AssemblyInfo.cs
+C:\Users\SESA680124\source\repos\Eredita\Eredita\obj\Debug\net6.0\Eredita.csproj.CoreCompileInputs.cache
+C:\Users\SESA680124\source\repos\Eredita\Eredita\obj\Debug\net6.0\Eredita.dll
+C:\Users\SESA680124\source\repos\Eredita\Eredita\obj\Debug\net6.0\refint\Eredita.dll
+C:\Users\SESA680124\source\repos\Eredita\Eredita\obj\Debug\net6.0\Eredita.pdb
+C:\Users\SESA680124\source\repos\Eredita\Eredita\obj\Debug\net6.0\Eredita.genruntimeconfig.cache
+C:\Users\SESA680124\source\repos\Eredita\Eredita\obj\Debug\net6.0\ref\Eredita.dll

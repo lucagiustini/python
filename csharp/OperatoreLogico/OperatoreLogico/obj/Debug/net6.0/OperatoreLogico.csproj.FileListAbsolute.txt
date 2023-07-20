@@ -1,0 +1,15 @@
+C:\Users\SESA680124\source\repos\OperatoreLogico\OperatoreLogico\bin\Debug\net6.0\OperatoreLogico.exe
+C:\Users\SESA680124\source\repos\OperatoreLogico\OperatoreLogico\bin\Debug\net6.0\OperatoreLogico.deps.json
+C:\Users\SESA680124\source\repos\OperatoreLogico\OperatoreLogico\bin\Debug\net6.0\OperatoreLogico.runtimeconfig.json
+C:\Users\SESA680124\source\repos\OperatoreLogico\OperatoreLogico\bin\Debug\net6.0\OperatoreLogico.dll
+C:\Users\SESA680124\source\repos\OperatoreLogico\OperatoreLogico\bin\Debug\net6.0\OperatoreLogico.pdb
+C:\Users\SESA680124\source\repos\OperatoreLogico\OperatoreLogico\obj\Debug\net6.0\OperatoreLogico.csproj.AssemblyReference.cache
+C:\Users\SESA680124\source\repos\OperatoreLogico\OperatoreLogico\obj\Debug\net6.0\OperatoreLogico.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\SESA680124\source\repos\OperatoreLogico\OperatoreLogico\obj\Debug\net6.0\OperatoreLogico.AssemblyInfoInputs.cache
+C:\Users\SESA680124\source\repos\OperatoreLogico\OperatoreLogico\obj\Debug\net6.0\OperatoreLogico.AssemblyInfo.cs
+C:\Users\SESA680124\source\repos\OperatoreLogico\OperatoreLogico\obj\Debug\net6.0\OperatoreLogico.csproj.CoreCompileInputs.cache
+C:\Users\SESA680124\source\repos\OperatoreLogico\OperatoreLogico\obj\Debug\net6.0\OperatoreLogico.dll
+C:\Users\SESA680124\source\repos\OperatoreLogico\OperatoreLogico\obj\Debug\net6.0\refint\OperatoreLogico.dll
+C:\Users\SESA680124\source\repos\OperatoreLogico\OperatoreLogico\obj\Debug\net6.0\OperatoreLogico.pdb
+C:\Users\SESA680124\source\repos\OperatoreLogico\OperatoreLogico\obj\Debug\net6.0\OperatoreLogico.genruntimeconfig.cache
+C:\Users\SESA680124\source\repos\OperatoreLogico\OperatoreLogico\obj\Debug\net6.0\ref\OperatoreLogico.dll

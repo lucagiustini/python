@@ -1,0 +1,15 @@
+C:\Users\SESA680124\source\repos\Ordinamento\Ordinamento\obj\Debug\net6.0\Ordinamento.csproj.AssemblyReference.cache
+C:\Users\SESA680124\source\repos\Ordinamento\Ordinamento\obj\Debug\net6.0\Ordinamento.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\SESA680124\source\repos\Ordinamento\Ordinamento\obj\Debug\net6.0\Ordinamento.AssemblyInfoInputs.cache
+C:\Users\SESA680124\source\repos\Ordinamento\Ordinamento\obj\Debug\net6.0\Ordinamento.AssemblyInfo.cs
+C:\Users\SESA680124\source\repos\Ordinamento\Ordinamento\obj\Debug\net6.0\Ordinamento.csproj.CoreCompileInputs.cache
+C:\Users\SESA680124\source\repos\Ordinamento\Ordinamento\bin\Debug\net6.0\Ordinamento.exe
+C:\Users\SESA680124\source\repos\Ordinamento\Ordinamento\bin\Debug\net6.0\Ordinamento.deps.json
+C:\Users\SESA680124\source\repos\Ordinamento\Ordinamento\bin\Debug\net6.0\Ordinamento.runtimeconfig.json
+C:\Users\SESA680124\source\repos\Ordinamento\Ordinamento\bin\Debug\net6.0\Ordinamento.dll
+C:\Users\SESA680124\source\repos\Ordinamento\Ordinamento\bin\Debug\net6.0\Ordinamento.pdb
+C:\Users\SESA680124\source\repos\Ordinamento\Ordinamento\obj\Debug\net6.0\Ordinamento.dll
+C:\Users\SESA680124\source\repos\Ordinamento\Ordinamento\obj\Debug\net6.0\refint\Ordinamento.dll
+C:\Users\SESA680124\source\repos\Ordinamento\Ordinamento\obj\Debug\net6.0\Ordinamento.pdb
+C:\Users\SESA680124\source\repos\Ordinamento\Ordinamento\obj\Debug\net6.0\Ordinamento.genruntimeconfig.cache
+C:\Users\SESA680124\source\repos\Ordinamento\Ordinamento\obj\Debug\net6.0\ref\Ordinamento.dll

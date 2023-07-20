@@ -1,0 +1,15 @@
+C:\Users\SESA680124\source\repos\OrdinamBumble\OrdinamBumble\bin\Debug\net6.0\OrdinamBumble.exe
+C:\Users\SESA680124\source\repos\OrdinamBumble\OrdinamBumble\bin\Debug\net6.0\OrdinamBumble.deps.json
+C:\Users\SESA680124\source\repos\OrdinamBumble\OrdinamBumble\bin\Debug\net6.0\OrdinamBumble.runtimeconfig.json
+C:\Users\SESA680124\source\repos\OrdinamBumble\OrdinamBumble\bin\Debug\net6.0\OrdinamBumble.dll
+C:\Users\SESA680124\source\repos\OrdinamBumble\OrdinamBumble\bin\Debug\net6.0\OrdinamBumble.pdb
+C:\Users\SESA680124\source\repos\OrdinamBumble\OrdinamBumble\obj\Debug\net6.0\OrdinamBumble.csproj.AssemblyReference.cache
+C:\Users\SESA680124\source\repos\OrdinamBumble\OrdinamBumble\obj\Debug\net6.0\OrdinamBumble.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\SESA680124\source\repos\OrdinamBumble\OrdinamBumble\obj\Debug\net6.0\OrdinamBumble.AssemblyInfoInputs.cache
+C:\Users\SESA680124\source\repos\OrdinamBumble\OrdinamBumble\obj\Debug\net6.0\OrdinamBumble.AssemblyInfo.cs
+C:\Users\SESA680124\source\repos\OrdinamBumble\OrdinamBumble\obj\Debug\net6.0\OrdinamBumble.csproj.CoreCompileInputs.cache
+C:\Users\SESA680124\source\repos\OrdinamBumble\OrdinamBumble\obj\Debug\net6.0\OrdinamBumble.dll
+C:\Users\SESA680124\source\repos\OrdinamBumble\OrdinamBumble\obj\Debug\net6.0\refint\OrdinamBumble.dll
+C:\Users\SESA680124\source\repos\OrdinamBumble\OrdinamBumble\obj\Debug\net6.0\OrdinamBumble.pdb
+C:\Users\SESA680124\source\repos\OrdinamBumble\OrdinamBumble\obj\Debug\net6.0\OrdinamBumble.genruntimeconfig.cache
+C:\Users\SESA680124\source\repos\OrdinamBumble\OrdinamBumble\obj\Debug\net6.0\ref\OrdinamBumble.dll

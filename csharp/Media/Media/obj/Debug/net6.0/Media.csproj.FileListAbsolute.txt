@@ -1,0 +1,15 @@
+C:\Users\SESA680124\source\repos\Media\Media\obj\Debug\net6.0\Media.csproj.AssemblyReference.cache
+C:\Users\SESA680124\source\repos\Media\Media\obj\Debug\net6.0\Media.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\SESA680124\source\repos\Media\Media\obj\Debug\net6.0\Media.AssemblyInfoInputs.cache
+C:\Users\SESA680124\source\repos\Media\Media\obj\Debug\net6.0\Media.AssemblyInfo.cs
+C:\Users\SESA680124\source\repos\Media\Media\obj\Debug\net6.0\Media.csproj.CoreCompileInputs.cache
+C:\Users\SESA680124\source\repos\Media\Media\bin\Debug\net6.0\Media.exe
+C:\Users\SESA680124\source\repos\Media\Media\bin\Debug\net6.0\Media.deps.json
+C:\Users\SESA680124\source\repos\Media\Media\bin\Debug\net6.0\Media.runtimeconfig.json
+C:\Users\SESA680124\source\repos\Media\Media\bin\Debug\net6.0\Media.dll
+C:\Users\SESA680124\source\repos\Media\Media\bin\Debug\net6.0\Media.pdb
+C:\Users\SESA680124\source\repos\Media\Media\obj\Debug\net6.0\Media.dll
+C:\Users\SESA680124\source\repos\Media\Media\obj\Debug\net6.0\refint\Media.dll
+C:\Users\SESA680124\source\repos\Media\Media\obj\Debug\net6.0\Media.pdb
+C:\Users\SESA680124\source\repos\Media\Media\obj\Debug\net6.0\Media.genruntimeconfig.cache
+C:\Users\SESA680124\source\repos\Media\Media\obj\Debug\net6.0\ref\Media.dll

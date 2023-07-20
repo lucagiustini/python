@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "U6mmaI44hjVn3k8pZlnlwEXOjU2xBqIDTpSgyXgUofWA2BGuDr/WgZlmBQVAMjC1Clu3Nw6RH+XJtBI+oarXMA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\SESA680124\\source\\repos\\Calcolatrice\\Calcolatrice\\Calcolatrice.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\SESA680124\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.16\\microsoft.windowsdesktop.app.ref.6.0.16.nupkg.sha512",
+    "C:\\Users\\SESA680124\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.16\\microsoft.netcore.app.ref.6.0.16.nupkg.sha512",
+    "C:\\Users\\SESA680124\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.16\\microsoft.aspnetcore.app.ref.6.0.16.nupkg.sha512",
+    "C:\\Users\\SESA680124\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\6.0.16\\microsoft.netcore.app.host.win-x64.6.0.16.nupkg.sha512"
+  ],
+  "logs": []
+}

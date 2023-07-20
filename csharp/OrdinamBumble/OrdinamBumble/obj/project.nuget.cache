@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "XJ1yWBIXCMJKXJUwobYZUP0Ax20A/aYu6bpALW3cmlTfBOydbOkujWdifLF2kCO8pDhK3PddoChTs4ZS4rWdjQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\SESA680124\\source\\repos\\OrdinamBumble\\OrdinamBumble\\OrdinamBumble.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\SESA680124\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.16\\microsoft.windowsdesktop.app.ref.6.0.16.nupkg.sha512",
+    "C:\\Users\\SESA680124\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.16\\microsoft.netcore.app.ref.6.0.16.nupkg.sha512",
+    "C:\\Users\\SESA680124\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.16\\microsoft.aspnetcore.app.ref.6.0.16.nupkg.sha512",
+    "C:\\Users\\SESA680124\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\6.0.16\\microsoft.netcore.app.host.win-x64.6.0.16.nupkg.sha512"
+  ],
+  "logs": []
+}

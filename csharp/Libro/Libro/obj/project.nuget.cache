@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "FQQbver7L0CC9FPT0h3pfmIlV1Bq9tydG2Y4QOgvaEOo5neBzwfwD9+r7c6eJgY6lUHOuvejWM27QE5jRSYRzA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\SESA680124\\source\\repos\\Libro\\Libro\\Libro.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\SESA680124\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.16\\microsoft.windowsdesktop.app.ref.6.0.16.nupkg.sha512",
+    "C:\\Users\\SESA680124\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.16\\microsoft.netcore.app.ref.6.0.16.nupkg.sha512",
+    "C:\\Users\\SESA680124\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.16\\microsoft.aspnetcore.app.ref.6.0.16.nupkg.sha512",
+    "C:\\Users\\SESA680124\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\6.0.16\\microsoft.netcore.app.host.win-x64.6.0.16.nupkg.sha512"
+  ],
+  "logs": []
+}

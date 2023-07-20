@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "HssqFqnlhcjod3NLpqMMMHyrB1pk4LqGuVa2tACbx3UMUV+XbEAbY7sf/Yy23/1ifz36iuwKRXX5z2Cg7snUGw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\SESA680124\\source\\repos\\Media\\Media\\Media.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\SESA680124\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.15\\microsoft.windowsdesktop.app.ref.6.0.15.nupkg.sha512",
+    "C:\\Users\\SESA680124\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.15\\microsoft.netcore.app.ref.6.0.15.nupkg.sha512",
+    "C:\\Users\\SESA680124\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.15\\microsoft.aspnetcore.app.ref.6.0.15.nupkg.sha512",
+    "C:\\Users\\SESA680124\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\6.0.15\\microsoft.netcore.app.host.win-x64.6.0.15.nupkg.sha512"
+  ],
+  "logs": []
+}

@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "fXrPzkO1sHCDT+UyPT+l4WKhsTEYPH+E7kWPYGYPUtOu3ZluKSnppyOjdI47a+Nv5O4qLJ6knfXrB0ZPIHSS3g==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\SESA680124\\source\\repos\\Vettore\\Vettore\\Vettore.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\SESA680124\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.16\\microsoft.windowsdesktop.app.ref.6.0.16.nupkg.sha512",
+    "C:\\Users\\SESA680124\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.16\\microsoft.netcore.app.ref.6.0.16.nupkg.sha512",
+    "C:\\Users\\SESA680124\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.16\\microsoft.aspnetcore.app.ref.6.0.16.nupkg.sha512",
+    "C:\\Users\\SESA680124\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\6.0.16\\microsoft.netcore.app.host.win-x64.6.0.16.nupkg.sha512"
+  ],
+  "logs": []
+}
