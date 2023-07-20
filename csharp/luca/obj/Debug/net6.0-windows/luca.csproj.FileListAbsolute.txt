@@ -1,0 +1,15 @@
+C:\Users\SESA680124\source\repos\luca\luca\bin\Debug\net6.0-windows\pino.deps.json
+C:\Users\SESA680124\source\repos\LUCA\luca\bin\Debug\net6.0-windows\pino.dll
+C:\Users\SESA680124\source\repos\LUCA\luca\bin\Debug\net6.0-windows\pino.pdb
+C:\Users\SESA680124\source\repos\LUCA\luca\obj\Debug\net6.0-windows\luca.csproj.AssemblyReference.cache
+C:\Users\SESA680124\source\repos\LUCA\luca\obj\Debug\net6.0-windows\luca.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\SESA680124\source\repos\LUCA\luca\obj\Debug\net6.0-windows\luca.AssemblyInfoInputs.cache
+C:\Users\SESA680124\source\repos\LUCA\luca\obj\Debug\net6.0-windows\luca.AssemblyInfo.cs
+C:\Users\SESA680124\source\repos\LUCA\luca\obj\Debug\net6.0-windows\luca.csproj.CoreCompileInputs.cache
+C:\Users\SESA680124\source\repos\LUCA\luca\obj\Debug\net6.0-windows\pino.dll
+C:\Users\SESA680124\source\repos\LUCA\luca\obj\Debug\net6.0-windows\refint\pino.dll
+C:\Users\SESA680124\source\repos\LUCA\luca\obj\Debug\net6.0-windows\pino.pdb
+C:\Users\SESA680124\source\repos\luca\luca\obj\Debug\net6.0-windows\ref\pino.dll
+C:\Users\SESA680124\source\repos\luca\luca\bin\Debug\net6.0-windows\pino.exe
+C:\Users\SESA680124\source\repos\luca\luca\bin\Debug\net6.0-windows\pino.runtimeconfig.json
+C:\Users\SESA680124\source\repos\luca\luca\obj\Debug\net6.0-windows\luca.genruntimeconfig.cache

@@ -1,0 +1,12 @@
+C:\Users\SESA680124\source\repos\luca\luca\obj\Debug\net6.0\luca.csproj.AssemblyReference.cache
+C:\Users\SESA680124\source\repos\luca\luca\obj\Debug\net6.0\luca.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\SESA680124\source\repos\luca\luca\obj\Debug\net6.0\luca.AssemblyInfoInputs.cache
+C:\Users\SESA680124\source\repos\luca\luca\obj\Debug\net6.0\luca.AssemblyInfo.cs
+C:\Users\SESA680124\source\repos\luca\luca\obj\Debug\net6.0\luca.csproj.CoreCompileInputs.cache
+C:\Users\SESA680124\source\repos\luca\luca\bin\Debug\net6.0\pino.deps.json
+C:\Users\SESA680124\source\repos\luca\luca\bin\Debug\net6.0\pino.dll
+C:\Users\SESA680124\source\repos\luca\luca\bin\Debug\net6.0\pino.pdb
+C:\Users\SESA680124\source\repos\luca\luca\obj\Debug\net6.0\pino.dll
+C:\Users\SESA680124\source\repos\luca\luca\obj\Debug\net6.0\refint\pino.dll
+C:\Users\SESA680124\source\repos\luca\luca\obj\Debug\net6.0\pino.pdb
+C:\Users\SESA680124\source\repos\luca\luca\obj\Debug\net6.0\ref\pino.dll

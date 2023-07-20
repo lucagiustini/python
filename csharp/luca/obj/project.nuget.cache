@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "tPZ8Ls2QqsRBOEOeJLTEWhBl0tLFM5/+HiDvBwwsDMjiR1HHYYlh0lDqId7j1Zsi+TBeHddYR8JMNAaKIOdZag==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\SESA680124\\source\\repos\\LUCA\\luca\\luca.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\SESA680124\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.15\\microsoft.windowsdesktop.app.ref.6.0.15.nupkg.sha512",
+    "C:\\Users\\SESA680124\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.15\\microsoft.netcore.app.ref.6.0.15.nupkg.sha512",
+    "C:\\Users\\SESA680124\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.15\\microsoft.aspnetcore.app.ref.6.0.15.nupkg.sha512",
+    "C:\\Users\\SESA680124\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\6.0.15\\microsoft.netcore.app.host.win-x64.6.0.15.nupkg.sha512"
+  ],
+  "logs": []
+}
