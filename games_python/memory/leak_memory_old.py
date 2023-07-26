@@ -20,7 +20,7 @@ def memory_leak_check():
     snapshot = tracemalloc.take_snapshot()
 
     # Display the details of a specific memory block
-    
+
     top_stats = snapshot.statistics('lineno')
 
     print("Memory allocation trace:")

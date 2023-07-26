@@ -1,0 +1,36 @@
+# This workflow sets up a CI Pipeline that automatically builds your C++ application, runs tests, and checks for memory leaks using Valgrind
+# whenever updates are pushed to the master branch on GitHub.
+
+name: CI # name of the workflow displayed in the GitHub Actions UI.
+
+on:
+  push:
+    branches:
+      - master  # when the workflow should be triggered:
+                # here is triggered on every push to the master branch.
+
+jobs:       # defines the individual jobs that make up the workflow:
+  build:    # here the job is named build
+    runs-on: ubuntu-latest  # the type of runner to use for the job: ubuntu-latest
+
+    steps:  # contains a sequence of steps that make up the job
+    - name: Checkout code   # checks out the code from the repository using the actions/checkout action
+      uses: actions/checkout@v2
+
+    - name: Set up C++ (gcc, g++, Valgrind) # sets up the C++ environment and installs gcc, g++, and Valgrind using the actions/setup-cpp action.
+      uses: actions/setup-cpp@v1
+      with:
+        cpp-version: '11'
+        valgrind: true
+
+    - name: Build C++ application   # compiles your C++ application with debug symbols enabled (-g flag).
+      run: |
+        g++ -g your_application.cpp -o your_application
+
+    - name: Run C++ tests   # runs your C++ tests using the compiled application.
+      run: |
+        ./your_application_tests
+
+    - name: Check for memory leaks using Valgrind # checks for memory leaks using Valgrind
+      run: |
+        valgrind --leak-check=full ./your_application

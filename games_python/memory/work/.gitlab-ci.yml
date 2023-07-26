@@ -1,0 +1,36 @@
+stages:
+  - build # is responsible for compiling the C++ application
+  - test # runs your C++ tests using the compiled application (NO needed for the memory leak)
+
+build:
+  stage: build
+  image: gcc:latest # We use the gcc:latest Docker image to have the necessary compiler tools
+  script:
+    - g++ -g your_application.cpp -o your_application
+
+test:
+  stage: test
+  image: gcc:latest # We use the gcc:latest Docker image to have the necessary compiler tools
+  script:
+    - ./your_application_tests
+
+check_memory_leaks: # additional test stage that checks for memory leaks using Valgrind (needed for the memory leak)
+  stage: test
+  image: gcc:latest
+  script:
+    - apt-get update -qy
+    - apt-get install -y valgrind
+    - valgrind --leak-check=full ./your_application
+    # We use the valgrind package, which is installed inside the Docker container.
+    # Note that you can customize the Docker image to include additional dependencies if needed.
+
+
+
+# With this '.gitlab-ci.yml' configuration:
+  # whenever you push updates to your GitLab repository, GitLab CI will automatically trigger the CI pipeline.
+  # It will compile your C++ application, run your tests, and check for memory leaks using Valgrind in the specified job.
+
+# Make sure to adjust the configuration to match your actual C++ application and tests setup, and to provide the correct paths and filenames.
+
+# GitLab CI allows you to define more complex pipelines with multiple jobs, artifacts, and more.
+# You can customize the CI pipeline to suit the specific needs of your project.
