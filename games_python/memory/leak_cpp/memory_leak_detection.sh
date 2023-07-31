@@ -25,8 +25,8 @@ while read old_sha new_sha refname; do
     # Loop through C++ files and perform Valgrind memory profiling
     for file in $(echo "$changes" | grep '.cpp$'); do
       # Compile the C++ file and run Valgrind
-      g++ -g $file -o $file.out
-      valgrind --leak-check=full ./$file.out
+      $g++ -g $file -o $file.out
+      $valgrind --leak-check=full ./$file.out
 
       # Clean up the compiled file
       rm $file.out
