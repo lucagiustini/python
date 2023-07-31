@@ -11,7 +11,7 @@ def snap():
         lines = []
         top_stats = tracemalloc.take_snapshot().compare_to(s, 'lineno')
         for stat in top_stats[:5]:
-            lines.append(str(stat))  
+            lines.append(str(stat))
             print("{} new KiB {} total KiB {} new {} total memory blocks: ".format(stat.size_diff/1024, stat.size / 1024, stat.count_diff ,stat.count))
             #print(lines)
         # print the s values
