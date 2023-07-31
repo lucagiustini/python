@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# which g++
+# which valgrind
+
+g++="/usr/bin/g++"
+valgrind="/usr/bin/valgrind"
+
 zero_commit="0000000000000000000000000000000000000000"
 
 while read old_sha new_sha refname; do
