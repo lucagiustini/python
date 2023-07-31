@@ -1,10 +1,23 @@
 #!/bin/bash
 
-# which g++
-# which valgrind
+# Find the absolute paths for g++ and valgrind
+gpp_path=$(which g++)
+valgrind_path=$(which valgrind)
 
-g++="/usr/bin/g++"
-valgrind="/usr/bin/valgrind"
+# Check if g++ and valgrind are found in the system's PATH
+if [ -x "$gpp_path" ]; then
+  g++="$gpp_path"
+else
+  echo "g++ not found in the system's PATH."
+  exit 1
+fi
+
+if [ -x "$valgrind_path" ]; then
+  valgrind="$valgrind_path"
+else
+  echo "valgrind not found in the system's PATH."
+  exit 1
+fi
 
 zero_commit="0000000000000000000000000000000000000000"
 
