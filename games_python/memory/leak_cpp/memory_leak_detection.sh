@@ -20,6 +20,9 @@ else
 fi
 
 zero_commit="0000000000000000000000000000000000000000"
+memory_leak_detected = false
+old_sha = main
+new_sha = update
 
 while read old_sha new_sha refname; do
   # Check if it's a new branch or a branch deletion
@@ -38,16 +41,29 @@ while read old_sha new_sha refname; do
     # Loop through C++ files and perform Valgrind memory profiling
     for file in $(echo "$changes" | grep '.cpp$'); do
       # Compile the C++ file and run Valgrind
-      $g++ -g $file -o $file.out
-      $valgrind --leak-check=full ./$file.out
+
+      #g++ -g create_leak.cpp -o create_leak
+      #valgrind --leak-check=full ./create_leak
+
+      $g++ -g $file -o $file
+      $valgrind --leak-check=full ./$file
+
+      # Check if Valgrind detected any memory leaks
+      if [ $? -ne 0 ]; then
+        memory_leak_detected=true
+      fi
 
       # Clean up the compiled file
-      rm $file.out
+      # rm $file.out
     done
 
-    # If you want to reject the push/merge if there are memory leaks, uncomment the following line:
-    exit 1
   fi
 done
+
+# Check if memory leaks were detected and exit with appropriate status
+if [ "$memory_leak_detected" = true ]; then
+  echo "Memory leak detected. Rejecting the push/merge."
+  exit 1
+fi
 
 exit 0

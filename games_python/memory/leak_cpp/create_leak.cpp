@@ -16,7 +16,7 @@ int main()
     }
 
     // Calculate the amount of memory allocated
-    std::size_t totalMemory = sizeof(int[SIZE]);
+    std::size_t totalMemory = SIZE * sizeof(int);
 
     std::cout << "Memory allocated: " << totalMemory << " bytes" << std::endl;
 
@@ -24,7 +24,7 @@ int main()
     // std::this_thread::sleep_for(std::chrono::seconds(20));
 
     // Uncomment the following line to introduce a delay
-    std::cin.get();
+    // std::cin.get();
 
     // Memory leak - no deletion of allocated memory
 
