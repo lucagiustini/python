@@ -30,7 +30,8 @@ int main()
 
     // ############### WARNING !!!! ###############
     // Deallocate the memory
-    delete[] myArray;
+    // delete[] myArray;
+
 
     return 0;
 }

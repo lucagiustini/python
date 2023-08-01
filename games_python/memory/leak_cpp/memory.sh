@@ -22,7 +22,7 @@ fi
 # Branch names to compare
 old_sha="main"
 new_sha="update"
-memory_leak_detected = false
+memory_leak_detected=false
 
 # Check if it's a new branch or a branch deletion
 if [ "$old_sha" == "$zero_commit" ]; then
@@ -39,16 +39,14 @@ if echo "$changes" | grep -q '.cpp$'; then
 
   # Loop through C++ files and perform Valgrind memory profiling
   for file in $(echo "$changes" | grep '.cpp$'); do
-    # Compile the C++ file and run Valgrind
-    #$g++ -g create_leak.cpp -o create_leak
-    #valgrind --leak-check=full ./create_leak
 
+    # Compile the C++ file and run Valgrind
     $g++ -g "$file" -o "$file"
-    $valgrind --leak-check=full "./$file"
+    valgrind_output=$($valgrind --leak-check=full "./$file" 2>&1) # Capture stderr as well
 
     # Check if Valgrind detected any memory leaks
-    if [ $? -ne 0 ]; then
-    memory_leak_detected=true
+    if echo "$valgrind_output" | grep -q "Memory allocated: "; then
+      memory_leak_detected=true
     fi
 
     # Clean up the compiled file
