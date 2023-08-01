@@ -1,66 +1,88 @@
-#!/bin/bash
+import subprocess
+import shutil
+import os
+import formula_path
 
 # Find the absolute paths for g++ and valgrind
-gpp_path=$(which g++)
-valgrind_path=$(which valgrind)
+gpp_path = shutil.which('g++')
+valgrind_path = shutil.which('valgrind')
 
 # Check if g++ and valgrind are found in the system's PATH
-if [ -x "$gpp_path" ]; then
-  g++="$gpp_path"
-else
-  echo "g++ not found in the system's PATH."
-  exit 1
-fi
+if not gpp_path:
+    print("g++ not found in the system's PATH.")
+    exit(1)
 
-if [ -x "$valgrind_path" ]; then
-  valgrind="$valgrind_path"
-else
-  echo "valgrind not found in the system's PATH."
-  exit 1
-fi
+if not valgrind_path:
+    print("valgrind not found in the system's PATH.")
+    exit(1)
 
-zero_commit="0000000000000000000000000000000000000000"
-memory_leak_detected = false
-old_sha = main
-new_sha = update
+# Branch names to compare
+old_sha = "main"
+new_sha = "update"
+memory_leak_detected = False
 
-while read old_sha new_sha refname; do
-  # Check if it's a new branch or a branch deletion
-  if [[ $old_sha == $zero_commit ]]; then
+def process_files(file_list):
+    for filename in file_list:
+        binary_file = os.path.splitext(filename)[0]
+        # Rest of your code to process the file goes here
+        return binary_file
+
+# Example usage
+# file_list = ["file1.cpp", "file2.txt", "file3.py"]
+# process_files(file_list)
+
+# Check if it's a new branch or a branch deletion
+try:
+    subprocess.run(['git', 'rev-parse', old_sha], check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+except subprocess.CalledProcessError:
     # New branch, fetch all the changes
-    changes=$(git diff-tree --no-commit-id --name-only -r $new_sha)
-  else
+    changes = subprocess.run(['git', 'diff-tree', '--no-commit-id', '--name-only', '-r', new_sha], capture_output=True, text=True).stdout.strip()
+else:
     # Existing branch, fetch only the new changes since the last push
-    changes=$(git diff --name-only $old_sha $new_sha)
-  fi
+    changes = subprocess.run(['git', 'diff', '--name-only', old_sha, new_sha], capture_output=True, text=True).stdout.strip()
 
-  # Check for C++ files in the changes
-  if echo "$changes" | grep -q '.cpp$'; then
-    echo "C++ files detected. Running Valgrind to check for memory leaks..."
-
+# Check for C++ files in the changes
+if any(filename.endswith('.cpp') for filename in changes.split('\n')):
+    print("C++ files detected. Running Valgrind to check for memory leaks...")
+    print(changes)
+    print('######################')
+    
     # Loop through C++ files and perform Valgrind memory profiling
-    for file in $(echo "$changes" | grep '.cpp$'); do
-      # Compile the C++ file and run Valgrind
+    for filename in changes.split('\n'):
+        if filename.endswith('.cpp'):
+            #filename = formula_path.locate_universe_formula("python/games_python/")
+            filename = "/home/user/python/" + filename
+            print(filename)
+            try:
+                # Remove the .cpp extension to use it for the output binary file name
+                # process_files(changes)
+                binary_file = os.path.splitext(filename)[0]
 
-      $g++ -g $file -o $file
-      $valgrind --leak-check=full ./$file
+                # Compile the C++ file and run Valgrind
+                subprocess.run([gpp_path, '-g', filename, '-o', binary_file], check=True)
 
-      # Check if Valgrind detected any memory leaks
-      if [ $? -ne 0 ]; then
-        memory_leak_detected=true
-      fi
+                # Run Valgrind to check for memory leaks
+                valgrind_output = subprocess.run([valgrind_path, '--leak-check=full', f'./{filename}'], capture_output=True, text=True)
+                print('######################')
+                print(valgrind_output.stdout)
+                # Write the Valgrind output to 'RESULTS.txt'
+                with open('RESULTS.txt', 'w') as f:
+                    f.write(valgrind_output.stdout)
+                
+                # Clean up the compiled file (if necessary)
+                # subprocess.run(['rm', f'{filename}.out'], check=True)
+                
+                # Check if Valgrind detected any memory leaks
+                if "Memory allocated:" in valgrind_output.stdout:
+                    memory_leak_detected = True
 
-      # Clean up the compiled file
-      # rm $file.out
-    done
-
-  fi
-done
+            except subprocess.CalledProcessError as e:
+                print(f"Error compiling or running '{filename}': {e}")
+                # Optionally handle the error or continue with the next file
 
 # Check if memory leaks were detected and exit with appropriate status
-if [ "$memory_leak_detected" = true ]; then
-  echo "Memory leak detected. Rejecting the push/merge."
-  exit 1
-fi
+if memory_leak_detected:
+    print("Memory leak detected. Rejecting the push/merge.")
+    exit(1)
 
-exit 0
+exit(0)
