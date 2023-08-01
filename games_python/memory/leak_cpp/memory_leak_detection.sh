@@ -42,9 +42,6 @@ while read old_sha new_sha refname; do
     for file in $(echo "$changes" | grep '.cpp$'); do
       # Compile the C++ file and run Valgrind
 
-      #g++ -g create_leak.cpp -o create_leak
-      #valgrind --leak-check=full ./create_leak
-
       $g++ -g $file -o $file
       $valgrind --leak-check=full ./$file
 
