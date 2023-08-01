@@ -39,17 +39,25 @@ if any(filename.endswith('.cpp') for filename in changes.split('\n')):
             try:
                 # Compile the C++ file
                 subprocess.run([gpp_path, '-g', filename, '-o', filename], check=True)
-                
+
                 # Run Valgrind to check for memory leaks
-                subprocess.run([valgrind_path, '--leak-check=full', f'./{filename}'], check=True)
+                valgrind_output = subprocess.run([valgrind_path, '--leak-check=full', f'./{filename}'], capture_output=True, text=True)
+                print(valgrind_output.stdout)
                 
                 # Clean up the compiled file (if necessary)
                 # subprocess.run(['rm', f'{filename}.out'], check=True)
                 
+                # Check if Valgrind detected any memory leaks
+                if "Memory allocated: " in valgrind_output.stdout:
+                    memory_leak_detected = True
+
             except subprocess.CalledProcessError as e:
                 print(f"Error compiling or running '{filename}': {e}")
                 # Optionally handle the error or continue with the next file
 
-# No need to explicitly check for memory leaks since subprocess.run with check=True raises an exception if there are any issues.
+# Check if memory leaks were detected and exit with appropriate status
+if memory_leak_detected:
+    print("Memory leak detected. Rejecting the push/merge.")
+    exit(1)
 
 exit(0)
