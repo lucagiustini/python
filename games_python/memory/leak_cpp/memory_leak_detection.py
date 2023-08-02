@@ -53,8 +53,8 @@ if any(filename.endswith('.cpp') for filename in changes.split('\n')):
             filename = formula_path.locate_universe_formula("python/games_python/")
             #filename = ''.join(filename)
             #filename = "/home/user/python/" + filename
-            print(filename)
-            print('*****************')
+            #print(filename)
+            #print('*****************')
             try:
                 # Remove the .cpp extension to use it for the output binary file name
                 # binary_file = process_files(changes)
@@ -71,8 +71,8 @@ if any(filename.endswith('.cpp') for filename in changes.split('\n')):
                 print('######################')
                 print(valgrind_output.stdout)
                 # Write the Valgrind output to 'RESULTS.txt'
-                with open('RESULTS.txt', 'w') as f:
-                    f.write(valgrind_output.stdout)
+                #with open('RESULTS.txt', 'w') as f:
+                #    f.write(valgrind_output.stdout)
                 
                 # Clean up the compiled file (if necessary)
                 # subprocess.run(['rm', f'{filename}.out'], check=True)
