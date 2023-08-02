@@ -8,6 +8,8 @@ def locate_universe_formula(path):
     for root, dirs, files in os.walk(folder_path):
         # Filter out hidden directories that start with "."
         dirs[:] = [d for d in dirs if not d.startswith('.')]
+        # Filter out paths that contain "/lib"
+        dirs[:] = [d for d in dirs if not d.endswith('lib')]
 
         for file in files:
             if file.endswith(file_to_find):
@@ -25,5 +27,5 @@ def locate_universe_formula(path):
         print("There are no files with the .cpp extension in the specified directory.")
         return None
 
-result = locate_universe_formula("python/")
+#result = locate_universe_formula("python/")
 
