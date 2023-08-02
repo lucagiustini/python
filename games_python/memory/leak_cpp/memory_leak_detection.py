@@ -70,7 +70,7 @@ if any(filename.endswith('.cpp') for filename in changes.split('\n')):
                 # subprocess.run(['rm', f'{filename}.out'], check=True)
                 
                 # Check if Valgrind detected any memory leaks
-                if "Memory allocated:" in valgrind_output.stdout:
+                if "possibly lost: " in valgrind_output.stdout:
                     memory_leak_detected = True
 
             except subprocess.CalledProcessError as e:

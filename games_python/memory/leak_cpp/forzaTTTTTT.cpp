@@ -32,6 +32,5 @@ int main()
     // Deallocate the memory
     delete[] myArray;
 
-
     return 0;
 }
