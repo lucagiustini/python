@@ -17,13 +17,13 @@ if not valgrind_path:
     exit(1)
 
 # Branch names to compare
-old_sha = "develop"
-new_sha = "memory_leak_detection"
+old_sha = "main"
+new_sha = "update"
 
 # Initialize variables
 test_memory_leak_detected = False
 NO_memory_leak_detected = ""
-fixed_path = "/home/sesi006576/agent_allin/"
+fixed_path = "/home/user/python/"
 
 # Check if it's a new branch or a branch deletion
 try:

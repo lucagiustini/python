@@ -2,6 +2,7 @@ import subprocess
 import shutil
 import os
 import re
+import formula_path
 
 # Find the absolute paths for g++ and valgrind
 gpp_path = shutil.which('g++')
@@ -16,43 +17,28 @@ if not valgrind_path:
     print("valgrind not found in the system's PATH.")
     exit(1)
 
-# Branch names to compare
-old_sha = "develop"
-new_sha = "memory_leak_detection"
-
 # Initialize variables
 test_memory_leak_detected = False
 NO_memory_leak_detected = ""
-fixed_path = "/home/sesi006576/agent_allin/"
+fixed_path = "python/"
 
-# Check if it's a new branch or a branch deletion
-try:
-    subprocess.run(['git', 'rev-parse', old_sha], check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-except subprocess.CalledProcessError:
-    # New branch, fetch all the changes
-    changes = subprocess.run(['git', 'diff-tree', '--no-commit-id', '--name-only', '-r', new_sha], capture_output=True, text=True).stdout.strip()
-else:
-    # Existing branch, fetch only the new changes since the last push
-    changes = subprocess.run(['git', 'diff', '--name-only', old_sha, new_sha], capture_output=True, text=True).stdout.strip()
+files = formula_path.locate_universe_formula(fixed_path)
+print(files)
 
 def test_process_files():
     # Check for C++ files in the changes
-    if any(filename.endswith('.cpp') for filename in changes.split('\n')):
+    if any(filename.endswith('.cpp') for filename in files):
         print("C++ files detected. Running Valgrind to check for memory leaks...")
         
         # Loop through C++ files and perform Valgrind memory profiling
-        for filename in changes.split('\n'):
+        for filename in files:
             if filename.endswith('.cpp'):
-                filename = fixed_path + filename
                 print('*****************')
                 print(filename)
                 print('*****************')
                 try:
                     # Remove the .cpp extension to use it for the output binary file name
                     binary_file = os.path.splitext(filename)[0]
-                    print('*****************')
-                    print(binary_file)
-                    print('*****************')
                     # Compile the C++ file and run Valgrind
                     compile_result = subprocess.run([gpp_path, '-g', filename, '-o', binary_file], check=True)
                     # Run Valgrind to check for memory leaks
@@ -77,7 +63,7 @@ def test_process_files():
                     else:
                         print("Push/Merge successful.")
                         assert True
-
+                        
                 except subprocess.CalledProcessError as e:
                     print(f"Error compiling or running '{filename}': {e}")
 
