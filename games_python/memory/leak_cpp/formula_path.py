@@ -14,10 +14,7 @@ def locate_universe_formula(path):
         for file in files:
             if file.endswith(file_to_find):
                 file_path = os.path.join(root, file)
-                cpp_files.append(file_path)
-                #print(file_path)
-                #return file_path
-            
+                cpp_files.append(file_path)            
 
     if cpp_files:
         for file_path in cpp_files:
