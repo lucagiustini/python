@@ -58,10 +58,6 @@ def test_process_files():
                     # Run Valgrind to check for memory leaks
                     print(valgrind_path)
                     valgrind_output = subprocess.run([valgrind_path, '--leak-check=full', '--show-leak-kinds=all', '--track-origins=yes', '--verbose', '--log-file=valgrind-out.txt', binary_file], capture_output=True, text=True)
-                   
-                    # print the output of last command
-                    #subprocess.run(["cat", "valgrind-out.txt"])
-                    
                     print('######################')
                     print(valgrind_output.stdout)
                     # Read the Valgrind output in 'valgrind-out.txt'

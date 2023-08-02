@@ -29,8 +29,6 @@ def test_process_files():
     # Check for C++ files in the changes
     if any(filename.endswith('.cpp') for filename in files):
         print("C++ files detected. Running Valgrind to check for memory leaks...")
-        #print(changes)
-        #print('######################')
         
         # Loop through C++ files and perform Valgrind memory profiling
         for filename in files:
@@ -46,10 +44,6 @@ def test_process_files():
                     # Run Valgrind to check for memory leaks
                     print(valgrind_path)
                     valgrind_output = subprocess.run([valgrind_path, '--leak-check=full', '--show-leak-kinds=all', '--track-origins=yes', '--verbose', '--log-file=valgrind-out.txt', binary_file], capture_output=True, text=True)
-        
-                    # print the output of last command
-                    #subprocess.run(["cat", "valgrind-out.txt"])
-
                     print('######################')
                     print(valgrind_output.stdout)
                     # Read the Valgrind output in 'valgrind-out.txt'
