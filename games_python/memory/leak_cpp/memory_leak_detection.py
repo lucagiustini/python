@@ -19,7 +19,7 @@ if not valgrind_path:
 # Branch names to compare
 old_sha = "main"
 new_sha = "update"
-memory_leak_detected = False
+test_memory_leak_detected = False
 NO_memory_leak_detected = "OH MIO DIO"
 fixed_path = "/home/user/python/"
 
@@ -77,11 +77,21 @@ if any(filename.endswith('.cpp') for filename in changes.split('\n')):
                     #print(NO_memory_leak_detected)
                     if NO_memory_leak_detected:
                         print('Memory leak NOOOOOOOOOOOOOOOOOOOOO detected')
-                        memory_leak_detected = False
+                        test_memory_leak_detected = False
                     else:
                         print('Memory leak detected')
-                        memory_leak_detected = True
-                
+                        test_memory_leak_detected = True
+                        
+                # Check if memory leaks were detected and exit with appropriate status
+                if test_memory_leak_detected == True:
+                    print("Memory leak detected. Rejecting the push/merge.")
+                    assert False
+                    #exit(1)
+                else:
+                    print("No memory leaks detected. Push/Merge successful.")
+                    assert True
+                    #exit(0)
+                #
                 # Clean up the compiled file (if necessary)
                 # subprocess.run(['rm', f'{filename}.out'], check=True)
                 
@@ -93,10 +103,3 @@ if any(filename.endswith('.cpp') for filename in changes.split('\n')):
                 print(f"Error compiling or running '{filename}': {e}")
                 # Optionally handle the error or continue with the next file
 
-# Check if memory leaks were detected and exit with appropriate status
-if memory_leak_detected:
-    print("Memory leak detected. Rejecting the push/merge.")
-    exit(1)
-else:
-    print("No memory leaks detected. Push/Merge successful.")
-    exit(0)
