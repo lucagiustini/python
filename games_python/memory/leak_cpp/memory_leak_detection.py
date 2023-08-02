@@ -1,6 +1,7 @@
 import subprocess
 import shutil
 import os
+import re
 
 # Find the absolute paths for g++ and valgrind
 gpp_path = shutil.which('g++')
@@ -19,6 +20,7 @@ if not valgrind_path:
 old_sha = "main"
 new_sha = "update"
 memory_leak_detected = False
+NO_memory_leak_detected = True
 fixed_path = "/home/user/python/"
 
 # Check if it's a new branch or a branch deletion
@@ -63,15 +65,22 @@ if any(filename.endswith('.cpp') for filename in changes.split('\n')):
                 print('######################')
                 print(valgrind_output.stdout)
                 # Write the Valgrind output to 'RESULTS.txt'
-                with open('RESULTS.txt', 'w') as f:
-                    f.write(valgrind_output.stdout)
+                with open('valgrind-out.txt', 'r') as f:
+                    #Packets_Lost_LIMIT = re.search(r'(\d+)% packet loss', f.read())
+                    print(NO_memory_leak_detected)
+                    NO_memory_leak_detected = re.search(r'All heap blocks were freed -- no leaks are possible', f.read())
+                    print(NO_memory_leak_detected)
+                    if NO_memory_leak_detected:
+                        memory_leak_detected = False
+                    else:
+                        memory_leak_detected = True
                 
                 # Clean up the compiled file (if necessary)
                 # subprocess.run(['rm', f'{filename}.out'], check=True)
                 
                 # Check if Valgrind detected any memory leaks
-                if "possibly lost: " in valgrind_output.stdout:
-                    memory_leak_detected = True
+                #if "possibly lost: " in valgrind_output.stdout:
+                #    memory_leak_detected = True
 
             except subprocess.CalledProcessError as e:
                 print(f"Error compiling or running '{filename}': {e}")
@@ -81,5 +90,6 @@ if any(filename.endswith('.cpp') for filename in changes.split('\n')):
 if memory_leak_detected:
     print("Memory leak detected. Rejecting the push/merge.")
     exit(1)
-
-exit(0)
+else:
+    print("No memory leaks detected. Push/Merge successful.")
+    exit(0)
