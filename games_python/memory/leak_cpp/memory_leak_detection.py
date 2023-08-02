@@ -60,7 +60,12 @@ if any(filename.endswith('.cpp') for filename in changes.split('\n')):
                 # Run Valgrind to check for memory leaks
                 # valgrind_output = subprocess.run([valgrind_path, '--leak-check=full', f'./{filename}'], capture_output=True, text=True)
                 print(valgrind_path)
-                valgrind_output = subprocess.run([valgrind_path, '--leak-check=full', binary_file], capture_output=True, text=True)
+                valgrind_output = subprocess.run([valgrind_path, '--leak-check=full', '--show-leak-kinds=all', '--track-origins=yes', '--verbose', '--log-file=valgrind-out.txt', binary_file], capture_output=True, text=True)
+                # Run the compiled C++ executable
+                #subprocess.run(["valgrind", "--leak-check=full", "--show-leak-kinds=all", "--track-origins=yes", "--verbose", "--log-file=valgrind-out.txt", "./create_leak"])
+    
+                # print the output of last command
+                #subprocess.run(["cat", "valgrind-out.txt"])
                 # /usr/bin/valgrind --leak-check=full ./home/user/python/games_python/memory/leak_cpp/OKOKOK
                 print('######################')
                 print(valgrind_output.stdout)
