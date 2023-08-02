@@ -1,11 +1,11 @@
 import subprocess
 
 def test_memory_leaks():
-    # Replace 'memory_leak_detection.sh' with the actual path to your bash script
-    script_path = 'memory_leak_detection.sh'
+    # Replace 'memory_leak_detection.py' with the actual path to your bash script
+    script_path = 'memory_leak_detection.py'
 
     # Execute the bash script and capture the output and return code
-    result = subprocess.run(['bash', script_path], capture_output=True, text=True)
+    result = subprocess.run(['python3', script_path], capture_output=True, text=True)
 
     # Check the return code and assert the test based on success/failure
     if result.returncode == 0:

@@ -1,7 +1,6 @@
 import subprocess
 import shutil
 import os
-import formula_path
 
 # Find the absolute paths for g++ and valgrind
 gpp_path = shutil.which('g++')
@@ -20,16 +19,7 @@ if not valgrind_path:
 old_sha = "main"
 new_sha = "update"
 memory_leak_detected = False
-
-def process_files(file_list):
-    for filename in file_list:
-        binary_file = os.path.splitext(filename)[0]
-        # Rest of your code to process the file goes here
-        return binary_file
-
-# Example usage
-# file_list = ["file1.cpp", "file2.txt", "file3.py"]
-# process_files(file_list)
+fixed_path = "/home/user/python/"
 
 # Check if it's a new branch or a branch deletion
 try:
@@ -44,35 +34,37 @@ else:
 # Check for C++ files in the changes
 if any(filename.endswith('.cpp') for filename in changes.split('\n')):
     print("C++ files detected. Running Valgrind to check for memory leaks...")
-    print(changes)
-    print('######################')
+    #print(changes)
+    #print('######################')
     
     # Loop through C++ files and perform Valgrind memory profiling
     for filename in changes.split('\n'):
         if filename.endswith('.cpp'):
-            filename = formula_path.locate_universe_formula("python/games_python/")
-            #filename = ''.join(filename)
-            #filename = "/home/user/python/" + filename
-            #print(filename)
-            #print('*****************')
+            filename = fixed_path + filename
+            print('*****************')
+            print(filename)
+            print('*****************')
             try:
                 # Remove the .cpp extension to use it for the output binary file name
-                # binary_file = process_files(changes)
+                #binary_file = process_files(changes)
                 binary_file = os.path.splitext(filename)[0]
-
+                print('*****************')
+                print(binary_file)
+                print('*****************')
                 # Compile the C++ file and run Valgrind
-                subprocess.run([gpp_path, '-g', filename, '-o', binary_file], check=True)
-
+                compile_result = subprocess.run([gpp_path, '-g', filename, '-o', binary_file], check=True)
+                #print('######################')
+                #print(compile_result)
                 # Run Valgrind to check for memory leaks
                 # valgrind_output = subprocess.run([valgrind_path, '--leak-check=full', f'./{filename}'], capture_output=True, text=True)
                 print(valgrind_path)
                 valgrind_output = subprocess.run([valgrind_path, '--leak-check=full', binary_file], capture_output=True, text=True)
-                # /usr/bin/valgrind --leak-check=full .//home/user/python/games_python/memory/leak_cpp/OKOKOK
+                # /usr/bin/valgrind --leak-check=full ./home/user/python/games_python/memory/leak_cpp/OKOKOK
                 print('######################')
                 print(valgrind_output.stdout)
                 # Write the Valgrind output to 'RESULTS.txt'
-                #with open('RESULTS.txt', 'w') as f:
-                #    f.write(valgrind_output.stdout)
+                with open('RESULTS.txt', 'w') as f:
+                    f.write(valgrind_output.stdout)
                 
                 # Clean up the compiled file (if necessary)
                 # subprocess.run(['rm', f'{filename}.out'], check=True)
