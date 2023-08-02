@@ -20,7 +20,7 @@ if not valgrind_path:
 old_sha = "main"
 new_sha = "update"
 memory_leak_detected = False
-NO_memory_leak_detected = True
+NO_memory_leak_detected = "OH MIO DIO"
 fixed_path = "/home/user/python/"
 
 # Check if it's a new branch or a branch deletion
@@ -67,12 +67,14 @@ if any(filename.endswith('.cpp') for filename in changes.split('\n')):
                 # Write the Valgrind output to 'RESULTS.txt'
                 with open('valgrind-out.txt', 'r') as f:
                     #Packets_Lost_LIMIT = re.search(r'(\d+)% packet loss', f.read())
-                    print(NO_memory_leak_detected)
+                    #print(NO_memory_leak_detected)
                     NO_memory_leak_detected = re.search(r'All heap blocks were freed -- no leaks are possible', f.read())
-                    print(NO_memory_leak_detected)
+                    #print(NO_memory_leak_detected)
                     if NO_memory_leak_detected:
+                        print('Memory leak NOOOOOOOOOOOOOOOOOOOOO detected')
                         memory_leak_detected = False
                     else:
+                        print('Memory leak detected')
                         memory_leak_detected = True
                 
                 # Clean up the compiled file (if necessary)
