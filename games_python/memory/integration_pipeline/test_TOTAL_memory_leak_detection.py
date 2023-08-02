@@ -20,7 +20,7 @@ if not valgrind_path:
 # Initialize variables
 test_memory_leak_detected = False
 NO_memory_leak_detected = ""
-fixed_path = "python/"
+fixed_path = "agent_allin/"
 
 files = formula_path.locate_universe_formula(fixed_path)
 print(files)
