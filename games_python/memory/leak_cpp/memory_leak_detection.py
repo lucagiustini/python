@@ -41,23 +41,6 @@ else:
     # Existing branch, fetch only the new changes since the last push
     changes = subprocess.run(['git', 'diff', '--name-only', old_sha, new_sha], capture_output=True, text=True).stdout.strip()
 
-# Call the function to get a list of C++ files in the directory
-cpp_files = formula_path.locate_universe_formula("python/games_python/")
-
-# Check for C++ files in the changes
-if cpp_files:
-    print("C++ files detected. Running Valgrind to check for memory leaks...")
-    print('######################')
-
-    # Loop through C++ files and perform Valgrind memory profiling
-    for filename in cpp_files:
-        print(filename)
-        print('*****************')
-        try:
-            # Remove the .cpp extension to use it for the output binary file name
-            binary_file = os.path.splitext(filename)[0]
-
-
 # Check for C++ files in the changes
 if any(filename.endswith('.cpp') for filename in changes.split('\n')):
     print("C++ files detected. Running Valgrind to check for memory leaks...")
@@ -68,6 +51,7 @@ if any(filename.endswith('.cpp') for filename in changes.split('\n')):
     for filename in changes.split('\n'):
         if filename.endswith('.cpp'):
             filename = formula_path.locate_universe_formula("python/games_python/")
+            #filename = ''.join(filename)
             #filename = "/home/user/python/" + filename
             print(filename)
             print('*****************')
