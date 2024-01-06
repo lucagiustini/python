@@ -1,0 +1,2204 @@
+A05M89EV
+
+MASTER PSW
+111121
+
+PIN
+411303
+
+56474
+
+###### HAs on the cicd main bench ########
+
+192.168.200.21 master
+192.168.200.22 slave
+192.168.200.23 master
+192.168.200.24 slave
+ 
+192.168.10.200 gateway
+
+##########################################
+
+
+cd Documents; Softdpack_packages; softdpack-develop.22179.01
+docker ps
+sudo ./unistall.py
+sudo ./install.py
+
+
+
+./startSoftdPAC.sh --ipbase 192.168.1.153/16 --network ipvlan --itname enp1s0 --nbcontainer 4 --container-cpus '0:0,1' --image-name softdpac:x86-develop.22173.02
+
+docker ps
+ifconfig
+docker inspect softdpac_1
+docker logs softdpac_1
+
+
+more startSoftdPAC.sh
+grep image startSoftdPAC.sh
+which docker
+more install.py
+
+
+docker build --help
+
+
+$ rm <filename> (for files)
+$ rm -rf <foldername> (for folder)
+
+TeamR2_cicd
+
+cicd_root06
+
+sudo ./install.py
+
+./applicationManager.py create --project Optiplex_1
+
+./applicationManager.py create --project RevPiLuca
+
+
+
+sudo apt-get upgrade docker
+sudo apt upgrade docker
+
+ifconfig
+docker ps
+docker inspect Softdpac_1
+
+./startSoftdPAC.sh --ipbase 192.168.1.151/16 --network ipvlan --itname enp1s0 --nbcontainer 1 --container-cpus '0:0,1' --image-name softdpac:x86-develop.22179.01
+
+
+
+./startSoftdPAC.sh --gateway 192.168.1.20 --ipbase 192.168.1.157/16 --network ipvlan --itname eth0 --nbcontainer 1 --container-cpus '0:0,1' --image-name softdpac:v22.0.22173.02 --cname SoftDpac_Luca
+
+
+./startSoftdPAC.sh --gateway 192.168.1.2 --ipbase 192.168.1.185/16 --network macvlan --itname enp1s0 --nbcontainer 1 --container-cpus '0:0,1' --image-name softdpac:develop.23060.01 --cname SoftDpac_Luca
+
+./startSoftdPAC.sh -g 192.168.2.1 --ipbase 192.168.1.157/16 --network macvlan --itname eth0 --nbcontainer 1 --container-cpus '0:0,1' --image-name softdpac:v22.0.22173.02 --cname SoftDpac_Luca
+
+
+docker logs softdpac_1
+docker restart softdpac_1
+
+docker exec -it softdpac_1 sh
+
+Linux : route print
+
+Windows Terminal : 	route print;
+					ipconfig
+
+
+mkdir softdpac-v22.1.22242.03
+tar -xvzf softdpac-v22.1.22242.03.tar
+tar -xvzf softdpac-v22.1.22242.03.tar -C /home/user/Documents/Softdpack_packages/softdpac-v22.1.22242.03/
+
+ rm -r startSoftdPAC.sh
+ 
+ 
+Come cancellare una directory non vuota?
+rm -rf softdpac-v22.1.22215.01
+
+RevPi 2
+	user:	pi
+	psw:	wprnya
+	
+	user:	admin
+	psw:	Azerty1+
+
+
+Update Library
+	SVN -> modify
+	Upload EAE and Upload the library on EAE
+	Installed libraries -> go down -> install the library or artifacts
+		if you see problems !red artifacts
+		 maybe
+			devops all in
+				artifacts -> download it
+	Right click on SE.DPAC -> create install package -> change number -> select share -> OK
+	Go on VM and try to use that library
+	 copy the package and paste on VM
+	 Open EAE and try to install and use that package
+	
+3- Uninstall script alternatives (in case your target does notsupport python)
+Use portainerweb user interfaceto removesofdpaccontainers + network + previous image + volumes in case youwantafullfresh start.
+OR
+If you don't have portainer, usethe dockercommand lineinterfaceto removeallsoftdpacitems/artefacts manually :
+1- List therunning containersand identify thesoftdpaccontainers (name or ID): $ docker ps
+2- Deleteallthesoftdpacconainers : $ docker rm -f <container name or ID>
+3- List the docker networksand identify thesoftdpac network (name or ID): $ docker network ls
+4- Deletethesoftdpac network : $ docker network rm -f <network name>
+5- List the docker imagesand identify thesoftdpacimages (name or ID): $ docker images
+6- Deletethesoftdpacimages : $ docker rmi -f <image name or ID>
+7- List the docker volumesand identify thesoftdpac volumes (name or ID): $ docker volumes
+8- Deletethesoftdpac volumes : $ docker volumes rm -f <volume name or ID>
+
+
+- add execution rights to script in case you copied itmanually: $ chmod +x startSoftdPAC.sh
+
+
+1- Run script usage:
+$ ./startSoftdPAC.sh --image-name <valid image name> [--ipbase <ip addr base>] [--gateway <ip addr>] [--itname <interface name>] [--nbcontainer <nb container>] [--
+container-cpus <container-id:core-ids>] [--cname <container name>] [--network <type of network>] [--net-name <network name>] [--publish-on <port number>]
+Example
+$ ./startSoftdPAC.sh --ipbase 192.168.20.140 --itname ens33 --image-name softdpac:x86-develop-258 --nbcontainer 2
+2- Run script options:
+--image-name : set image name to use (mandatory parameter);
+-i, --ipbase : set ip address base value and subnet mask. Only IPv4 and CIDR notation (default: 192.168.1.10/24);
+-g, --gateway : set gateway (default: calculated from ipbase);
+--itname : set interface name (default: eth0);
+-n, --nbcontainer : set number of container to create (default: 1);
+--container-cpus : set multiple CPU cores to a container (container-id:core-ids. e.g. '0:0,1,2;1:3' or '1:0,3;2:1,2'. default: containers assigned to each cpu)
+--cname : set container base name (default: softdpac_);
+--network : set network type (default: macvlan); other value: ipvlan or bridge (bridge value used only on Windows);
+--net-name : set network name (default: softdpacNet);
+--publish-on : set port translation only used with bridge network type (default: 51499);
+-h : print this message.
+
+
+Createan application:
+$ applicationManager.py create --project app1 Deletean application:
+$ applicationManager.py delete --project app1
+Listexisting applications:
+$ applicationManager.py list
+
+-------------------------------------------------------------
+ docker ps
+ docker inspect  SoftDpac_Luchezz1
+ docker logs  SoftDpac_Luchezz1 --follow
+ docker restart SoftDpac_Luchezz1
+ docker logs  SoftDpac_Luchezz1 --follow
+ docker ps
+ docker logs  SoftDpac_Luchezz1 --follow
+ docker logs  SoftDpac_Luchezz2 --follow
+ docker logs  SoftDpac_Luchezz1 --follow
+ docker logs  SoftDpac_Luchezz2 --follow
+ docker logs  SoftDpac_Luchezz1 --follow
+ docker exec -it SoftDpac_Luchezz1 sh
+ docker -u root exec -it SoftDpac_Luchezz1 sh
+ docker exec -u root -it SoftDpac_Luchezz1 sh
+ docker exec -it SoftDpac_Luchezz2 sh
+ docker cp SoftDpac_Luchezz2:/var/lib/nxt
+ docker cp SoftDpac_Luchezz2:/var/lib/nxtSRT61499N/data/config/
+ docker cp SoftDpac_Luchezz2:/var/lib/nxtSRT61499N/data/config/runtime.config ./
+ ls
+ more runtime.config
+ docker cp SoftDpac_Luchezz1:/var/lib/nxtSRT61499N/data/config/runtime.config ./runtime.config2
+ ll
+ ls -lrt
+ more runtime.config2
+ sdiff -s runtime.config runtime.config2
+ docker cp SoftDpac_Luchezz1:/var/lib/nxtSRT61499N/data/config/runtime.config ./runtime.config3
+ sdiff -s runtime.config3 runtime.config2
+ docker logs  SoftDpac_Luchezz1 --follow
+----------------------------------------------------
+
+
+Connection time expired.
+Check the network and try to setup again.
+See the log file => teamviewer-iot-agent log
+dpkg: error processing package teamviewer-revpi (--configure):
+ subprocess installed post-installation script returned error exit status 1
+Errors were encountered while processing:
+ teamviewer-revpi
+E: Sub-process /usr/bin/dpkg returned an error code (1)
+
+
+
+
+
+
+
+
+
+sudo dpkg -i teamviewer_linux_x64.deb
+
+
+sudo mv /var/lib/dpkg/info/teamviewer-revpi.* /Documents
+
+
+sudo rm -r /var/lib/dpkg/info/teamviewer-revpi.*
+
+
+ 3398  more /etc/dhcpcd.conf
+ 3399  sudo nano /etc/
+ 3400  grep 6 /etc/sysctl.conf
+ 3401  more /etc/dhcpcd.conf
+ 3402  sudo nano  /etc/dhcpcd.conf
+
+
+
+#{"ipv6": true, "fixed-cidr-v6": "fd00::/80"}
+
+
+
+sudo ./uninstall.py && sudo ./install.py && ./applicationManager.py create --project Optiplex1
+
+
+ecort_opcua
+C:\Program Files (x86)\Schneider Electric\EcoStruxure Automation Expert - Buildtime 22.0\Studio\bin\Plugins\OPCUAConfigurator\BinGenerator
+C:\Program Files (x86)\Schneider Electric\EcoStruxure Automation Expert - Buildtime 22.1\Studio\bin\Plugins\OPCUAConfigurator\BinGenerator
+
+libcrypto-1_1
+C:\Program Files (x86)\Schneider Electric\EcoStruxure Automation Expert - Buildtime 22.1\Simulation dPAC
+C:\Program Files (x86)\Schneider Electric\EcoStruxure Automation Expert - Runtime 22.1\SoftdPAC\SoftdPACService
+C:\Program Files (x86)\Schneider Electric\EcoStruxure Automation Expert - Buildtime 22.0\Simulation dPAC
+C:\Program Files (x86)\Schneider Electric\EcoStruxure Automation Expert - Runtime 22.0\SoftdPAC\SoftdPACService
+C:\Program Files (x86)\Schneider Electric\EcoStruxure Automation Expert - Runtime 21.2\SoftdPAC\SoftdPACService
+
+libssl-1_1
+SoftdPAC_Schneider_PC_Win32_x86
+C:\Program Files (x86)\Schneider Electric\EcoStruxure Automation Expert - Buildtime 22.1\Simulation dPAC
+C:\Program Files (x86)\Schneider Electric\EcoStruxure Automation Expert - Buildtime 22.0\Simulation dPAC
+C:\Program Files (x86)\Schneider Electric\EcoStruxure Automation Expert - Runtime 22.1\SoftdPAC\SoftdPACService
+C:\Program Files (x86)\Schneider Electric\EcoStruxure Automation Expert - Runtime 22.0\SoftdPAC\SoftdPACService
+
+
+
+
+
+
+
+
+
+
+
+
+ip addr add 192.168.1.20/16 dev eth0
+
+ip addr add 169.254.1.20/16 dev eth1
+
+ip addr add 192.168.1.20/16 dev Intel
+
+
+
+The default configure after flashing an image on RevPi
+
+download the following softwaresImage=>https://revolutionpi.de/shop/en/busterRpi 
+Boot=>https://github.com/raspberrypi/usbboot/raw/master/win32/rpiboot_setup.exewin32disk 
+manager=>https://sourceforge.net/projects/win32diskimager/Download the imageConnect a USB cable between the revpi (micro USB port) and your laptop (regular USB port)
+Power cycle the revpi3. Because a micro USB cable is plugged in, it will not boot and wait for an image update.
+
+Install Rpi Boot and start it (this will detect the "boot" and "OS" sectors of the revpi)
+Start win32 disk manager
+Select the image to write and select the disk "boot", click the button "write" after few minutes the image is written
+Remove the USB cable and power cycle the revpi3
+
+
+Quindi per il reboot si intende la disconnessione dalla corrente, se tu applichi il comando di reboot, lui restarta solamente il firmware, quindi devi andare sul raspberry 192.168.1.40 e restartare la seconda porta dell output.
+
+Una volta che installi il buster hai bisogno di riscrivere anche gli indirizzi IP e le porte
+
+Collegare uno schermo direttamente al device RevPi e accedere inserendo:
+
+  1 - Le credenziali di default
+	Le quali possono essere cercate su google normalmente, scrivendo " revolution default credentials "
+	
+		user: pi, password: raspberry.
+		Re: Login credentials reset
+		The default login credentials after flashing an image is user: pi, password: raspberry.  
+
+ 2 - i codici 42364  e 100304	 
+  
+ 3 - il MAC ADDRESS
+	 A C83E-A701-90B2
+  
+  Ed scegliere la voce che appare con scritto CONNECT - Non selezionare la voce CONNECT SE
+  
+  
+
+  
+	Ti chiede le credenziali del RevPi che di solito sono scritte sul device di fianco. Per quanto riguarda il RevPi del Team R2, attualmente le credenziali per la shell (SSH) sono
+	user:	pi
+	psw:	3q9bma
+	
+	ssh pi@192.168.1.20
+
+
+
+pi@RevPi42634:/etc $ history
+    1  ifconfig
+    2  cd /etc
+    3  ls
+    4  cat dhcpcd.conf
+    5  sudo nano dhcpcd.conf
+			
+			# Prioritize wlan0 routes over eth0 routes.
+			interface wlan0
+					metric 100
+			profile static_eth0
+			static ip_address=192.168.1.20/16
+			static routers=192.168.254.254
+			static domain_name_servers=192.168.254.254 
+
+			profile static_eth1
+			static ip_address=169.254.9.61/16
+			static routers=169.254.254.254
+			static domain_name_servers=169.254.254.254
+
+			interface eth0
+			fallback static_eth0
+
+			interface eth1
+			fallback static_eth1
+
+	
+    6  sudo service dhcpcd restart
+	
+    7  ifconfig
+    
+	9  sudo ip addr add 169.254.9.61/16 dev eth1
+	
+	
+ip addr add 192.168.1.20/16 dev eth0
+
+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
+
+
+
+ip addr add 192.168.134.211 dev eth1	
+
+	
+   10  ifconfig
+
+
+i comandi IP sono scaricabili online attraverso una guida chiamata ip COMMAND CHEAT SHEET for Red Hat Linux
+
+
+
+
+COPIARE UN FILE DA UNA CARTELLA, AD UN'ALTRA
+	cp -p path/nomeTS.tst path/nomeTS.tst
+	
+– scp nomefile username@nomeserver:/percorso/dove/mettere/il/file
+per trasferire nomefile VERSO nomeserver
+
+	cp -p 22.1.22223.36.tar
+
+	cd /mnt/d/Users/SESI006576/Downloads/22.1.22223.36/softdpac
+	
+COPIARE UNA CARTELLA DA DISPOSITIVO A UN ALTRO VIA SSH
+
+scp -r /home/user/Documents/Softdpac_packages/softdpac-v23.0.23212.01 user@192.168.1.195:/home/user/Documents/Softdpac_packages/
+
+
+Inst@ller1
+
+
+scp /mnt/d/Users/SESI006576/Downloads/softdpac-develop-integration.22343.01/softdpac-develop-integration.22343.01/softdpac-develop-integration.22343.01.tar user@192.168.1.180:/Documents/SoftdPAC_packages/softdpac-ha-develop-integration.22343.03
+
+scp /mnt/d/Users/SESI006576/Documents/Docker Compose Install/softdpac/softdpac-v22.1.22193.02.tar pi@192.168.1.20:/home/pi/Documents/Softdpac_packages
+
+mkdir /home/pi/Documents/Softdpac_packages/softdpac-v22.1.22193.02 && cd Documents/Softdpac_packages && mv softdpac-v22.1.22193.02.tar /home/pi/Documents/Softdpac_packages/softdpac-v22.1.22193.02 && cd softdpac-v22.1.22193.02 && tar -xvzf softdpac-v22.1.22193.02.tar && sudo ./install.py && ./applicationManager.py create --project revpiluca
+		
+		
+		
+		
+		sudo rm -r softdpac-v22.1.22215.01
+
+		mkdir softdpac-v22.1.22215.01 
+		
+		mv softdpac-v22.1.22215.01.tar /home/pi/Documents/Softdpac_packages/softdpac-v22.1.22215.01
+
+		tar -xvzf softdpac-v22.1.22215.01.tar -C /home/user/Documents/Softdpack_packages/softdpac-v22.1.22215.01/
+		
+		mkdir softdpac-v22.1.22215.01 && mv softdpac-v22.1.22215.01.tar /home/pi/Documents/Softdpac_packages/softdpac-v22.1.22215.01 && tar -xvzf softdpac-v22.1.22215.01.tar
+		
+	
+	
+	softdpac-v22.1.22215.01
+
+	cp softdpac-v22.1.22221.03.tar softdpac-v22.1.22221.03/
+	
+	tar -xvzf softdpac-v22.1.22221.03.tar -C /home/user/Documents/Softdpack_packages/softdpac-v22.1.22215.01/
+
+
+	Se si prova a eseguire il comando install.py non funziona perche non c'e piu nulla
+		- va reinstallato docker
+		- va reinstallato python
+		
+		
+		
+		
+		
+		
+		
+   96  python --version
+   97  docker --version
+   98  sudo apt–get update
+   99  sudo apt update
+  100  apt update
+  101  apt install docker docker.io
+  102  pacman -S docker
+  103  sudo apt-get update
+  104  sudo apt-get install apt-transport-https ca-certificates curl gnupg lsb-release
+  105  curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+  106  sudo apt-get update
+  107  curl -fsSL https://get.docker.com -o get-docker.sh
+  108  sudo usermod -aG docker pi
+  109  sudo apt-get update
+  110  ls
+  111  ifconfig
+  112  sudo apt update
+  113  sudo apt-get update
+  114  sudo nano /etc/environment
+  115  sudo nano /etc/dhcpcd.conf
+  116  sudo service dhcpcd start
+  117  sudo systemctl enable dhcpcd
+  118  sudo apt-get update
+  119  sudo nano /etc/dhcpcd.conf
+  120  sudo nano /etc/environment
+  121  date
+  122  sudo apt-get update
+  123  sudo reboot
+  124  sudo nano /etc/systemd/timesyncd.conf
+  125  sudo visude
+  126  sudo visudo
+  127  sudo nano /etc/apt/apt.conf.d/99fixbadproxy
+  128  sudo reboot
+  129  sudo nano /etc/
+  130  cd /etc/apt/
+  131  sudo apt-get update
+  132  sudo visudo
+  133  sudo nano /etc/systemd/timesyncd.conf
+  134  cd
+  135  more .bashrc
+  136  curl -fsSL https://get.docker.com -o get-docker.sh
+  137  ls
+  138  sudo nano /etc/environment
+  139  sh /etc/environment
+  140  sudo apt-get update
+  141  grep -R 192.168.2.1 ./*
+  142  pwd
+  143  grep -R 192.168.2.1 /*
+  144  grep -R 192.168.2.1 /etc/*
+  145  sudo grep -R 192.168.2.1 /etc/*
+  146  sudo nano /etc/apt/apt.conf
+  147  sudo apt-get update
+  148  sudo apt update
+  149  uname -a
+  150  docker
+  151  ls
+  152  sudo sh get-docker.sh
+  153  docker ps
+  154  sudo docker ps
+  155  sudo nano /etc/environment
+  156  sudo nano /etc/apt/apt.conf
+  157  mv /etc/apt/apt.conf /etc/apt/apt.conf.save
+  158  sudo cp /etc/apt/apt.conf /etc/apt/apt.conf.save
+  159  sudo nano /etc/apt/apt.conf
+  160  sudo reboot
+  161  history
+  162  docker version
+  163  docker ps
+  164  sudo apt–get update
+  165  cd /etc/
+  166  ls
+  167  ifconfig
+  168  cd
+  169  ifconfig
+  170  ifconfig
+  171  sudo apt-get update
+  172  ifconfig
+  173  history
+
+CERCARE UN FILE DI NOME softdpac
+ sudo find / -name softdpac*
+ sudo find / -name ipv6*
+ sudo find / -name fe80::b09d:940:4240:758*
+ 
+ sudo find / -name softdpac-v22.1.22221.03.tar
+ sudo find / -name docker-comp*
+
+ find . -name *interlink*
+
+
+gateway.schneider.zscaler.net
+
+GAD\SESI006576
+WTFRLVSE146646V
+
+SdPACR2_cicd
+
+
+Runtime06_cicd
+TeamR2_cicd
+cicd_root06**
+SoftDPACR2_cicd
+
+
+Root_root06**
+R2SdPAC_cicd
+SdPACR2_CICD**
+
+
+sudo find / -name softdpac-v22.1.222*
+sudo find / -name docker-ce_20*
+sudo apt install --reinstall apt
+
+
+ https://deb.nodesource.com/node_6.x/dists/buster/main/source/Sources
+
+echo 'Acquire::https::deb.nodesource.com::Verify-Peer "false";' > /etc/apt/apt.conf.d/99influxdata-cert
+
+echo 'Acquire::https::repos.influxdata.com::Verify-Peer "false";' > /etc/apt/apt.conf.d/99influxdata-cert
+
+Acquire::https::deb.nodesource.com::Verify-Peer "false";
+Acquire::https::deb.nodesource.com::Verify-Host "false";
+
+
+docker exec -it -u root softdpac_1
+
+
+sudo ethtool -s enp2s0 speed 100 duplex full autoneg on
+
+
+
+to accelarate the ping
+
+
+sudo ./startSoftdPAC-ha.sh --image-name softdpac-ha:HA-integration.22279.01 --ipbase 192.168.1.210/16 --itname bond0 --itnameinterlink enp4s0 --devicePos Left --ipinterlink 10.10.10.30//24 --deviceLeftIP 192.168.1.210 --deviceRightIP 192.168.1.211 --interlinkNicName eth1
+
+
+sudo ./startSoftdPAC-ha.sh --image-name softdpac-ha:HA-integration.22279.01 --ipbase 192.168.1.211/16 --itname bond0 --itnameinterlink enp4s0 --devicePos Right --ipinterlink 10.10.10.30//24 --deviceLeftIP 192.168.1.210 --deviceRightIP 192.168.1.211 --interlinkNicName eth1
+
+
+sudo ./startSoftdPAC-ha.sh --image-name softdpac-ha:HA-integration.22292.01 --gateway 192.168.20.254 --ipbase 192.168.20.5/16 --itname enp2s0 --itnameinterlink enp4s0 --devicePos Left --ipinterlink 10.10.20.5/24 --deviceLeftIP 192.168.20.5 --deviceRightIP 192.168.20.6 --interlinkNicName eth1
+
+
+sudo nano /etc/environment
+sudo nano /etc/apt/apt.conf
+sudo nano /etc/dhcpcd.conf
+
+
+
+pi@RevPi42634:~ $ sudo nano /etc/dhcpcd.conf
+pi@RevPi42634:~ $ sudo nano /etc/environment
+pi@RevPi42634:~ $ sudo nano /etc/apt/apt.conf
+
+
+
+  512  ping 192.168.134.252
+  513  sudo apt update
+  514  sudo nano /etc/apt/apt.conf
+  515  sudo nano /etc/dhcpcd.conf
+  516  sudo nano /etc/environment
+  517  ping 192.168.134.252
+  518  ifconfig
+  519  sudo nano /etc/environment
+  520  ifconfig
+  521  sudo nano /etc/environment
+  522  sudo nano /etc/dhcpcd.conf
+  523  sudo nano /etc/apt/apt.conf
+  524  sudo nano /etc/dhcpcd.conf
+  525  sudo nano /etc/environment
+  526  sudo apt update
+  527  ifconfig
+  528  sudo nano /etc/dhcpcd.conf \
+  529  sudo nano /etc/dhcpcd.conf
+  530  ifconfig
+  531  ping 192.168.42.186
+  532  ping 192.168.1.20
+  533  arp -a
+  534  arp
+  535  arp --help
+  536  arp -e
+  537  ifconfig
+  538  ping 192.168.42.129
+  539  pi@RevPi42634:~ $
+  540  sudo nano /etc/dhcpcd.conf
+  541  ifconfig
+  542  sudo nano /etc/dhcpcd.conf
+  543  sudo nano /etc/environment
+  544  sudo nano /etc/apt/apt.conf
+  545  sudo apt update
+  546  ifconfig
+  547  arp -e
+  548  ping 192.168.134.252
+  549  ping 192.168.134.211
+  550  sudo nano /etc/dhcpcd.conf
+  551  sudo nano /etc/apt/apt.conf
+  552  sudo nano /etc/environment
+  553  sudo apt update
+  554  sudo nano /etc/environment
+  555  ifconfig
+  556  sudo nano /etc/environment
+  557  sudo nano /etc/dhcpcd.conf
+  558  sudo nano /etc/apt/apt.conf
+  559  arp -e
+  560  sudo nano /etc/dhcpcd.conf
+  561  ifconfig
+  562  sudo nano /etc/dhcpcd.conf
+  563  sudo apt update
+  564  sudo reboot
+  565  history
+  566  sudo nano /etc/dhcpcd.conf
+  567  sudo service dhcp restart
+  568  sudo service dhcpcd restart
+  569  ifconfig
+  570  ifconfig > test.txt
+  571  nano test.txt
+  572  sudo reboot
+  573  sudo nano /etc/dhcpcd.conf
+  574  ifconfig
+  575  route
+  576  ip route del default via usb0
+  577  ip route del default dev usb0
+  578  sudo ip route del default dev usb0
+  579  sudo ip route del default dev usb0
+  580  route
+  581  sudo ip route add default dev usb0 metric 1
+  582  route
+  583  sudo ip route del default dev usb0
+  584  sudo ip route add default via 192.168.134. dev usb0 metric 1
+  585  sudo ip route add default via 192.168.134.211 dev usb0 metric 1
+  586  route
+  587  ping 8.8.88
+  588  ping 8.8.8.8
+  589  sudo apt update
+  590  cd /etc
+  591  ls
+  592  cd apt
+  593  ls
+  594  sudo nano apt.conf
+  595  sudo nano sources.list
+  596  sudo apt update
+  597  cd <<
+  598  cd ..
+  599  grep -r 192.168.134.211
+  600  sudo grep -r 192.168.134.211
+  601  unset http_proxy
+  602  unset https_proxy
+  603  sudo apt update
+  604  sudo nano sources.list
+  605  cd apt
+  606  sudo nano sources.list
+  607  sudo grep -r nodesource
+  608  cd sources.list.d/
+  609  ls
+  610  sudo nano nodesource.list
+  611  sudo apt update
+  612  date
+  613  date --set "22082022 1353"
+  614  date --help
+  615  history
+  616  sudo date -s "03 JUL 2023 14:42:00"
+  617  sudo nano nodesource.list
+  618  sudo apt update
+  619  sudo apt install --reinstall ca-certificates
+  620  sudo apt update
+  621  date
+  622  sudo date -s "22 AUG 2022 13:55:00"
+  623  sudo apt update
+  624  sudo nano nodesource.list
+  625  sudo apt update
+  626  sudo apt upgrade
+  627  docker
+  628  curl -fsSL https://get.docker.com -o get-docker.sh
+  629  sudo apt install docker
+  630  docker --version
+  631  find docker
+  632  which docker
+  633  ls
+  634  cd ../..
+  635  ls
+  636  cd ..
+  637  ;s
+  638  ls
+  639  cd bin
+  640  ls
+  641  cd ..
+  642  l
+  643  ls
+  644  cd usr
+  645  ls
+  646  cd bin
+  647  ls
+  648  sudo apt install docker
+  649  sudo apt remove docker
+  650  cd ../..
+  651  cat /etc/dhcpcd.conf
+  652  sudo grep -r 192.168.134.211
+  653  unset http_proxy
+  654  unset HTTPS_PROXY
+  655  unset HTTP_PROXY
+  656  curl -fsSL https://get.docker.com -o get-docker.sh
+  657  gnupg
+  658  sudo apt install gnupg
+  659  sudo apt install lsb-release
+  660  sudo mkdir -p /etc/apt/keyrings
+  661  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+  661  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+  662  echo   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+  663  sudo apt-get install docker-ce docker-ce-cli containerd.io
+  664  curl -fsSL https://get.docker.com -o get-docker.sh
+  665  sudo apt install curl
+  666  free
+  667  curl -fsSL https://get.docker.com -o get-docker.sh
+  668  cd
+  669  curl -fsSL https://get.docker.com -o get-docker.sh
+  670  ls
+  671  sudol sh get-docker.sh
+  672  sudo sh get-docker.sh
+  673  curl -fsSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
+  674  sudo curl -fsSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
+  675  su root
+  676  sudo -u
+  677  sudo -i
+  678  sudo sh get-docker.sh
+  679  cd >
+  680  cd /
+  681  grep -r download.docker.com
+  682  sudo grep -r download.docker.com
+  683  cd /etc/apt/sources.list.d/
+  684  sudo rm docker.list
+  685  cd
+  686  sudo sh get-docker.sh
+  687  env
+  688  iptables -L
+  689  sudo iptables -L
+  690  sudo iptables -L -t nat
+  691  history
+
+
+
+/home/pi/Documents/Docker_Packages/
+
+sudo dpkg -i /home/pi/Documents/Docker_Packages/*.deb
+
+sudo dpkg -i /path/to/package.deb
+
+
+pi@RevPi42634:~/Documents $ sudo docker run hello-world
+Unable to find image 'hello-world:latest' locally
+docker: Error response from daemon: Get "https://registry-1.docker.io/v2/": dial tcp 3.215.51.67:443: connect: no route to host.
+See 'docker run --help'.
+
+
+
+ sudo apt-get install docker-compose-plugin=<2.6.0_debian-buster_armhf>
+where <VERSION_STRING> is, for example,2.3.3~ubuntu-focal.
+
+2.6.0_debian-buster_armhf
+
+Acquire::http::Proxy "http://192.168.134.211:8080";
+Acquire::https::Proxy "http://192.168.134.211:8080";
+
+
+# Prioritize wlan0 routes over eth0 routes.
+interface wlan0
+        metric 100
+profile static_eth0
+static ip_address=192.168.1.20/16
+static routers=192.168.2.1
+static domain_name_servers=192.168.2.1
+
+profile static_usb0
+static ip_address=192.168.134.235/16
+static routers=192.168.134.211
+static domain_name_servers=192.168.134.211
+
+interface eth0
+fallback static_eth0
+
+interface usb0
+fallback static_usb0
+
+
+[3:46 PM] Franck LOCATELLI
+https://docs.docker.com/compose/install/
+Install Docker Compose
+How to install Docker Compose
+
+[3:47 PM] Franck LOCATELLI
+$ sudo apt-get install libffi-dev libssl-dev  
+$ sudo apt install python3-dev  
+$ sudo apt-get install -y python3 python3-pip
+
+
+Once python3 and pip3 are installed, we can install Docker-Compose using the following command.
+$ sudo pip3 install docker-compose
+
+sudo date -s "22 AUG 2022 16:35:00"
+
+
+
+
+
+
+  521  sudo nano /etc/environment
+  522  sudo nano /etc/dhcpcd.conf
+  523  sudo nano /etc/apt/apt.conf
+  524  sudo nano /etc/dhcpcd.conf
+  525  sudo nano /etc/environment
+  526  sudo apt update
+  527  ifconfig
+  528  sudo nano /etc/dhcpcd.conf \
+  529  sudo nano /etc/dhcpcd.conf
+  530  ifconfig
+  531  ping 192.168.42.186
+  532  ping 192.168.1.20
+  533  arp -a
+  534  arp
+  535  arp --help
+  536  arp -e
+  537  ifconfig
+  538  ping 192.168.42.129
+  539  pi@RevPi42634:~ $
+  540  sudo nano /etc/dhcpcd.conf
+  541  ifconfig
+  542  sudo nano /etc/dhcpcd.conf
+  543  sudo nano /etc/environment
+  544  sudo nano /etc/apt/apt.conf
+  545  sudo apt update
+  546  ifconfig
+  547  arp -e
+  548  ping 192.168.134.252
+  549  ping 192.168.134.211
+  550  sudo nano /etc/dhcpcd.conf
+  551  sudo nano /etc/apt/apt.conf
+  552  sudo nano /etc/environment
+  553  sudo apt update
+  554  sudo nano /etc/environment
+  555  ifconfig
+  556  sudo nano /etc/environment
+  557  sudo nano /etc/dhcpcd.conf
+  558  sudo nano /etc/apt/apt.conf
+  559  arp -e
+  560  sudo nano /etc/dhcpcd.conf
+  561  ifconfig
+  562  sudo nano /etc/dhcpcd.conf
+  563  sudo apt update
+  564  sudo reboot
+  565  history
+  566  sudo nano /etc/dhcpcd.conf
+  567  sudo service dhcp restart
+  568  sudo service dhcpcd restart
+  569  ifconfig
+  570  ifconfig > test.txt
+  571  nano test.txt
+  572  sudo reboot
+  573  ls
+  574  cd Documents/Softdpac_packages/
+  575  ls
+  576  cd softdpac-v22.1.22221.03/
+  577  ls
+  578  sudo docker-compose
+  579  sudo reboot
+  580  sudo docker-compose
+  581  ls
+  582  docker ps
+  583  sudo docker ps
+  584  cd Documents/
+  585  ls
+  586  cd Docker_Packages/
+  587  ls
+  588  history
+  589  sudo dpkg -i /home/pi/Documents/Docker_Packages/*.deb
+  590  sudo usermod -aG docker pi
+  591  sudo apt-get install libffi-dev libssl-dev
+  592  sudo apt install python3-dev
+  593  sudo apt install python3-devsudo apt-get install -y python3 python3-			
+  594  sudo apt-get install -y python3 python3-pip
+  595  sudo pip3 install docker-compose
+  596  apt-cache madison docker-compose-plugin
+  597  sudo apt-get install docker-compose-plugin=<2.6.0_debian-buster_armhf>
+  598  sudo install -i /home/pi/Documents/Docker_Packages/*.deb
+  599  install --help
+  600  sudo apt-get /home/pi/Documents/Docker_Packages/docker-compose-plugin=<2.6.0_debian-buster_armhf>
+  601  sudo apt-get install /home/pi/Documents/Docker_Packages/docker-compose-plugin=<2.6.0_debian-buster_armhf>
+  602  docker compose version
+  603  sudo ./applicationManager.py create --project RevPiLuca
+  604  docker compose version
+  605  cd Documents/Softdpac_packages/softdpac-v22.1.22221.03/
+  606  sudo ./install.py
+  607  docker compose version
+  608  sudo ./applicationManager.py create --project RevPiLuca
+  609  docker ps
+  610  docker images
+  611  sudo ./applicationManager.py create --project RevPiLuca
+  612  docker-compose
+  613  docker compose version
+  614  docker ps
+  615  sudo ./applicationManager.py create --project RevPiLuca
+  616  sudo usermod -aG docker ${USER}
+  617  groups ${USER}
+  618  sudo pip3 install docker-compose
+  619  sudo apt update
+  620  sudo nano /etc/environment
+  621  sudo nano /etc/dhcpcd.conf
+  622  arp -e
+  623  route
+  624  ifconfig
+  625  route
+  626  arp -e
+  627  route
+  628  sudo ip route del default dev usb0
+  629  route
+  630  sudo ip route add default dev usb0 metric 1
+  631  route
+  632  sudo ip route del default dev usb0
+  633  sudo ip route add default via 192.168.134.211 dev usb0 metric 1
+  634  ping 8.8.8.8
+  635  sudo apt update
+  636  sudo service dhcpcd restart
+  637  sudo apt update
+  638  unset HTTPS_PROXY
+  639  unset HTTP_PROXY
+  640  sudo apt update
+  641  route
+  642  sudo ip route del default dev usb0
+  643  route
+  644  sudo ip route add default via 192.168.134.211 dev usb0 metric 1
+  645  route
+  646  sudo apt update sudo date -s "22 AUG 2022 16:35:00"
+  647  sudo nano /etc/dhcpcd.conf
+  648  sudo date -s "22 AUG 2022 16:35:00"
+  649  sudo apt update
+  650  sudo apt upgrade
+  651  sudo apt-get install libffi-dev libssl-dev  
+  652  sudo apt install python3-dev
+  653  sudo apt-get install -y python3 python3-pip
+  654  sudo apt-get install libffi-dev libssl-dev 
+  655  sudo pip3 install docker-compose
+  656  cd
+  657  cd /etc/
+  658  sudo nano enmv
+  659  sudo nano environment
+  660  sudo nano dhcpcd.conf
+  661  ls
+  662  cd /etc/apt/sources.list.d/
+  663  ls
+  664  sudo nano revpi.list
+  665  sudo apt update
+  666  route
+  667  sudo apt update
+  668  cd
+  669  cd /usr/local/bin/
+  670  ls
+  671  cd
+  672  grep docker-comp*
+  673  sudo find / -name docker-comp*
+  674  docker compose version
+  675  cd /usr/libexec/docker/cli-plugins/
+  676  ls
+  677  mv docker-compose /usr/local/bin/
+  678  sudo mv docker-compose /usr/local/bin/
+  679  chmod +x /usr/local/bin/docker-compose
+  680  sudo chmod +x /usr/local/bin/docker-compose
+  681  docker-compose
+  682  cd
+  683  cd Documents/Softdpac_packages/softdpac-v22.1.22221.03/
+  684  ./applicationManager.py create --project RevPiLuca
+  685  ls
+  686  ./uninstall.py
+  687  sudo ./install.py
+  688  ./applicationManager.py create --project Rev
+  689  sudo ./applicationManager.py create --project Rev
+  690  sudo ./applicationManager.py delete --project Rev
+  691  sudo ./applicationManager.py create --project Rev
+  692  sudo nano ./applicationManager.py
+  693  sudo ./applicationManager.py create --project Rev
+  694  grep "is not a valid project nam" ./*
+  695  grep -R "is not a valid project nam" ./*
+  696  grep -R "is not a valid" ./*
+  696  grep -R "is not a valid" ./*
+  697  docker ps
+  698  docker images
+  699  sudo reboot
+  700  docker images
+  701  sudo nano ./applicationManager.py
+  702  sudo ./applicationManager.py create --project Rev
+  703  cd Documents/Softdpac_packages/softdpac-v22.1.22221.03/
+  704  sudo ./applicationManager.py create --project Rev
+  705  ./applicationManager.py create --project Rev
+  706  ./applicationManager.py create --project Optiplex_1
+  707  ./uninstall.py
+  708  sudo ./install.py
+  709  ./applicationManager.py create --project Optiplex_1
+  710  ./applicationManager.py create --project
+  711  ./applicationManager.py create --project iiiii
+  712  docker ps
+  713* ./applicationManager.py create --delete i
+  714  ./applicationManager.py delete --project iiiii
+  715  ./applicationManager.py create --project Optiplex_1
+  716  ./applicationManager.py create --project Optiplex_16
+  717  ./applicationManager.py create --project toto
+  718  ./applicationManager.py delete --project toto
+  719  ./applicationManager.py create --project optiplex_1
+
+
+
+
+-------------------------------------------------
+docker-compose --version
+
+
+
+
+--------------- HOW TO REMOVE DOCKER OFFLINE --------------
+ 1287  sudo apt-get purge docker-engine
+ 1288  sudo apt-get autoremove --purge docker-engine
+ 1289  rm -rf /var/lib/docker
+ 1290  sudo rm -rf /var/lib/docker
+ 1291  sudo find / -name '*docker*'
+ 1292  sudo rm -rf /var/lib/docker
+ 1293  sudo apt-get autoremove --purge docke
+ 1294  sudo apt-get autoremove --purge docker
+ 1295  sudo find / -name '*docker*'
+ 1296  gins/__pycache__/docker_distribution.cpython-37.pyc
+ 1297  /usr/share/sosreport/sos/plug
+ 1298  gins/__pycache__/docker_distribution.cpython-37.pyc
+ 1299  dpkg -l | grep -i docker
+ 1300  sudo apt-get purge -y docker-engine docker docker.io docker-ce docker-ce-cli
+ 1301  sudo rm -rf /var/lib/docker /etc/docker
+ 1302  sudo rm /etc/apparmor.d/docker
+ 1303  sudo groupdel docker
+ 1304  sudo rm -rf /var/run/docker.sock
+ 1305  dpkg -l | grep -i docker
+ 1306  sudo apt-get purge -y docker-compose-plugin dokcer-ce-rootless-extras
+ 1307  sudo apt-get purge -y docker-compose-plugin docker-ce-rootless-extras
+ 1308  dpkg -l | grep -i docker
+ 1309  docker
+ 1310  cd /usr/local/bin/
+ 1311  ll
+ 1312  rm -rf docker-compose
+ 1313  sudo rm -rf dok
+ 1314  sudo rm -rf docker-compose
+ 
+ ---------------------------------------------------------
+
+--------------CONTAINERS-------------
+
+docker logs -f dpws
+docker inspect dpws
+docker system df
+
+-----------------------------------
+
+-------------------- REV PI -----------------------
+
+sudo nano /etc/sysctl.conf
+
+#disable IPv6
+net.ipv6.conf.all.disable_ipv6 = 1
+
+
+eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.2.120  netmask 255.255.0.0  broadcast 192.168.255.255
+        ether dc:a6:32:2f:47:b8  txqueuelen 1000  (Ethernet)
+        RX packets 1532882  bytes 2119666793 (1.9 GiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 782180  bytes 91890836 (87.6 MiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+		
+		eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.1.20  netmask 255.255.0.0  broadcast 192.168.255.255
+        inet6 fe80::b09d:940:4240:7585  prefixlen 64  scopeid 0x20<link>
+        ether c8:3e:a7:01:90:b2  txqueuelen 1000  (Ethernet)
+        RX packets 5605545  bytes 1084588237 (1.0 GiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 319530  bytes 46920552 (44.7 MiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+		
+
+wget https://github.com/docker/compose/releases/download/v2.0.1/docker-compose-linux-armv7
+
+sudo mv docker-compose-linux-armv7 /usr/bin/docker-compose
+
+sudo chmod u+x docker-compose
+
+
+
+df -h
+
+docker system df
+
+
+
+$ sudo nano /boot/cmdline.txt
+
+Add the following line at the end of the file:
+
+cgroup_enable=memory cgroup_enable=cpuset
+
+Save (Ctrl+S).
+
+System reboot is needed to make the change take effect.
+$sudo reboot
+
+
+cat /proc/cgroups
+
+-------------------------------------------------------------------
+
+
+https://schneiderelectric-my.sharepoint.com/:v:/g/personal/sesa36750_se_com/ESNa_WaDtepKshWX-ED1g6oBFkELQ5584FKc-TxCHooRiw
+https://schneiderelectric-my.sharepoint.com/:v:/g/personal/sesa36750_se_com/EQ_qBTyCOPNMir23RXmnnNABG7sR5TjY_C1UMsR71tu1VA
+https://www.youtube.com/watch?v=rw2kkTgXO0g
+
+https://schneiderelectric-my.sharepoint.com/:v:/g/personal/sesa36750_se_com/EfTjes_ni-VAmivnuWniWWMBO1HJS3haF6tNLYDFkiVv5w
+https://schneiderelectric-my.sharepoint.com/:v:/g/personal/sesa36750_se_com/EcsOMMC0Tg9Biz6ilUYIZ_0BCtnmR5pZU7TwPAlLmAUPXQ
+https://schneiderelectric-my.sharepoint.com/:v:/g/personal/sesa36750_se_com/EaLAAOYipfRFqP9ur55jeZwBlOqOi5TuNAz5sBwobEjtTg
+
+
+
+[2:42 PM] Harneet SINGH
+	Sofiane ABDELGHAFOURis it possible to change solution libraries without openning EAE solution?
+	Not as of today 
+
+
+[2:43 PM] Harneet SINGH
+	But yes updating the solution references in headless mode would be there
+
+[2:43 PM] Harneet SINGH
+	As of now we have exposed very limited functionality that can be done in headless mode
+
+[2:44 PM] Harneet SINGH
+	Chaoxiong HUANGWill there be an option to update all the referenced libraries to the lastest one, and then deploy to dPACs ? (I'm thinking of auto tests)
+	Yes ,we have build and deploy feature planned for PI 15
+
+
+
+AnIn3
+FB11
+AnterlockSp1
+MaxValue
+MinValue
+AnOut3
+PLCStart2
+DigitalIn5
+FB10
+
+
+
+grep -R "sfe80::b09d:940:4240:758" ./*
+sudo find / -name fe80::b09d:940:4240:758*
+
+
+
+ history | grep docker
+
+
+22256.04
+
+
+
+
+
+C:\Users\SESA680124\Box\EAE - Soft dPAC\Organization\Passwords
+R2SdPAC_cicd
+
+
+
+
+automatic test for NIC bonding
+
+import paramiko
+import sys
+
+class sampleParamiko:
+    ssh = ""
+    def __init__(self, host_ip, uname, passwd):
+        try:
+            self.ssh = paramiko.SSHClient()
+            self.ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+            self.ssh.connect(host_ip, username=uname, password=passwd)
+            #print "In init function"
+        except (paramiko.BadHostKeyException, paramiko.AuthenticationException,     paramiko.SSHException) as e:
+            print(str(e))
+            sys.exit(-1)
+
+    def ececuteCmd(self,cmd):
+        try:
+            channel = self.ssh.invoke_shell()
+            timeout = 60 # timeout is in seconds
+            channel.settimeout(timeout)
+            newline        = '\r'
+            line_buffer    = ''
+            channel_buffer = ''
+            channel.send(cmd + 'enable' + newline + 'configure' + newline + 'interface 1/5' + newline + 'no shutdown' + newline + 'exit' + newline + 'exit' + newline + 'logout' + newline)
+            while True:
+                channel_buffer = channel.recv(1).decode('UTF-8')
+                if len(channel_buffer) == 0:
+                    break 
+                channel_buffer  = channel_buffer.replace('\r', '')
+                if channel_buffer != '\n':
+                    line_buffer += channel_buffer
+                else:
+                    print(line_buffer)
+                    line_buffer   = ''
+        except paramiko.SSHException as e:
+            print(str(e))
+            sys.exit(-1)
+host_ip = "192.168.1.213"
+uname = "admin"
+password = "private"
+cmd = str(input("Enter the command to execute in the host machine: "))
+conn_obj = sampleParamiko(host_ip, uname, password)
+conn_obj.ececuteCmd(cmd)
+
+  WARNING: The scripts py.test and pytest are installed in '/home/lucagiustini/.local/bin' which is not on PATH.
+  Consider adding this directory to PATH or, if you prefer to suppress this warning, use --no-warn-script-location.
+
+
+python pingCRDfromHA2.py & sleep 5s & python disable213port8.py & sleep 30s & python enable213port8.py
+
+python disable213port8.py & sleep 5s & python pingCRDfromHA2.py
+
+
+sudo -i
+sudo visudo
+(username) ALL=(ALL) NOPASSWD: ALL
+
+user ALL=(ALL) NOPASSWD: ALL
+
+
+
+service sshd restart
+sudo -k
+sudo apt install openssh-server
+sudo systemctl status ssh
+sudo systemctl enable ssh 
+sudo systemctl restart ssh
+sudo ufw allow ssh
+sudo nano /etc/ssh/sshd_config
+	PasswordAuthentication yes
+	PubkeyAuthentication yes
+	PermitRootLogin yes
+	RSAAuthentication yes
+systemctl restart sshd
+sudo service ssh restart
+
+
+Password
+R2SdPAC_cicd
+
+
+
+
+$ sudo visudo add last line
+
+	user ALL = NOPASSWD: /usr/bin/tee, /usr/bin/ping  
+
+
+
+sudo nano .bashrc
+	# add performance settings
+	echo performance | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
+sudo visudo
+	user ALL = NOPASSWD: /usr/bin/tee, /usr/bin/ping
+	
+	
+	root ALL = NOPASSWD: /usr/bin/tee, /usr/bin/ping
+	
+	
+	
+	
+# to adding a string in a file
+
+echo ‘string-of-text’ | sudo tee /file/path
+
+nic ALL = NOPASSWD: echo performance | tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
+
+echo "$USER ALL=(ALL:ALL) NOPASSWD: ALL" | sudo tee "/etc/sudoers.d/dont-prompt-$USER-for-sudo-password"
+
+
+
+
+Terminal Windwos
+
+C:\Users\SESI006576\AppData\Local\Programs\Python\Python310\python.exe -m pip install --proxy=http://gateway.schneider.zscaler.net:80 --upgrade pip setuptools wheel
+
+C:\Users\SESI006576\AppData\Local\Programs\Python\Python310\python.exe -m pip install --proxy=http://gateway.schneider.zscaler.net:80 pip3
+
+C:\Users\SESI006576\AppData\Local\Programs\Python\Python310\python.exe -m pip install --proxy=http://gateway.schneider.zscaler.net:80 -U paramiko
+
+
+
+
+Open Open Git Bash Terminal and execute >
+
+
+	chose the path /c/Users/SESA680124/ for example
+
+		$ cd
+
+	create the repository .ssh for the access ssh in the Windows VM
+
+		$ mkdir -p ~/.ssh
+
+		$ cd .ssh/
+
+	chose key as name of the Public RSA Key
+		$ ssh-keygen -t rsa
+		Generating public/private rsa key pair.
+		Enter file in which to save the key (/c/Users/SESA680124/.ssh/id_rsa): $ /c/Users/SESA680124/.ssh/key
+		Enter passphrase (empty for no passphrase): $ (push Enter with no it)
+		Enter same passphrase again: $ (push Enter with no psw)
+		Your identification has been saved in /c/Users/SESA680124/.ssh/key
+		Your public key has been saved in /c/Users/SESA680124/.ssh/key.pub
+		The key fingerprint is:
+		SHA256:foRNs+rnodjNxKYbN6wJYVyEVP989lYIP+qgLwicEmI SESA680124@WTFRLVSE265405L
+		SHA256:yiiCqp/dwQRnn8wTpyGkLlstaiFu9rU02h0rxau5kpc SESA680124@WTFRLVSE265405L
+		The key's randomart image is:
+		+---[RSA 3072]----+
+		|     ..oo        |
+		|      .. .       |
+		|        . + .    |
+		|.E.  . . + = o . |
+		|.. o .+ S + o * .|
+		|  . +. o =   + o.|
+		|   . ...+ @ .   o|
+		|      .=.#.=   . |
+		|      . X*= .    |
+		+----[SHA256]-----+
+
+		After
+			$ ssh-copy-id -i key.pub user@192.168.32.133
+			$ ssh-copy-id -i name_file pi@192.168.1.20
+
+			$ sudo nano /etc/ssh/sshd_config
+
+				RSAAuthentication yes
+				PubkeyAuthentication yes
+
+			$ sudo nano ~/.ssh/config
+
+				PubkeyAcceptedKeyTypes +ssh-dss
+
+
+			$ cd && chmod 700 .ssh
+
+
+
+
+OR
+
+chmod 600 ~/.ssh/id_dsa
+chmod 666 ~/.ssh/id_dsa.pub
+chmod 666 ~/.ssh/known_hosts
+chmod 600 ~/.ssh/config
+
+//connect via ssh
+ssh -i ~/.ssh/id_dsa secuser@10.10.199.19
+
+ssh -i ~/.ssh/lucagit git@lucagiustini
+
+
+pip3 install --proxy=http://gateway.schneider.zscaler.net:80 -U paramiko
+
+python setup.py install
+
+
+# REQUIREMENTS
+
+proxy OpenZscaler ON
+Firewall ENABLED if not Enable it
+
+
+
+
+IF YOU HAVE PROBLEMS WIRH GIT PUSH
+
+# uninstall openssh
+$ sudo apt-get purge openssh-client
+
+# install it again
+$ sudo apt install openssh-client
+$ sudo apt install openssh-server
+
+# delete create again key where you are working
+
+# FOR DEVICES
+$ ssh-keygen -t rsa 
+	# COPIALA DENTRO IL FILE known_hosts
+	# in questo modo il device nel quale viene effettuato l'accesso sa chi sei
+
+# FOR GIT
+$ ssh-keygen -t ed25519 -C "lucagiustini92@gmail.com" 
+	# in questo modo il device nel quale viene effettuato l'accesso sa chi sei
+	https://github.com/settings/keys
+	# New SSH key and add the key.pub or id_ed25519.pub there
+	
+# add the key.pub to the host where you want get the access/repos
+
+# delete the old known_hosts
+
+# update the following files
+
+$ sudo .ssh/config                                      $ sudo nano /etc/ssh/sshd_config
+	PubkeyAcceptedKeyTypes +ssh-dss                    		PasswordAuthentication yes
+	Host github.com                                    		PubkeyAuthentication yes
+		HostName ssh.github.com                        		PermitRootLogin yes
+		#Port 443                                      		RSAAuthentication yes
+		User git
+		#IdentityFile ~/.ssh/id_ed25519		OR 
+
+	Host *
+		User root
+		PasswordAuthentication yes
+		PubkeyAuthentication yes
+		RSAAuthentication yes
+
+	# This way is better
+
+$ sudo nano .git/config
+	
+	[core]
+        repositoryformatversion = 0
+        filemode = true
+        bare = false
+        logallrefupdates = true
+	[remote "origin"]
+			url = git@github.com:lucagiustini/python.git
+			#url = https://github.com/lucagiustini/python
+			fetch = +refs/heads/*:refs/remotes/origin/*
+	[branch "main"]
+			remote = origin
+			merge = refs/heads/main
+	[branch "based"]
+			remote = origin
+			merge = refs/heads/main
+
+
+sudo -k
+service sshd restart
+sudo systemctl enable ssh 
+sudo systemctl restart ssh
+sudo systemctl restart sshd
+sudo ufw allow ssh
+sudo service ssh restart
+
+
+*------ for DEVICES --------*
+
+# uninstall openssh
+$ sudo apt-get purge openssh-client
+
+# install it again
+$ sudo apt install openssh-client
+$ sudo apt install openssh-server
+
+# delete create again key where you are working
+
+# FOR DEVICES
+$ ssh-keygen -t rsa 
+	# COPY IT INSIDE THE DEVICE ~/.ssh/known_hosts
+	# in questo modo il device nel quale viene effettuato l'accesso sa chi sei
+	
+# add the key.pub to the host where you want get the access/repos
+
+# delete the old known_hosts
+
+# update the following files
+
+$ sudo nano /etc/ssh/sshd_config
+	PasswordAuthentication yes
+	PubkeyAuthentication yes
+	PermitRootLogin yes
+	RSAAuthentication yes
+
+
+
+sudo -k
+service sshd restart
+sudo systemctl enable ssh 
+sudo systemctl restart ssh
+sudo systemctl restart sshd
+sudo ufw allow ssh
+sudo service ssh restart
+
+----------------------------------------------------------
+
+
+HA issue, Hardware network
+
+udevadm info eninterlink
+ 1926  history | grep udev
+ 1927  ls /lib/udev/rules.d/
+ 1928  nano 80-softdpac-netnames.rules
+ 1929  ip a
+ 1930  nano 80-softdpac-netnames.rules
+ 1931  ls /lib/udev/rules.d/
+ 1932  nano 80-softdpac-netnames.rules
+ 1933  ip a
+ 1934  nano 80-softdpac-netnames.rules
+
+nano /lib/udev/rules.d/80-softdpac-netnames.rules
+
+-------------------------------------------------
+
+sudo ip -br a
+
+-----------------------------------------------
+REQUIREMENTS
+
+sudo apt-get update
+sudo apt upgrade
+sudo apt-get install dphys-swapfile
+sudo apt install trace-cmd
+sudo apt install kernelshark
+
+TEST
+sudo dphys-swapfile swapoff
+(starting the recording)
+sudo trace-cmd record -e sched -s 0.3 -o ~/sched_trace_UC1.dat
+(after recording) -> CTRL + C
+kernelshark -i ~/sched_trace_UC1.dat
+
+
+----------------------------------------------------------
+
+POSTMAN
+
+http://10.208.175.119:9085/#/
+
+
+----------------------------------------------------------
+
+ssh sesi006576@192.168.2.10
+
+cicd_root06
+
+----------------------------------------------------------
+
+ls
+  324  cd softdpac-applications/
+  325  git pull
+  326  git checkout luca_fix
+  327  cd >>?
+  328  cd ..
+  329  cd git
+  330  cd /d/Users/SESI006576/Documents/git/softdpac-applications
+  331  ls
+  332  cd ..
+  333  git clone https://se-devops@dev.azure.com/se-devops/All-In/_git/softdpac-applications
+  334  git clone https://se-devops@dev.azure.com/se-devops/All-In/_git/softdpac-applications softdpac-applications2
+  335  git pull
+  336  cd softdpac-applications2
+  337  git checkout luca_fix
+  338  ls
+  339  cd SoftdPAC-KPI
+  340  ls
+  341  cd KPI_NWCommCheck
+  342  ls
+  343  cd boot_projects/
+  344  ls
+  345  history
+
+
+
+--------------------------------------------------------
+
+git hub token
+
+luca
+
+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
+
+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
+
+password CICD_SdPACR2
+
+--------------------------------------------------------
+
+user e password
+
+TeamR2_cicd
+cicd_root06
+CICD_SdPACR2 
+R2SdPAC_cicd
+SdPACR2_CICD ****
+
+
+ssh sesi006576@192.168.2.10
+
+C:\Program Files (x86)\Schneider Electric\EcoStruxure Automation Expert - Runtime 23.1\SoftdPAC\SoftdPACService\SoftdPAC_Schneider_PC_Win32_x86.exe" --comm=ws://192.168.1.105:51500 --datadir="C:\ProgramData\Schneider Electric\SE SoftdPAC EcoStruxure Automation Expert 22.1"
+
+
+
+
+python3 execute_CMD.py --DEVICE 192.168.32.133 --username user --password user --command "sudo ping -i 0.005 -c 1000 172.18.0.1"
+
+python3 ping_CRD.py --DEVICE 192.168.32.133 --username user --password user --command "sudo ping -i 0.005 -c 1000 172.18.0.1"
+
+--------------------------------------------------------
+cambiare lingua / change language
+
+sudo nano /etc/default/locale
+
+
+
+LANG="en_US.UTF-8"
+
+
+--------------------------------------------------------
+check results NIC Bonding
+
+test session starts
+
+
+--------------------------------------------------------
+
+
+https://se-devops@dev.azure.com/se-devops/All-In/_git/softdpac-windows
+
+
+token
+softdpac-applications
+2wkxh4urieby55xt5d5flhueqvq4i4muix2bmhygyxak2zdcoe5q
+
+softdpac-docker
+hyuo6v5ospxbrefuhj2vzbdqur7nhoajrfurybkcbhau5ibc6hlq
+
+6lk5oxdnfklu7kvcl5w3kupmanmw7i4q534ndevfc7oc7qiuta5a
+
+Security RT
+kthbxzvzafvuvnzv7aazsixqrdq7g6xsn6vlpipxjsmve32qb2da
+
+nuget.exe sources remove -Name "All-In-Feed"
+nuget sources remove -Name "All-In-Feed"
+
+nuget.exe sources add -Name "All-In-Feed" -UserName User -Password 6lk5oxdnfklu7kvcl5w3kupmanmw7i4q534ndevfc7oc7qiuta5a -Source "https://pkgs.dev.azure.com/se-devops/All-In/_packaging/All-In-Feed/nuget/v3/index.json"
+
+nuget sources add -Name "All-In-Feed" -UserName User -Password 6lk5oxdnfklu7kvcl5w3kupmanmw7i4q534ndevfc7oc7qiuta5a -Source "https://pkgs.dev.azure.com/se-devops/All-In/_packaging/All-In-Feed/nuget/v3/index.json"
+
+key repos file windows softdpac docker
+
+https://se-devops@dev.azure.com/se-devops/All-In/_git/softdpac-docker
+
+
+
+
+export OPENSSL_ROOT_DIR=/home/user/runtime/Runtimes/Source/Extern/openssl-nuget/linux-x86/
+cmake ../ -DCMAKE_CXX_FLAGS=-m32 -DCMAKE_C_FLAGS=-m32 -DOPENSSL_ROOT_DIR=/home/user/runtime/Runtimes/Source/Extern/openssl-nuget/linux-x86/
+make
+
+
+export MBEDTLS_ROOT_DIR=/home/nxtdev/Nxt/runtime/Runtimes/Source/Extern/mbedtls-nuget/linux-x86/mbedtls/
+cmake ../ -DCSBRICK_MBEDTLS=ON -DCMAKE_CXX_FLAGS=-m32 -DCMAKE_C_FLAGS=-m32 -DMBEDTLS_ROOT_DIR=/home/nxtdev/Nxt/runtime/Runtimes/Source/Extern/mbedtls-nuget/linux-x86/mbedtls/
+make
+
+
+
+
+key repos file zindozs sofdpqc windows
+xrnbw5boycjksflzvwmx4ffonvnjap2kkgbiidvlmrn4iwccop7q
+
+
+sudo apt-get update && \
+  sudo apt-get install -y dotnet-sdk-7.0
+  
+
+timeout --kill-after=15s 60m valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --num-callers=40 \
+	--suppressions=/repo/Source/UnitTest/unittest.valgrind.supp \
+	--gen-suppressions=all \
+	--log-file=/results/valgrind.tmp.log \
+	./$UNITTESTNAME > /dev/null
+
+
+------------------------------------------------------------
+
+Registry Editor
+
+VS
+
+            int lcid = Int32.Parse(registryKey.GetValue("InstallLCID").ToString());
+
+----------------- AUTOMATED TEST ----------------------------
+
+docker exec -it -u root Softdpac_1 sh
+
+cd /var/lib/nxtSRT61499N/data/boot/
+
+tar cvf project_name.tar ./*
+
+cd ../config/
+
+tar cvf project_name_config.tar ./*
+
+docker cp Softdpac_1:/var/lib/nxtSRT61499N/data/boot/project_name.tar ./
+
+docker cp Softdpac_1:/var/lib/nxtSRT61499N/data/config/project_name.tar ./
+
+-----------------------------------------------------------
+
+
+
+
+-----------------------------------------------------------
+
+MQTT
+
+ Root/EAE/SoftDPAC/Diagiostic/CPU6080
+							/Network
+ 
+ Root/{AE324288-EF6B-4887-8859-A42D80583114}/{AE324288-EF6B-4887-8859-A42D80583100}/Diagnostic/CPU6080 {"version":"1.0","deviceID":"{AE324288-EF6B-4887-8859-A42D80583100}","deviceName":"softdpac_3","module":"softdpac","code":3,"description":"the cpu consumption is high","namurSeverity":1,"on":true,"ack":false,"onTimestamp":"2023-02-22T12:58:14.387636055Z","offTimestamp":"0001-01-01T00:00:00Z","ackTimestamp":"0001-01-01T00:00:00Z","diagnosticName":"CPU6080","value":"72.343087"}
+Root/{AE324288-EF6B-4887-8859-A42D80583114}/{AE324288-EF6B-4887-8859-A42D80583100}/Diagnostic/Namur {"value":1}
+
+
+
+Installing collected packages: pluggy, packaging, iniconfig, colorama, attrs, pytest
+  WARNING: The scripts py.test.exe and pytest.exe are installed in 'C:\Users\SESA680124\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\Scripts' which is not on PATH.
+  Consider adding this directory to PATH or, if you prefer to suppress this warning, use --no-warn-script-location.
+Successfully installed attrs-22.2.0 colorama-0.4.6 iniconfig-2.0.0 packaging-23.0 pluggy-1.0.0 pytest-7.2.1
+
+
+
+
+
+$ docker cp ./test2 softpac_1:/softdpac
+ 
+$ docker exec -it softdpac_1 sh
+
+$ ./test2 -o /dev/null -p 1 date
+
+
+
+docker exec -it mqtt sh
+
+mosquitto_sub -v --insecure --cert /server.crt --key /server.key --cafile /ca.crt -t '#'
+
+pull alpine
+
+sudo docker start -ai test1
+
+docker cp ./test2 test1:/.
+Preparing to copy...
+Copying to container - 32.77kB
+Copying to container - 65.54kB
+Copying to container - 98.3kB
+Copying to container - 131.1kB
+Copying to container - 163.8kB
+...
+Successfully copied 2.61MB to test1:/.
+
+docker run --privileged -it --rm alpine bash
+docker run -it --rm alpine
+/ # ls home
+test2
+/ # cd home
+/home # ./test2 -o /dev/null -p 1 date
+
+
+Enable cgroups
+
+user@raspberrypi:~ $ cat /proc/cgroups
+user@raspberrypi:~ $ nano /boot/cmdline.txt
+
+top -i
+
+
+$ sudo nano over_cpu.sh 
+
+		#!/bin/bash
+
+		fulload() {
+		  dd if=/dev/zero of=/dev/null |
+		  dd if=/dev/zero of=/dev/null |
+		  dd if=/dev/zero of=/dev/null |
+		  dd if=/dev/zero of=/dev/null &
+		};
+
+		fulload; read
+
+
+$ chmod +x ./cpu_increase.sh
+$ ./cpu_increase.sh
+
+$ killall cpu_increase
+
+
+------------------ get Ubuntu Image ----------
+
+https://dev.azure.com/se-devops/All-In/_wiki/wikis/SoftdpacWiki/1981/Softdpac-Local-Development
+
+image ubuntu
+image linux
+linux image
+
+
+
+-------------------------------------------------------------
+
+
+
+
+C:\Users\SESA680124\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\Scripts\
+
+
+
+
+python ping_CRD.py --HA 192.168.32.128 --username user --password user --CRD 192.168.69.89
+
+python manage_SWITCH.py --SWITCH 192.168.1.213 --username admin --password private --action enable
+
+C:\Users\SESA680124\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\Scripts\pytest.exe test_check_RESULTS.py
+
+
+--proxy=http://gateway.schneider.zscaler.net:80
+
+
+C:\Users\SESI006576\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\Scripts\pytest.exe test_check_RESULTS.py
+
+
+
+
+#!/bin/bash
+python3 ping_CRD.py --HA 192.168.1.210 --username user --password user --CRD 192.168.1.216 & sleep 5; python3 manage_SWITCH.py --SWITCH 192.168.1.213 --username admin --password private --port_number 7 --action disable; sleep 3s; python3 manage_SWITCH.py --SWITCH 192.168.1.213 --username admin --password private --port_number 7 --action enable; /home/user/.local/bin/pytest test_check_RESULTS.py test_check_RESULTS.py; sleep 10s;
+python3 ping_CRD.py --HA 192.168.1.210 --username user --password user --CRD 192.168.1.216 & sleep 5; python3 manage_SWITCH.py --SWITCH 192.168.1.214 --username admin --password private --port_number 7 --action disable; sleep 3s; python3 manage_SWITCH.py --SWITCH 192.168.1.214 --username admin --password private --port_number 7 --action enable; /home/user/.local/bin/pytest test_check_RESULTS.py test_check_RESULTS.py; sleep 10s;
+python3 ping_CRD.py --HA 192.168.1.211 --username user --password user --CRD 192.168.1.216 & sleep 5; python3 manage_SWITCH.py --SWITCH 192.168.1.213 --username admin --password private --port_number 8 --action disable; sleep 3s; python3 manage_SWITCH.py --SWITCH 192.168.1.213 --username admin --password private --port_number 8 --action enable; /home/user/.local/bin/pytest test_check_RESULTS.py test_check_RESULTS.py; sleep 10s;
+python3 ping_CRD.py --HA 192.168.1.211 --username user --password user --CRD 192.168.1.216 & sleep 5; python3 manage_SWITCH.py --SWITCH 192.168.1.214 --username admin --password private --port_number 8 --action disable; sleep 3s; python3 manage_SWITCH.py --SWITCH 192.168.1.214 --username admin --password private --port_number 8 --action enable; /home/user/.local/bin/pytest test_check_RESULTS.py test_check_RESULTS.py;
+
+
+
+
+python3 ping_CRD.py --HA 192.168.1.210 --username user --password user --CRD 192.168.1.216 & sleep 5;
+
+python3 manage_SWITCH.py --SWITCH 192.168.1.213 --username admin --password private --port_number 7 --action disable; sleep 3s;
+
+python3 manage_SWITCH.py --SWITCH 192.168.1.213 --username admin --password private --port_number 7 --action enable; 
+
+C:\Users\SESI006576\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\Scripts\pytest.exe test_check_RESULTS.py; sleep 10s;
+
+\home\user\.local\bin\pytest
+
+'/home/user/.local/bin/pytest
+
+
+pytest Performance_Test/HA_NicBonding/test_RESULTS.py -vv --capture=tee-sys --cache-clear --doctest-modules --junitxml=junit/test-results_Nic_Bonding_Test_2.xml --cov=. --cov-report=xml --cov-report=html || exit $?
+
+
+
+sudo timedatectl set-ntp no
+
+
+
+
+
+   
+   windows buildtime
+   avinash
+   
+
+
+
+$ mosquitto_pub --insecure --cert /server.crt --key /server.key --cafile /ca.crt -t test -m "great
+
+
+
+MQTT
+
+ # Root/EAE/SoftDPAC/Diagiostic/CPU6080
+							/Network
+							
+							# "on":true ALARM IS ON
+							# "on":false ALARM IS OFF
+ 
+Root/{AE324288-EF6B-4887-8859-A42D80583114}/{AE324288-EF6B-4887-8859-A42D80583100}/Diagnostic/CPU6080 {"version":"1.0","deviceID":"{AE324288-EF6B-4887-8859-A42D80583100}","deviceName":"softdpac_3","module":"softdpac","code":3,"description":"the cpu consumption is high","namurSeverity":1,"on":true,"ack":false,"onTimestamp":"2023-02-22T12:58:14.387636055Z","offTimestamp":"0001-01-01T00:00:00Z","ackTimestamp":"0001-01-01T00:00:00Z","diagnosticName":"CPU6080","value":"72.343087"}
+
+Root/{AE324288-EF6B-4887-8859-A42D80583114}/{AE324288-EF6B-4887-8859-A42D80583100}/Diagnostic/Namur {"value":1} # LOW SEVERITY
+
+
+
+
+
+
+docker exec -it 4c292a1d9095 sh  		#csserver
+
+./compil_localdev.sh
+
+docker run --restart unless-stopped --name mqtt -d -v $/home/user/Downloads/mosquitto.conf:/mosquitto/config/mosquitto.conf --network host ecplipse-mosquitto:latest
+
+docker run --restart unless-stopped --name mqtt -d -v /Documents/Softdpac_packages/mqttmosquitto.conf --network host ecplipse-mosquitto:latest 
+
+
+
+mosquitto_sub -v -t '#'
+
+mosquitto_pub -h 172.17.0.1 -t testino -m "great"
+
+
+e8ff416cfa3b   
+
+ 2111  docker ps
+ 2112  docker stop fdd5d8615e9a
+ 2113  docker rm fdd5d8615e9a
+ 2114  sudo nano mosquitto.conf
+ 2115  docker ps
+ 2116  $ docker run --restart unless-stopped --name mqtt -d -v $/Documents/Softdpac_packages/mqtt/mosquitto.conf --network host eclipse-mosquitto:latest
+ 
+ /Documents/Softdpac_packages/mqtt$ docker run --restart unless-stopped --name mqtt_luca -d -v $/mosquitto.conf --network host eclipse-mosquitto:latest
+
+ 
+ 2117  ls
+ 2118  docker ps
+ 2119  docker logs mqtt
+ 2120  docker ps
+ 2121  docker stop mqtt
+ 2122  docker rm mqtt
+ 2123  history
+
+
+
+mosquitto_sub -v -t '#'
+
+mosquitto_pub -h 172.17.0.1 -t testino -m "great"
+
+
+
+
+sudo nano mosquitto.config
+
+	
+
+require_certificate false
+#certfile /cacert.pem
+#keyfile /cakey.pem
+#certfile /se-UOAJKtMnROnVkA.pem
+#keyfile /se-UOAJKtMnROnVkA.key
+#certfile /domain.crt
+#keyfile /domain.key
+cafile /ca.crt
+certfile /server.crt
+keyfile /server.key
+#listener 1883 0.0.0.0
+#listener 8883 0.0.0.0
+port 8883
+allow_anonymous true
+
+
+
+ sudo apt-get update
+ 2003  sudo apt upgrade
+ 2004  sudo apt install mosquitto
+ 2005  docker pull eclipse-mosquitto
+ 2006  sudo nano /etc/resolv.conf
+ 2007  sudo systemctl daemon-reload
+ 2008  sudo systemctl restart docker
+ 2009  docker pull eclipse-mosquitto
+ 2010  docker ps
+ 2011  docker pull eclipse-mosquitto
+ 2012  sudo nano /etc/resolv.conf
+ 2013  docker pull eclipse-mosquitto
+ 2014  sudo nano /etc/resolv.conf
+
+
+
+################# EAE testing eIP ###############
+
+##### On cicd secondary bench
+
+Then You need to start the 128 slaves on HMIBMO 
+
+This will start 128 slaves on HMIBMO from @ 192.168.5.10 to 192.168.5.137
+
+$ ./virtEipStart.sh enp2s0 192.168.5.10 128
+
+All slaves communicating through enp2s0 interface
+
+##### On cicd main bench
+
+You can check the test eIP all Formats Part 4
+
+(DEDICATED_SCRIPT_CMD_1)
+
+
+
+
+
+
+
+
+
+########### sudo apt-get update NTP ###########
+
+
+
+sudo nano /etc/systemd/timesyncd.conf
+
+
+#  This file is part of systemd.
+#
+#  systemd is free software; you can redistribute it and/or modify it
+#  under the terms of the GNU Lesser General Public License as published by
+#  the Free Software Foundation; either version 2.1 of the License, or
+#  (at your option) any later version.
+#
+# Entries in this file show the compile time defaults.
+# You can change settings by editing this file.
+# Defaults can be restored by simply deleting this file.
+#
+# See timesyncd.conf(5) for details.
+
+[Time]
+NTP=192.168.32.1
+FallbackNTP=ntp.ubuntu.com
+RootDistanceMaxSec=5
+PollIntervalMinSec=32
+PollIntervalMaxSec=2048
+
+
+
+sudo nano /etc/systemd/system/docker.service.d/https-proxy.conf
+
+[Service]
+Environment="HTTP_PROXY=http://192.168.32.1:8080"
+Environment="HTTPS_PROXY=http://192.168.32.1:8080"
+Environment="NO_PROXY=localhost, 127.0.0.1, ::1"
+
+Or
+                                                                
+[Service]
+Environment="HTTP_PROXY=http://gateway.schneider.zscaler.net:80"
+Environment="HTTPS_PROXY=http://gateway.schneider.zscaler.net:80"
+Environment="NO_PROXY=localhost, 127.0.0.0/8, ::1, schneider-electric.com, 10.0.0.0/8, 192.168.0.0/16"
+
+
+
+sudo nano /etc/environment
+
+
+export http_proxy="http://192.168.32.1:8080"
+export https_proxy="http://192.168.32.1:8080"
+export no_proxy="localhost, 127.0.0.1"
+
+export HTTP_PROXY="http://192.168.32.1:8080"
+export HTTPS_PROXY="http://192.168.32.1:8080"
+export NO_PROXY="localhost, 127.0.0.1"
+
+
+
+sudo nano /etc/apt/apt.conf
+
+Acquire::http::Proxy "http://192.168.1.2:8080";
+Acquire::https::Proxy "http://192.168.1.2:8080";
+
+
+
+
+export http_proxy="http://192.168.32.1:8080"
+export https_proxy="http://192.168.32.1:8080"
+export no_proxy="localhost, 127.0.0.1"
+
+
+10.252.5.99
+192.168.32.1
+192.168.223.1
+
+
+I am increasing a lot the knowledge in DevOps. I would like to start this experience with you. Don't hesitate to call me if you are interested to my profile
+
+        # For each target
+        for target_names in targets_conf:
+            target_obj = platform_select.select_platform(target_names)
+            # For each container, check container test results
+            print('INFO : For each container, check container test results on target {} : {}'.format(target_obj.name, target_obj.ip))
+            result_file = self.create_test_folder(target_obj,test_conf)
+            for container_occurrence in range(1, 1 + int(target_obj.nb_container, 10)):
+                # Reset the number of variables tested for this container
+                tested_variable_nb = 0
+                result_file.write("\nContainer {}".format(container_occurrence))
+
+                # Get the logs (last container_logs_lines_nb lines) to check tests results
+                print('Check container {}'.format(str(container_occurrence)))
+                
+				cmd = target_obj.prepare_cmd_get_test_logs(
+                    container_occurrence,
+                    test_conf['container_logs_lines_nb'],
+                    tested_variables[container_occurrence - 1][0]['Test_var_value'])
+                
+				out, ret = run_cmd.run_cmd_logs(target_obj.logs_stderr, cmd)
+				
+                if ret != 0:
+                    self.error_message = "ERROR: get test logs command failed on container {} with code {}. Reason : {}".format(
+                        str(container_occurrence), ret, out)
+                    self.test_error_table.append(
+                        {'target_name': target_obj.name, 'error_mes': self.error_message})				
+
+
+                # Output formating
+                out = target_obj.adjust_log_data(out, encoding)
+
+                # Get test variables names and values from the log
+                variables_table_from_log = self.get_variables_names_and_values(target_obj, out)
+				
+##################################
+
+base.py
+
+	from abc import ABC, abstractmethod
+
+	class PlatformBase(ABC):
+
+	@abstractmethod
+    def adjust_log_data(self, log, encoding):
+        pass
+		
+		
+##################################
+
+linux.py	
+
+from tests.platform.base import PlatformBase
+
+class PlatformLinux(PlatformBase):
+
+	...
+
+	def adjust_log_data(self, log, encoding):
+        # nothing to do
+        return log
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+/softdpac_tests_results/CPU_Memory_Measurements/performance_tests_chart.xlsx
+
+
+
+
+Questions/Improvements:
+
+
+nb_loop = int(record_time/record_period)
+
+
+############### Syslog ###############
+
+
+import subprocess
+import re
+
+class CommandLineInterface:
+    def test_ssh_connection(self, ip_address, username, password):
+        ssh_command = f'ssh {username}@{ip_address} "echo successful"'
+        result = subprocess.run(ssh_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        if result.returncode == 0:
+            print("SSH connection successful")
+            print("Output:", result.stdout)
+            # Extracting specific output using regular expression
+            match = re.search(r'successful', result.stdout)
+            if match:
+                specific_output = match.group(0)
+                print("Specific output:", specific_output)
+        else:
+            print("SSH connection failed")
+            print("Error:", result.stderr)
+# Create an instance of the CommandLineInterface class
+cli = CommandLineInterface()
+# Call the test_ssh_connection method with the appropriate arguments
+cli.test_ssh_connection("192.168.32.134", "user", "user")

@@ -1,0 +1,894 @@
+ricorda a Paolo
+
+[‎24/‎05/‎2021 14:47]  Sozzi Paolo:  
+ah ok, mancano delle label nell'interfaccia del core_bus... 2 minuti e aggiusto
+fai il load cluster, scegli CORE_BUS_PMCX, deconfig, poi apri CORE_BUS_PMC1 e ridai il LOAD
+[‎24/‎05/‎2021 17:16]  Sozzi Paolo:  
+trovato:    -- Removed Mfd6_Failed_Nms, Pms_ECR_2020 -- Msn_Partial_Family - 76 cautions
+			-- Removed Mfd7_Failed_Nms, Pms_ECR_2020
+			-- Removed Mfd8_Failed_Nms, Pms_ECR_2020
+			-- Removed Mfd9_Failed_Nms, Pms_ECR_2020
+			-- Removed Mfd10_Failed_Nms,Pms_ECR_2020
+			-- Removed Mfd11_Failed_Nms,Pms_ECR_2020 
+quindi togli quegli step dal test e metti nell'excel che vanno tolti dal requisito
+ 
+[‎24/‎05/‎2021 17:18]  Sozzi Paolo:  
+vanno tolti anche       -- Removed Ccu3_Nogo_Nms, PMS_ECR_2020
+						-- Removed Ccu4_Nogo_Nms, PMS_ECR_2020
+						-- Removed Dku3_Nogo_Nms,
+						-- Removed Dku4_Nogo_Nms, 
+
+
+[‎26/‎05/‎2021 12:00]  Sozzi Paolo:  
+per questi 3 dati segnala al Luca che non ci sono in ICD anche DOORS
+DTU_NMS
+ADR_NOGO_NMS
+DDC_NOGO_NMS 
+ 
+dovrebbero essere nella ST_461, come prova setta MDTD_DEGRADED_NMS a TRUE che dovrebbe essere stato sostituito da ADR_NOGO_NMS
+
+stanag, label MTC1_NFH_MTCM_MS_FS_BIT_OS_
+ 
+
+
+http://172.23.78.13:7000/ DASHBOARD
+\\172.23.78.31\opsw4 psw opsw4
+\\172.23.78.70\opsw4 psw opsw4
+
+TEST NH90 SUL RIG VECCHIO
+
+%include Procedures/MDL_NEW.inc
+%include TS_SM_EGM_001.inc
+
+%include /disk1/testop/tests_var1/util/DTD.tst
+%include /disk1/testop/tests_var1/util/FORMAT_DID.tst
+%include /disk1/testop/tests_var1/util/MDL_NEW.tst
+%include /disk1/testop/tests_var1/case/TC_SM_EGM_001.tst
+%include /disk1/testop/tests_var1/TS_SM_CIS_004.inc
+
+-- ++
+-- INIT
+-- ++
+     log ""
+     log "INIT"
+     log ""
+
+     log ""
+     log "Call procedure TC_SM_EGM_001 with parameter(s):"
+     log "                                        VALUE : ","TRUE"
+     log "                                          SSM : ",""
+     log "                                          FSS : ",""
+     log "                                        PARA1 : ","EG_NORMAL"
+     log "                                        PARA2 : ",""
+     log "                                        PARA3 : ",""
+     log ""
+     TC_SM_EGM_001.INTERNAL_DATA_SEND_EG_NORMAL("TRUE")	
+	 
+	 
+	** INTERNAL_DATA_SEND,TS_SM_EGM_001,EG_NORMAL,TRUE,,,,  **
+
+Quando copi i test sulla SUN mettili in
+	/disk1/testop/tests_var1/sequence 
+e anche  in 
+	/disk1/testop/tests_new 
+
+FILE PIATTI NUOVI:
+	\\a149:amms\icdmng\ICD_DB\NH90_PMS_2020_10_08\NH90_SRC
+User e pwd = icdmng
+stanagparameter.dat, arincparameter.dat, serialparameter.dat, Jigparameter.dat(  connessioni dedicati): contengono CONNECT e CONNECTION 
+parameterdata.dat: contiene word di tutte le label
+
+Fili piatti vecchi
+/disk1/testop/WS_FILES/ICD_PMC_2009_01_22/filepiatti
+
+tail NOMEFILE -> per vedere ultime righe di un file
+
+tastiera italiana sulla SUN: config del Xbrowser
+
+RINOMINARE UN FILE
+	mv TS_SM_CIS_008.tst TS_SM_CIS_008_old.tst
+
+COMANDI
+	tc -verb TS_*_0**.tst
+	run TS_*_0** 2
+	dtpad TS_*_0**_2.log &
+	tail TS_*_0**_2.log &
+	ls -la TS_*_0**...
+	ls -lart (cronologia dei log che sta scrivendo)
+	
+DOPO IL RESTART
+	Launch VAR2 FAIL 1 TS_SM_CIS_001
+	Launch VAR1 ALL  1 TS_DM_ECS_044
+	
+	Cambia il numero 1/2 in cima a MDL_NEW.tst e ricompila altrimenti dà il problema:
+			13:01:19.66 Call Function MDL_NEW.FAILURE with parameter(s) : DIAG, 46, 414, 1
+			13:01:19.66
+			13:01:25.81 ____________________________________________
+			13:01:25.81 | RECEIVED
+			13:01:25.81 | PMCM_CMCC_ERASE_RPR_STATUS_CMCC.PMCM_FAIL_MFD_NB_SEL = 0.000[B^000]
+			13:01:25.83 | PMCM_CMCC_ERASE_RPR_STATUS_CMCC.PMCM_MI_CODE_SELECTED = 0.000[B^0000000]
+			13:01:25.83 ____________________________________________
+			13:01:25.83
+			13:01:37.43 VALID: WARNING EXCEPTION, Time-out Expired in Receiving. P1=2398640(X^2499B0); P2=0(X^0); P3=0(X^0) 249990: RECEIVE L011_00_FAIL_PG_NUMB
+			Module Procedure Line Instruction
+			MDL_NEW FAILURE 903 249990
+			TS_SM_CIS_001 TC_SM_CIS_001 452 13DDD8
+			TS_SM_CIS_001 TS_SM_CIS_001 91 136C38
+			13:01:37.45 VALID: Test Case TS_SM_CIS_001.TC_SM_CIS_001(1) End (*** Failed ***).
+			13:01:37.46 VALID: Test Sequence TS_SM_CIS_001.TS_SM_CIS_001(1) End (*** Failed ***).
+			13:01:37.47 VALID: Test Session End (*** Failed ***).
+	
+A ogni riavvio del TS:
+	
+	Se baia da 1 a 2 o viceversa:
+	cd /disk1/testop/tests_var1/util/;dtpad MDL_NEW.tst
+	
+	Se cambi ICD
+	cd;cd /disk1/testop/WS_FILES/NH90_JOB/NH90_CONNECTION/;tc PMC2_MFD_00.des PMC1_MFD_00.des;
+	
+	Riavvio di TS e Scatola
+	cd;cd /disk1/testop/tests_var1/util/;tc MDL_NEW.tst ERROR_CODE_RESET.tst SET_EG_NORMAL.tst;cd;cd /disk1/testop/tests_var1/case/;tc TC_SM_EGM_001.tst TC_SM_ELE_125.tst TC_SM_ELE_129.tst TC_SM_ENG_059.tst TC_SM_MIS_022.tst TC_SM_EFS_009.tst TC_SM_EFS_008.tst TC_SM_EFS_007.tst TC_SM_EFS_006.tst TC_SM_EFS_005.tst TC_SM_EFS_004.tst TC_SM_EFS_003.tst TC_SM_EFS_002.tst TC_SM_EFS_001.tst;cd;cd /disk1/testop/tests_var1/util/;tc ECS_RESET.tst TS_RESET_AVICS.tst;cd;cd /disk1/testop/tests_var1/sequence;Launch VAR1 ALL 2 TS_PF_FMP_001_TTH
+
+
+
+%include /disk1/testop/tests_var1/util/DTD.tst
+%include /disk1/testop/tests_var1/util/FORMAT_DID.tst
+%include /disk1/testop/tests_var1/util/MDL_NEW.tst
+%include /disk1/testop/tests_var1/case/TC_SM_EGM_001.tst
+%include /disk1/testop/tests_var1/TS_SM_CIS_004.inc
+
+CARTELLE tst - log
+	cd tests_var1/sequence/
+	cd tests_var1/NH90_VALID_DB/LOG_DB
+
+ONLINE TOOLS
+	MI_CODE_PARAM_IBIT_P2 	(ONLINE TOOLS DISPLAY): per visualizzare i Failure 
+	MFD1_2_PAGE 			(DATA ENTRY): 			per cambiare pagina 32 / 64 , 8 / 16
+	MI_CODE_SEL_FAIL 		(DATA ENTRY): 			per cercare il tipo di Failure
+	FS_BIT_OS_P2_ERROR_CODE (DATA ENTRY): 			per generare le Failure a mano
+
+mv nomeTS.tst nomeTS-old.tst
+
+PROCESSI APPESI
+Connettersi al server e lanciare il comando:
+	Vedere se stanno girando dei test sul RIG
+
+	ps -ef | grep run
+	ps -ef | grep RUN
+		testop  3874  3650  0 16:06:52 pts/13   0:00 grep run -> NON STANNO GIRANDO
+
+COPIARE UN FILE DA UNA CARTELLA, AD UN'ALTRA
+	cp -p path/nomeTS.tst path/nomeTS.tst
+
+	
+LANCIATORE DI TUTTO
+	/disk1/testop/tests_var2/LANCIO_var2
+LANCIA TUTTI I TEST SM CIS CHE CI SONO SCRITTI
+	/disk1/testop/tests_var2/LANCIO_SM_CIS
+    
+		Launch VAR2 FAIL $1 TS_SM_CIS_001
+		#run TS_SM_CIS_001 $1
+		run TS_SM_CIS_002 $1
+		run TS_SM_CIS_003 $1
+		run TS_SM_CIS_005 $1
+		run TS_SM_CIS_006 $1
+		run TS_SM_CIS_007 $1
+		run TS_SM_CIS_008 $1
+		run TS_SM_CIS_009 $1
+		run TS_SM_CIS_010 $1
+		run TS_SM_CIS_012 $1
+		run TS_SM_CIS_016 $1
+		run TS_SM_CIS_017 $1
+		
+			-> quando lo lancio, scrivo
+				LANCIO_SM_CIS 1
+				
+				/disk1/testop/tests_var1 $   Launch  VAR2  FAIL  1  LANCIO_SM_CIS
+				
+
+run TS_SM_CIS_010 $1
+run TS_SM_CIS_012 $1
+run TS_SM_CIS_016 $1
+run TS_SM_CIS_017 $1
+
+RENDO UN FILE DI TESTO ESEGUIBILE rwx (ls -la)
+	chmod 777 PIPPO
+	
+CANCELLARE UN FILE DA TERMINALE
+	rm <nome>
+	
+FILE PIATTI: CONNECT, CONNECTION
+	controlla le connessioni se sono giuste -> ICD_N
+	quando scrivo sulla SUN devo modificare a volte le connessioni e controllare FILE PIATTI VECCHI oppure ONLINE DISPLAY
+	ICDNNG -> ICD_DB -> NH90_PMS_2020_10_08 -> NH90_SRC
+ 
+	NUOVA)
+	connect: PMC1_PMS_AVICS_SUB_FAMILY_01_MFD
+	connection: PMC1_MFD_01
+
+	VECCHIA)
+
+	connect: P1_PMS_AVICS_SUB_FAMILY_01_MFD
+	connection: P1_MFD_01
+	
+	x es. 
+	arincparameter trovi le connessioni: connect e connection, cosi come le devi scrivere in Doors
+    jigparameter trovi le connessioni dei dedicati
+	
+	in arincparameter/jigparameter/stanagparameter verifichi com'è la connessione (i nomi nel ICD vecchia possono  essere diversi da quelli del ICD nuovo, cioè da quelli trovati nei moduli di Doors)
+	Poi  in parameterdata trovi tutte le word appartenenti ad una label, qua devi cercare la label col nome vecchio trovato prima
+	
+	
+TEST A MANO
+	Collegati PMC1|2 e la cassetta DID
+	
+	Carica sul Test System i cluster:
+		DTD_SAVE_PMC1|2
+			TRUE + 2 valori numeri diversi*
+		DTD_PMC1|2
+			PROGRESS -> FINISHED + i 2 numeri diversi*
+		FREE SPACE (spazio libero) dovrebbe diminuire
+		
+	Spegni DTD e tira fuori la cassetta DID
+		La inserisci nel lettore attaccato al PC tramite USB
+			Sul PC del RIG in alto a sinistra apri FSWSHELL
+				Scarica tutti i file in una chiavetta USB (COPY FROM <-)
+	Resetta la cassetta
+		run FORMAT_DID 1|2
+
+CARICARE IL SW SU PMC
+	Accendi PMCX
+	Abbassa le levette DEBUG e OPSW -> poi RESET
+	Sulla CONSOLE ci sono le istruzioni nel file PMC OPSW programming.txt
+		FNAME
+		Copia sull'HyperTerminal il nome del path di PMC OPSW programming.txt
+			main_pmc_DV2101.bin (RADSTONE)
+			main_pmc_DV2101_G4_chk.bin (RADSTONE)
+		FLASH
+		P
+		Controlla che sia la checksum giusta e poi fai Y
+	Quando esce FTP LOADER -> Alza le 2 levette -> RESET
+	Tastiera nera 5 3 1
+	
+	QUANDO è SPENTA PMC
+	
+		10:26:47.27  VALID: WARNING EXCEPTION, Time-out Expired in Receiving.
+		P1=1982400(X^1E3FC0); P2=0(X^0); P3=0(X^0)
+		1E3FA0: RECEIVE L011_00_FAIL_PG_NUMB
+
+		Scotto Alma 10:32
+
+		questo lo da quando non risponde PMC, x es.  c'è spenta PMC
+
+	SERENA
+	create object
+	new request
+	type: PR
+	Title: DV1/2
+	Edit detail description
+	Tools - Preferences - editors - request - browse - eseguibile word
+	attributi
+	Originator NAME: Luca Giustini
+	Originator PC : LHD
+	Used Test: nome del test
+	
+	
+	MI CODE PARAM P1
+
+
+SSM_00 corrisponde a NORMAL OPERATION per i DISCRETI
+SSM_11 corrisponde a NORMAL OPERATION per gli ANALOGICI (cioè numeri)
+
+Agosto.2021
+/disk1/testop/WS_FILES/ICD_PMC_2009_01_22/NH90_VALID_DB/LOG_DB
+/disk1/testop/tests_var1/sequence
+
+cd tests_var1/sequence
+cd ../
+
+nel mio file Word, mi ero presa questo appunto riguardo alla calibrazione:
+
+N.B.
+SM_HYD_006
+Prima Paolo diceva che Il valore di AN_CIRCUIT1_OIL_LEAK per TTH viene inviato da test system gia calibrato ("conversion already applied in ICD via GAIN"). Quindi per NFH doveva scalibrarlo coi valori di TTH e ricalibrarlo coi valori di NFH. Ma poi abbiamo visto che nel ICD "DEDICATED DATUM" nelle colonne TS_OFFSET e GAIN non c'è niente. Quindi consideriamo che il valore arrivi NON calibrato e lo calibriamo noi in entrambi i test TS_SM_HYD_006_TTH e TS_SM_HYD_006_NFH.
+	
+	
+	
+	
+	
+
+
+
+
+        open EAMU1_PMCX side EAMU1
+           connect EAMU1_CBIT_STATUS to EAMU1_EAMU1_CBIT_STATUS_XP
+        open EAMU1_PMCX side EAMU1
+           connect EAMU1_PBIT_STATUS to EAMU1_EAMU1_PBIT_STATUS_XP
+        open EAMU1_PMCX side EAMU1
+           connect EAMU1_IBIT_STATUS to EAMU1_EAMU1_IBIT_STATUS_XP
+    else
+
+        open EAMU1_PMCX side EAMU1
+           connect EAMU1_CBIT_STATUS to EAMU1_EAMU1_CBIT_STATUS_XP
+        open EAMU1_PMCX side EAMU1
+           connect EAMU1_PBIT_STATUS to EAMU1_EAMU1_PBIT_STATUS_XP
+        open EAMU1_PMCX side EAMU1
+           connect EAMU1_IBIT_STATUS to EAMU1_EAMU1_IBIT_STATUS_XP
+    endif
+	
+	
+	
+	    open EAMU2_PMCX side EAMU2
+           connect EAMU2_CBIT_STATUS to EAMU2_EAMU2_CBIT_STATUS_XP
+        open EAMU2_PMCX side EAMU2
+           connect EAMU2_PBIT_STATUS to EAMU2_EAMU2_PBIT_STATUS_XP
+        open EAMU2_PMCX side EAMU2
+           connect EAMU2_IBIT_STATUS to EAMU2_EAMU2_IBIT_STATUS_XP
+    else
+
+        open EAMU2_PMCX side EAMU2
+           connect EAMU2_CBIT_STATUS to EAMU2_EAMU2_CBIT_STATUS_XP
+        open EAMU2_PMCX side EAMU2
+           connect EAMU2_PBIT_STATUS to EAMU2_EAMU2_PBIT_STATUS_XP
+        open EAMU2_PMCX side EAMU2
+           connect EAMU2_IBIT_STATUS to EAMU2_EAMU2_IBIT_STATUS_XP
+    endif
+
+
+
+Dal PF_FMP_util.inc per VAR1 abbiamo:
+
+procedure VERIFY_FL_%{PARAM_TESTED} (text       IN_MODE size [8],
+                                     d_floating IN_QNH,
+                                     d_floating IN_ISA,
+                                     d_floating IN_GWT,
+                                     d_floating IN_WSPEED,
+                                     d_floating IN_WDIR,
+                                     u_byte     IN_104_PCT_SWITCH_POS,
+                                     d_floating OUT_EXPECTED_VALUE,
+                                     u_byte     IN_EAPS,
+                                     u_byte     IN_IRS,
+                                     u_byte     IN_IPS,
+                                     u_byte     IN_ECS,
+                                     u_byte     IN_IGV,
+                                     text       IN_ICING size [20],
+                                     longword auto)
+									
+Dalla matrice di Excel abbiamo:									
+
+Mode	PALT	ISA		GWT		WSPD	WDIR	H_F_A		EAPS	IRS	IPS	ECS	IGV	ICING	ER	HSC
+
+MCP		0		-44		8500	15		0		25.5872895	1		1	0	0	0	BEFORE	1	1
+TOP		100		-2		10400	0		0		118.3115023	1		1	0	0	0	BEFORE	1	1
+
+     log ""
+     log "Procedure parameters:Mode,PALT,ISA,GWT,WSPD,WDIR,Switch,FL,EAPS,IRS,IPS,ECS,IGV,ICING"
+     log ""
+     log "Call procedure VERIFY_FL_%{PARAM_TESTED}"
+     log ""
+
+     Case_Fail = VERIFY_FL_%{PARAM_TESTED}("TOP",3000,-39.0564,9000,0,0,0,0,0,0,0,0,0,"BEFORE",auto)
+
+
+Io ho scritto questo:
+
+%include  PMC_VAR_ID.inc
+%define PARAM_TESTED FLY_AWAY_HEIGHT_MFD
+global text PARAMETER size[32] = "FLY_AWAY_HEIGHT_MFD"
+%include /disk1/testop/tests_var1/sequence/PF_FMP_util.inc
+
+Case_Fail = VERIFY_FL_%{PARAM_TESTED}("TOP",100,-2,10400,0,0,1,118.3115023,1,1,0,0,0,"BEFORE",auto)
+
+
+
+ECS_ACSC_FAIL,,ACSC_FAIL_P2,,ACSC_FAIL_PMC2,,ECS
+ECS_DTCU_CMD,,DTCU_CMD_P2,,DTCU_CMD_PMC2,,ECS
+P2_PMC2_DISCRETE_SINGLE_05,P2_PMC2_DISCRETE_SINGLE_05_P1,P2_PMC2_DISCRETE_SINGLE_05_P1,PMC2_PMC1,PMC2_PMC1,PMC2,PMC1
+
+
+
+
+TEST VECCHI SULLA SUN
+
+	/disk1/testop/TEST_SOURCES/common/sequence/TS_DM_ELE_072.tst
+
+	/disk1/testop/TEST_SOURCES/common/case/TC_DM_ELE_072.tst
+
+PER VEDERE DOVE VIENE USATA UNA VARIABILE (NOME CMCC_CMCC_PMC_ERASE_RPR_CTRL) oppure [natural] without no specification about which kind of file you should use
+
+	grep CMCC_CMCC_PMC_ERASE_RPR_CTRL TS_*.tst
+	grep natural *
+	
+	Procedura che setta la mia interfaccia e accenderla o spegnerla: generare un link fail (Fisicamente stacca il filo o attacca il filo)
+	
+	
+	
+Come fare un INTERNAL ANALOG/DATA SEND IBRIDO
+
+	(Variable,Connect Avmc1,Connect Avmc2,Connection 1,Connection 2,Side1,Side2)
+	INTERNAL_ANALOG_SEND CONNECT START
+	EECU1_CNT2MN_A,EECU1_EECU1_CNT2MN_A_PMCX,EECU1_EECU1_CNT2MN_A_PMCX,EECU1_PMCX,EECU1_PMCX,EECU1,EECU1
+	EECU1_EXCW1_A,EECU1_EECU1_EXCW1_A_PMCX,EECU1_EECU1_EXCW1_A_PMCX,EECU1_PMCX,EECU1_PMCX,EECU1,EECU1
+	INTERNAL_ANALOG_SEND CONNECT END
+
+	(Command,Variable,Data,Value,SSM,FSS,Max,Min)
+	INTERNAL_ANALOG_SEND START
+	IF,FSS = "EECU1_V_OEI_2MN_CNT",,,,,,
+	SEND,EECU1_CNT2MN_A,EECU1_A_OEI_2MN_CNT,VALUE,SSM,,,
+	ELSEIF,FSS = "EECU1_V_OEI_2MN_MAINT_NEED",,,,,,
+	SEND,EECU1_EXCW1_A,EECU1_A_OEI_2MN_MAINT_NEED,#PARA1,SSM,,,
+	ENDIF,,,,,,
+	INTERNAL_ANALOG_SEND END
+
+		Segnale analogico:
+			INTERNAL_ANALOG_SEND,TS_UM_ENG_018,,30,SSM_11,EECU1_V_OEI_2MN_CNT,,
+		Segnale discreto:
+			INTERNAL_ANALOG_SEND,TS_UM_ENG_018,FALSE,0,SSM_00,EECU1_V_OEI_2MN_MAINT_NEED,,
+
+			DAVA ERRORE IL DISCRETO DEL IAS se veniva scritto così:
+				SEND,EECU1_EXCW1_A,EECU1_A_OEI_2MN_MAINT_NEED,#PARA1,SSM,,,
+						trovato: se guardi il UM_ENG_018.inc vedi che mette come valore "PARA1" al posto di PARA1, quindi se lo prende come stringa da mandare al posto che come variabile, soluzione: devi scrivere #PARA1 in doors
+						SEND,EECU1_EXCW1_A,EECU1_A_OEI_2MN_MAINT_NEED,#PARA1,SSM,,,
+
+
+
+
+CORE_BUS_PMC1.clus
+/WS_FILES/NH90_JOB/NH90_CONFIG/CLUSTER
+/WS_FILES/ICD_PMC_2009_01_14/NH90_CONFIG/CLUSTER/	14/01/2009
+/WS_FILES/ICD_PMC_2009_01_22/NH90_CONFIG/CLUSTER/	adesso
+
+FILE PIATTI
+/disk1/testop/WS_FILES/ICD_PMC_2009_01_22/filepiatti/arincparameter.dat
+
+MFD1_ON_P1 -->> PMC1_DI_RX_129 in CORE_BUS_PMC1
+MFD2_ON_P2 -->> PMC2_DI_RX_130 in CORE_BUS_PMC2
+MFD3_ON_P1 -->> PMC1_DI_RX_131 in CORE_BUS_PMC1
+MFD4_ON_P2 -->> PMC2_DI_RX_132 in CORE_BUS_PMC2
+MFD5_ON_P1 -->> PMC1_DI_RX_133 in CORE_BUS_PMC1
+APU_OIL_PRESS_P2
+dedicato PMC2_AN_RX_020
+RAGB_OIL_PRESS_PMC2 PMC2_AN_RX_019
+FLOT_STRAP_2_DSCN_PMC2 PMC2_DI_RX_043
+FLOT_STRAP_4_DSCN_PMC2 PMC2_DI_RX_045
+CAB_FAN_2_LOW_SPEED_P2 PMC2_DI_RX_072
+RH_FAN1_ACT_PMC2 PMC2_DI_RX_005
+RH_FAN2_ACT_PMC2 PMC2_DI_RX_004
+TACCO_PRESENT_PMC2 PMC2_DI_RX_070
+TACCO_FAN_LOW_SPEED_PMC2 PMC2_DI_RX_074
+
+
+PMC2_EX_TX_010:Default
+
+DCEMB1_IN_AR_LOST_BY_PMC1
+
+
+è giusto, dovresti trovare da cmcc_sys_conf un dato simile ma che inizi con CMCC, quindi CMCC_DEICING_PRES
+
+
+Dicembre.2021
+
+/disk1/testop/TEST_SOURCES/var1/sequence/TS_UT_SDM_003.tst
+/disk1/testop/TEST_SOURCES/var1/sequence/TS_UT_SDM_004.tst
+/disk1/testop/TEST_SOURCES/var1/case/TS_UT_SDM_004.tst
+
+/disk1/testop/WS_FILES/ICD_PMC_2009_01_22/NH90_VALID_DB/LOG_DB/TS_UT_SDM_004_2
+/disk1/testop/WS_FILES/ICD_PMC_2009_01_22/NH90_VALID_DB/LOG_DB/TS_UT_SDM_004_1
+/disk1/testop/WS_FILES/ICD_PMC_2009_01_22/NH90_VALID_DB/LOG_DB/TS_UT_SDM_003_1
+
+
+COME INVIARE UNA LABEL INTERA
+o con la send_raw e mandi il max valore possibile (254287 mi pare) oppure usi i comandi SEND_FIRST, SEND_INTERNAL e SEND_LAST per settare tutti i dati della label e inviarli solo 1 volta
+se ti serve la contemporaneità
+aspetta che ti mando un esempio
+questo viene dal 169
+SEND_FIRST,CFG_SOFTWARE_PART_NUMBER_DASH,CFG_NUMBER_PN_DASH,2,,,,
+SEND_INTERNAL,CFG_SOFTWARE_PART_NUMBER_DASH,CFG_SW_PART_NUMBER_DASH,555,,,,
+SEND_LAST,CFG_SOFTWARE_PART_NUMBER_DASH,SSM,SSM_11,,,,
+
+
+CONFIGURAZIONE RIG NUOVO
+
+AGGIUNTA DELLE INTERFACCE E LINEE STANAG, ARINC, DEDICATI
+rm -r NH90_JOB; ln -s NH_90211117 NH90_JOB
+
+Su testop
+	ICD DATABASE
+		PARAMETER DATABASE
+		
+	-
+		AR STANAG ecc,,
+			INT
+				STANAG
+				
+
+				ARINC_429
+				Transmission:	Minor loop 20 - Frame x32 - Speed (si vede nell ICD connector) --> ADD ALL
+				Reception:		clicchi sullo 0 e ti fa vedere quelli disponibili, ADD_ALL
+				
+				JIG
+				Non devi fare nulla, devi solo fare Create e OK
+					
+					CHIAMA TUTTO CONF
+					
+					
+
+COPIA IL CONTENUTO DI UNA CARTELLA IN UN'ALTRA CARTELLA
+	cp /disk1/testop/WS_FILES/ICD_PMC_2009_01_22/NH90_VALID_DB/LOG_DB/TS*log backuplog251121/.
+CREA UNA CARTELLA
+	mkdir backuplog251121
+
+
+File Zilla & SUN:
+	NH90 NUOVO: nh90_pms	->	172.23.79.122
+	NH90 VECCHIO: pms_ws	->	172.23.78.46
+
+
+--------------------------------------------------------------------------------------------------------------------------------
+Inserisci ICD sul RIG
+
+	1) Crea la cartella EXTRA_DATA_NH90 nel percorso dove estrai i file piatti (Ad esempio -> C:\temp_icd_NH90_VAR1 dove è presente la cartella con il nome NH90_PMS_ di default), dove all'interno devono essere presenti dei file piatti extra da inserire manualmente (vanno chiesti a Paolo se non si hanno).
+
+	2) Estrai dal modulo di DOORS -> ICD -> TEST SYSTEM utilizzando la DXL dei file piatti.
+	
+	3) Utilizzando Beyond Compare, mettiamo a confronto gli ultimi file tradotti da DOORS con i file gli ultimi file piatti che stavamo utilizzando sulla SUN, prima della nuova estrazione (che si trovano in /export/home/icdmng/ICD_SOURCES/...). Ad esempio se oggi è il giorno 09/06/2022 e l'ultima versione dei file piatti aggiornata sulla SUN risale al 19/05/2022. Mettiamo a confronto i file piatti tradotti oggi (9 Giugno) con i file del 19 Maggio.
+	Ripristinando tutte le parti della versione precedente (19 Maggio) sulla versione aggiornata, a eccezione delle ultime modifiche apportate sull'ICD di DOORS.
+	Quest'azione è dovuta al fatto che ci sono alcuni dati inseriti a mano e che non vengono tradotti correttamente da DOORS. Queste parti devono essere necessariamente ricopiate ogni volta che si estrae una nuova versione dell'ICD da DOORS.
+	
+	Nel seguente esempio sono stati messi a confronto i file seguenti: parameterdata.dat, equipment.dat, connection.dat
+	dove alcune connessioni non sono state estratte da DOORS e vengono aggiunte manualmente utilizzando i file estratti in precedenza.
+-----------------------------------------------------------------------------------	
+parameterdata.dat
+
+(vanno copiati dal vecchio al nuovo) : 2022_06_09 <- 2022_05_19
+
+AC1_AC1_CONTROL_PMCX,AC1_ECO1_OFF,U_BITFIELD,1,1,14,,,COUPLES,,,,,
+AC1_AC1_CONTROL_PMCX,AC1_ECO1_OFF,0,FALSE,N,
+AC1_AC1_CONTROL_PMCX,AC1_ECO1_OFF,1,TRUE,N,
+AC1_AC1_CONTROL_PMCX,AC1_NO_DEIC1_FAIL,U_BITFIELD,1,1,17,,,COUPLES,,,,,
+AC1_AC1_CONTROL_PMCX,AC1_NO_DEIC1_FAIL,0,FALSE,N,
+AC1_AC1_CONTROL_PMCX,AC1_NO_DEIC1_FAIL,1,TRUE,N,
+
+DC1_DC1_CONTROL_PMCX,DC1_ECO1_CTRL_OFF,U_BITFIELD,1,1,17,,,COUPLES,,,,,
+DC1_DC1_CONTROL_PMCX,DC1_ECO1_CTRL_OFF,0,FALSE,N,
+DC1_DC1_CONTROL_PMCX,DC1_ECO1_CTRL_OFF,1,TRUE,N,
+DC1_DC1_CONTROL_PMCX,DC1_BAT1_ECO1_CTRL_OFF,U_BITFIELD,1,1,18,,,COUPLES,,,,,
+DC1_DC1_CONTROL_PMCX,DC1_BAT1_ECO1_CTRL_OFF,0,FALSE,N,
+DC1_DC1_CONTROL_PMCX,DC1_BAT1_ECO1_CTRL_OFF,1,TRUE,N,
+
+PMC1_DISCRETE_AC1_01_MFD,AC1_NO_DEIC1_FAIL,U_BITFIELD,1,1,17,,,COUPLES,,,,,
+PMC1_DISCRETE_AC1_01_MFD,AC1_NO_DEIC1_FAIL,0,FALSE,N,
+PMC1_DISCRETE_AC1_01_MFD,AC1_NO_DEIC1_FAIL,1,TRUE,N,
+PMC2_DISCRETE_AC1_01_MFD,AC1_NO_DEIC1_FAIL,U_BITFIELD,1,1,17,,,COUPLES,,,,,
+PMC2_DISCRETE_AC1_01_MFD,AC1_NO_DEIC1_FAIL,0,FALSE,N,
+PMC2_DISCRETE_AC1_01_MFD,AC1_NO_DEIC1_FAIL,1,TRUE,N,
+PMC1_DISCRETE_DC1_01_MFD,DC1_BAT1_ECO_CTRL_OFF,U_BITFIELD,1,1,12,,,COUPLES,,,,,
+PMC1_DISCRETE_DC1_01_MFD,DC1_BAT1_ECO_CTRL_OFF,0,FALSE,N,
+PMC1_DISCRETE_DC1_01_MFD,DC1_BAT1_ECO_CTRL_OFF,1,TRUE,N,
+PMC2_DISCRETE_DC1_01_MFD,DC1_BAT1_ECO_CTRL_OFF,U_BITFIELD,1,1,12,,,COUPLES,,,,,
+PMC2_DISCRETE_DC1_01_MFD,DC1_BAT1_ECO_CTRL_OFF,0,FALSE,N,
+PMC2_DISCRETE_DC1_01_MFD,DC1_BAT1_ECO_CTRL_OFF,1,TRUE,N,
+PMC1_DISCRETE_DC1_01_MFD,DC1_ECO1_CTRL_OFF,U_BITFIELD,1,1,13,,,COUPLES,,,,,
+PMC1_DISCRETE_DC1_01_MFD,DC1_ECO1_CTRL_OFF,0,FALSE,N,
+PMC1_DISCRETE_DC1_01_MFD,DC1_ECO1_CTRL_OFF,1,TRUE,N,
+PMC2_DISCRETE_DC1_01_MFD,DC1_ECO1_CTRL_OFF,U_BITFIELD,1,1,13,,,COUPLES,,,,,
+PMC2_DISCRETE_DC1_01_MFD,DC1_ECO1_CTRL_OFF,0,FALSE,N,
+PMC2_DISCRETE_DC1_01_MFD,DC1_ECO1_CTRL_OFF,1,TRUE,N,
+PMC1_PMS_ENG1_DISCRETE_1_MFD,EECU1_A_ACTIV_CHANNEL,U_BITFIELD,1,1,16,,,COUPLES,,,,,
+PMC1_PMS_ENG1_DISCRETE_1_MFD,EECU1_A_ACTIV_CHANNEL,0,FALSE,N,
+PMC1_PMS_ENG1_DISCRETE_1_MFD,EECU1_A_ACTIV_CHANNEL,1,TRUE,N,
+PMC2_PMS_ENG1_DISCRETE_1_MFD,EECU1_A_ACTIV_CHANNEL,U_BITFIELD,1,1,16,,,COUPLES,,,,,
+PMC2_PMS_ENG1_DISCRETE_1_MFD,EECU1_A_ACTIV_CHANNEL,0,FALSE,N,
+PMC2_PMS_ENG1_DISCRETE_1_MFD,EECU1_A_ACTIV_CHANNEL,1,TRUE,N,
+
+-----------------------------------------------------------------------------------
+equipment.dat
+
+,EIA 485,PMC1_RS_RX_004,,,
+PMC1,EIA 485,PMC1_RS_RX_004,,,
+,EIA 485,PMC2_RS_RX_004,,,
+PMC2,EIA 485,PMC2_RS_RX_004,,,
+
+(vanno eliminati nel nuovo)
+-----------------------------------------------------------------------------------
+connection.dat
+
+PMC2_PMC1,ARINC 429,PMC2,PMC1,PMC1_AR_RX_001,N/A,N/A,
+PMC1_PMC2,ARINC 429,PMC1,PMC2,N/A,PMC1_AR_TX_001,PMC1_AR_TX_001,
+PMC1_PMC2,EIA 485,PMC1,PMC2,PMC1_RS_TX_001,N/A,N/A,
+_PMC1,EIA 485,,PMC1,PMC1_RS_RX_004,N/A,N/A,
+PMC1_PMC2,ARINC 429,PMC1,PMC2,PMC2_AR_RX_001,N/A,N/A,
+PMC2_PMC1,ARINC 429,PMC2,PMC1,N/A,PMC2_AR_TX_001,PMC2_AR_TX_001,
+_PMC2,EIA 485,,PMC2,PMC2_RS_RX_004,N/A,N/A,
+
+(vanno sovrascritti utilizzando le seguenti 2 connessioni) 2022_06_09 <- 2022_05_19
+
+PMC2_PMC1,ARINC 429,PMC2,PMC1,PMC1_AR_RX_001,PMC2_AR_TX_001,PMC2_AR_TX_001,
+PMC1_PMC2,ARINC 429,PMC1,PMC2,PMC2_AR_RX_001,PMC1_AR_TX_001,PMC1_AR_TX_001,
+-----------------------------------------------------------------------------------
+	
+
+	4) Entra in icdmng tramite FILEZILLA e inserisci i file estratti da DOORS e corretti con Beyond Compare nel percorso:
+			/export/home/icdmng/ICD_SOURCES/NH90_PMS_2022_06_09   (se oggi è il 9 Giugno 2022)
+                compilali entrando nella SUN icdmng:
+                               Test System
+                               ICD Database Managment
+                                               (discard ->) new -> ICD NAME: NH90_PMS_***
+                                                                   Extra Processing: EH101_Queie
+                                                                                                                              
+	5) Copia il compilato da icdmng a testop utilizzando il terminale sulla SUN:
+	
+					icdmng@: cp -r ICD_DB/NH90_PMS_2022_06_09/NH90_JOB ../testop/WS_FILES/NH90_ 
+								(schiaccia TAB per capire se sei nella cartella giusta)
+								   NH90_211117/          NH90_NGEN_X18_80ms/   NH90_NQAF_210412.tar
+								   NH90_JOB/             NH90_NQAF_210412/     NH90_220519/
+								   .....
+								   (uscirà una lista... Continua scrivendo quanto segue secondo l'esempio)
+								   
+					icdmng@: cp -r ICD_DB/NH90_PMS_2022_06_09/NH90_JOB ../testop/WS_FILES/NH90_220609
+
+
+	6) Inserisci CLUSTER, DATA_ENTRY, QUICK_LOOK rigenerandole oppure ricopiandole dalle vecchie:
+		Ad esempio, copiandole da /export/home/testop/WS_FILES/NH90_220519 e incollandole in /export/home/testop/WS_FILES/NH90_220609
+		
+		testop@: cp -r WS_FILES/NH90_220519/NH90_CONFIG/CLUSTER ../testop/WS_FILES/NH90_220609/NH90_CONFIG/
+		testop@: cp -r WS_FILES/NH90_220519/NH90_CONFIG/DATA_ENTRY ../testop/WS_FILES/NH90_220609/NH90_CONFIG/
+		testop@: cp -r WS_FILES/NH90_220519/NH90_CONFIG/QUICK_LOOK ../testop/WS_FILES/NH90_220609/NH90_CONFIG/
+		testop@: cp -r WS_FILES/NH90_220519/NH90_CONFIG/INTERFACE ../testop/WS_FILES/NH90_220609/NH90_CONFIG/
+
+
+	7) Procedura per linkare l’ICD sul RIG:
+		Vai sulla SUN percorso /export/home/testop
+
+		testop@: pwd
+		/export/home/testop
+		testop@: cd WS_FILES/
+		testop@: ls -la (controlli che ci sia la cartella NH90_JOB)
+		testop@: rm NH90_JOB   (rimuove la cartella NH90_JOB che è linkata all'ICD precedente del 19/05/22)
+		testop@: ln -s NH90_220609 NH90_JOB		(linka il nuovo ICD del 9 Giugno alla cartella NH90_JOB)
+		
+-----------------------------------------------------------------------------------------------------------------------
+NB. Per vedere cosa fa il TEST SYSTEM durante le nostre operazioni
+
+         testop@nh90_pms: ls -lrt
+                        total 2
+                        -rw-rw-r--   1 tskernel TestSystem     767 Dec 14 14:01 nh90_pms_TSK.log
+                        -rw-rw-r--   1 tskernel TestSystem       0 Dec 14 14:01 nh90_pms_REC.log
+                        -rw-rw-r--   1 tskernel TestSystem       0 Dec 14 14:01 nh90_pms_VLD.log
+                        -rw-rw-r--   1 tskernel TestSystem       0 Dec 14 14:01 nh90_pms_OFL.log
+         testop@nh90_pms: tail -f nh90_pms_TSK.log
+-----------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------
+
+
+
+	
+	
+•	Abbiamo creato un comando che compila serve a settare il TS con il Launch.
+IL_PRINCIPIO   $PMC   ${TEST}
+esempio -> IL_PRINCIPIO  1  TS_SM_CIS_001
+
+Si trova in 
+/disk1/testop/bin
+
+
+
+	UTENZE RIG
+		User: .\rig
+		Password: Maggio2021@
+
+	
+Sozzi Paolo 14:07
+
+da
+NVM_CHECK,buffer.Analog_Buffer.analog_event[41].analog_type[0].the_value,105,,,,,
+a
+NVM_CHECK_FLOAT,buffer.Analog_Buffer.analog_event[41].analog_type[0].the_value,105,256,,,,
+
+
+LOG,Look at AC1_TRC1_CL as buffer.Analog_Buffer.analog_event[143].analog_type[0].the_value,,,,,,
+NVM_CHECK_FLOAT,buffer.Analog_Buffer.analog_event[41].analog_type[0].the_value,105,256,,,,
+
+
+
+e
+NVM_CHECK_INT,buffer.Discrete_Buffer.discrete_event[41].discrete_type[0].counter,10,10,,,,
+
+LOG,Look at AC1_TRC1_CL as buffer.Discrete_Buffer.discrete_event[143].discrete_type[0].the_value,,,,,,
+NVM_CHECK_INT,buffer.Discrete_Buffer.discrete_event[143].discrete_type[0].the_value,1,0,,,,
+
+
+
+
+You 14:21 Edited
+
+Ok. Me lo salvo. Ascolta, perché nella seconda c'è : -> the_value,105,256,, ????
+Reply to thread
+
+Scotto Alma 14:41
+
+il secondo numero  (256 o 10) è la tolleranza ?
+
+Sozzi Paolo 15:21
+
+si è la tolleranza
+
+
+
+
+
+
+sono quelle cose che ci ha spiegato Paolo settimana scorsa:
+
+per la lettura della NVM direi che possiamo seguire questo standard:
+all'inizio mettere l'include del FORMAT_DID,
+prima di registrare quello che ci serve fare un download per avere la NVM pulita,
+stimolare i dati, donwload del nostro file, lettura con la NVM_CHECK_INT o _FLOAT (a seconda della necessità),
+FORMAT_DID per lasciare la cassetta libera per il test successivo.
+
+potete prendere le seq TS_SM_ELE_xxx come esempio, per la NVM_CHECK_xxx i parametri sono questi:
+NVM_CHECK_xxx,struttura del valore da leggere, valore atteso, tolleranza,,,,
+ad es
+NVM_CHECK_FLOAT,buffer.Analog_Buffer.analog_event[10].analog_type[0].the_value,121,256,,,,
+
+per la struttura del valore da leggere basatevi su Procedures/DTD.inc (ex DTD.tst),
+per la posizione dei vari dati (analog_event[10]) dovete invece fare riferimento all'excel della GLIMS in dtmt_src
+
+devi cercare i dati nel file Excel NVM_GLIMS:
+
+						Scusate dove sta questo file? NVM_GLIMS
+						File Excel
+						Scotto Alma 15:55
+
+						su opsw4
+						Y:\src_dtmt\software\doc    ->   NVM_GLIMS_current.xlsx
+						
+NVM				
+
+I modo
+
+INCLUDE,Procedures/FORMAT_DID,,,,,,
+INIT,,,,,,,
+
+NVM_DOWNLOAD,,,,,,,
+--,,,,,,,
+
+NVM_DOWNLOAD,,,,,,,
+LOG,Look at ENG1_OIL_TEMP_LOW as buffer.Discrete_Buffer.discrete_event[520].discrete_type[0].the_value,,,,,,
+NVM_CHECK_INT,buffer.Discrete_Buffer.discrete_event[520].discrete_type[0].the_value,1,0,,,,
+SAFE,,,,,,,
+
+PROCEDURE,FORMAT_DID,,,,,,
+TC END
+
+
+II modo
+
+INCLUDE,Procedures/FORMAT_DID,,,,,,
+INIT,,,,,,,
+NVM_DOWNLOAD,,,,,,,
+--,,,,,,,
+
+
+--,,,,,,,
+NVM_DOWNLOAD,,,,,,,
+LOG,Look at ENG2_OIL_FILTER_CLOG as buffer.Discrete_Buffer.discrete_event[543].discrete_type[0].the_value,,,,,,
+NVM_CHECK_INT,buffer.Discrete_Buffer.discrete_event[543].discrete_type[0].the_value,1,0,,,,
+PROCEDURE,FORMAT_DID,,,,,,
+TC END
+
+
+
+
+
+
+
+
+Scotto Alma 14:27
+
+Paolo, ho un problema: quando l'anno scorso abbiamo interrotto l'EFA della Spagna io avevo fatto il backup dei file .log, non dei .res
+per cui per quei test che erano passati allora ho solo il .log
+adesso lo script che crea l'STR ha bisogno dei .res e quindi non mi mette nel report quei test
+Scotto Alma 14:29
+
+se non c'è altro modo devo guardare nel backup quali sono e rilanciarli
+Sozzi Paolo 14:42
+
+di quanti test stiamo parlando? il .res è semplicemente il risultato finale + data e ora, puoi anche usare il Launch con parametro LIST al posto di NR
+ti stampa il file nella cartella list_dir Launch_datadioggi.txt
+
+
+Sozzi Paolo 15:10
+
+Alma, non ho capito il problema: facendo Launch VAR2 LIST 1 ALL ha creato un file in list_dir con il risultato di tutti i test, da lì sai se sono a PASS, FAIL o INTERRUPTED
+Scotto Alma 15:13
+
+ma a me non servono i risultati, tanto li devo mettere tutti pass
+Reply to thread
+Sozzi Paolo 15:12
+
+devi farlo per PMC1 e PMC2, poi fai un ls -ltrap *.log > file_dei_risultati.txt e ottieni le date di esecuzione
+Sozzi Paolo 15:14
+
+allora fai direttamente il punto 2
+
+
+
+
+
+
+Sozzi Paolo 13:55
+
+devi prendere anche la riga precedente dell'internal_data:
+VALID,UNIT = SUBSTRING (VALUE from 1 to 1),,,,,,
+SEND,FMC_SYS1_MASS_PMCX,FMC_SYSTEM_I_MASS_1,#UNIT,SSM,,,
+il valore totale del fue è diviso nelle singole cifre e quindi per mandare 1000 servono 4 send di migliaia, centinaia, decine e unità, per abbreviare questa cosa, l'internal è stato pensato da usare così:
+INTERNAL_DATA_SEND,TS_SM_FUE_002,SYSTEM_MASS,1000,SSM_11,,,
+
+Sozzi Paolo 13:56
+
+poi lui prende la stringa "1000" e la divide nei 4 pezzi e fa la send di ognuno nel posto giusto
+
+Sozzi Paolo 13:58
+
+# è il simbolo che indica alla dxl di trasformare il testo in cifra (cioè toglie le " in traduzione)
+
+
+LAUNCH RIG NUOVO
+cd; cd test; tc -verb OPEN_ALL.tst XMS_RESET.tst ERROR_CODE_RESET.tst FUE_RESET.tst HYD_RESET.tst ECS_RESET.tst TC_SM_ELE_125.tst TC_SM_ELE_129.tst TC_SM_MIS_022.tst TC_SM_ENG_055.tst TC_SM_ENG_059.tst TC_SM_EFS_001.tst TC_SM_EGM_001.tst TC_SM_EFS_009.tst TC_SM_EFS_002.tst TC_SM_EFS_003.tst TC_SM_EFS_004.tst ENG_RESET.tst ELE_RESET.tst SET_MFD.tst SET_PRESENCE.tst RT_UPDATED_OFF.tst; LAUNCH_PMS $2
+
+
+tc -verb TS_SM_NAS_013.tst TS_SM_NAS_014.tst TS_SM_NAS_015.tst TS_SM_NAS_016.tst TS_SM_NAS_017.tst TS_SM_NAS_018.tst TS_SM_NAS_019.tst TS_SM_NAS_020.tst TS_SM_NAS_021.tst TS_SM_NAS_022.tst TS_SM_NAS_023.tst TS_SM_NAS_024.tst TS_SM_NAS_033.tst TS_SM_NAS_034.tst TS_SM_NAS_035.tst TS_SM_NAS_036.tst TS_SM_NAS_037.tst TS_SM_NAS_038.tst TS_SM_NAS_063.tst TS_SM_NAS_067.tst TS_SM_NAS_095.tst TS_SM_NAS_103.tst TS_SM_NAS_109.tst TS_SM_NAS_127.tst
+
+
+
+
+
+
+sudo ping -i 0,001 -W 0,001 -q -c 1000 192.168.1.216
+
+
+
+CAMBIO LINGUA UBUNTU
+
+sudo apt-get install language-pack-it language-pack-it-base language-pack-gnome-it language-pack-gnome-it-base
+
+sudo apt-get install libreoffice-l10n-it libreoffice-help-it firefox-locale-it chromium-browser-l10n
+
+
+sudo dpkg-reconfigure locales
+
+ping -i 0.5 -W 0.1 -q -c 10 192.168.1.216
+
+sudo ping -i 0,001 -W 2 -q -c 1000 192.168.1.216
+
+
+
+[3:47 PM] DRIVAS Raphael
+146CM-0GJ4M-08HJE-0EC8K-80R20 
+
+
+
+
+Using the command   sudo ping  -i  0,05  192.168.1.216
+where  -i  allow you to choose the seconds for the ping,  0,05 are 0.05 s = 50 ms, and 192.168.1.216  is the IP Address of the CRD.
+
+
+
+
+
+Enabled on following machines:
+- WTFRLVSE098342V
+- WTFRLVSE146646V
+- WTFRLVSE182094V
+- WTFRHVSE218365V
+- WTFRLVSE079553V
+
+ 
+
+previous:
+Runtime06_cicd
+TeamR2_cicd
+SdPACR2_cicd
+
+R2SdPAC_cicd

@@ -1,0 +1,1185 @@
+I am looking for a good job to show my skills and improve them.
+It is important for me to work remotely and I saw that you have this opportunity, I am very enthusiastic about it.
+Tell me what do you think about my profile, if it's interesting or not.
+
+Have a nice day
+Luca
+
+
+
+1. TODO app
+creati un bel docker-compose.yml pe fa parti un backend e servire una pagina HTML come frontend.
+crea un progetto per fare il CRUD dei task (create, read, update, delete)
+integra un database per avere persistenza dei dati
+BONUS1: fa na paginetta HTML con una ventina di righe di JS giusto per mandare richieste al backend.
+BONUS2: se proprio te la senti calla puoi aggiunge un socket che riceve gli eventi dal backend e modifica i dati dal lato frontend.
+
+
+2. Chat Realtime
+puoi esplora cose tipo Flask o Django e integra l'autenticazione con google, una volta registrato puoi sceglie un contatto a cui scrivere e vi dovete invia messaggi come se fosse na chat normale.
+sempre CRUD dei messaggi, sempre eventi tramite websocket, aggiungi qualche test lato backend
+
+
+3. Web Scraper
+usa qualche libreria tipo BeautifulSoup pe raccoglie dati da un sito a tua scelta (tipo quelli di https://toscrape.com/). usa multi thread e codice asincrono pe velocizza il tutto, raccogli i dati, puliscili co pandas o Numpy e costruisci qualche grafico co matplotlib
+
+[19:34, 16/5/2023] Luca Giustini: Bene
+[19:34, 16/5/2023] Gabriele: se riesci a fa ste cose praticamente sei in grado di utilizza python da middle senza problemi.
+
+
+[19:38, 16/5/2023] Gabriele: e vedi github actions cosi quando pushi codice su master partono i test in automatico e se vanno bene viene fatto il deploy su qualche sito
+[19:39, 16/5/2023] Gabriele: usa AWS se vuoi fa un figurone
+[19:40, 16/5/2023] Gabriele: se te presenti co laurea magistrale, conoscenza di multithread, async, data analisi, dimestichezza con test automatici e pipeline, aws, REST API io penso che te comenzano a chiama tutti i giorni
+[19:41, 16/5/2023] Gabriele: e questi ci metti na settimana l'uno se ti impegni
+[19:41, 16/5/2023] Gabriele: cambi su linkedin e metti che fai lo sviluppatore da 3 anni
+[19:41, 16/5/2023] Gabriele: anzi software engineer
+[19:42, 16/5/2023] Gabriele: anzi software and data engineer
+[19:42, 16/5/2023] Gabriele: cazzo tene
+[19:42, 16/5/2023] Gabriele: poi metti un link a un sito a caso e se proprio non riesci col frontend te do na mano io
+
+
+
+COMANDI Windows
+
+robocopy source_directory destination_directory /E /ZB /R:5 /W:5 /MT:8 /XO
+
+This command will copy the directory and its contents with more speed and priority while avoiding overwriting the same files.
+
+"Robust File Copy". Here's how you can use it:
+
+In this command:
+"/E" copies subdirectories, including empty ones.
+"/ZB" uses restartable mode, allowing the copy operation to be resumed in case of interruptions.
+"/R:5" specifies the number of retries on failed copies (default is 1 million).
+"/W:5" specifies the wait time between retries (in seconds).
+"/MT:8" uses multi-threading with 8 threads to speed up the copying process.
+"/XO", Robocopy will only copy newer files, and it will skip copying files that already exist in the destination and are the same or older.
+
+
+
+COMANDI
+
+	docker compose up -d
+	docker compose down --volumes
+	docker compose run web env
+	
+	
+APP TODO python + django
+	
+	
+	sudo apt install python3-django
+	django-admin --version	
+	sudo apt install python3-virtualenv
+	
+	# crea ambiente virtuale di nome NOME_AMBIENTE
+	virtualenv --python python3 NOME_AMBIENTE   **** virtualenv --python python3 env_luca
+	source NOME_AMBIENTE/bin/activate			**** source env_luca/bin/activate  (activate)
+		
+		# install libraries
+		pip freeze > requirements.txt 
+			paramiko
+			Django
+		pip install -r requirements.txt
+		#or
+		pip3 install django
+		
+		django-admin startproject NOME_PROGETTO 			**** django-admin startproject myDjango
+		python NOME_PROGETTO/manage.py migrate       		**** python myDjango/manage.py migrate
+		python NOME_PROGETTO/manage.py createsuperuser		**** python myDjango/manage.py createsuperuser
+		nano NOME_PROGETTO/settings.py						**** nano myDjango/settings.py
+			# add
+			. . .
+			ALLOWED_HOSTS = ['your_server_ip_or_domain', '127.0.0.1', . . .]
+
+				
+		python NOME_PROGETTO/manage.py runserver 127.0.0.1:8000
+		# or
+		python NOME_PROGETTO/manage.py runserver
+		
+		# la migrazione applica ogni cambiamento che hai effettuato sul modello di Django al database del server
+		python manage.py migrate
+		
+		# modifica
+		PROJECT/settings.py
+			INSTALLED_APPS = [
+				...
+				"todoapp.apps.TodoappConfig",
+			]
+		
+		PROJECT/urls.py
+			from django.urls import path, include
+
+				urlpatterns = [
+					...
+					path('todoapp/', include('todoapp.urls')),
+				]
+			%%
+		APP/apps.py
+			from django.apps import AppConfig
+
+				class TodoappConfig(AppConfig):
+					default_auto_field = 'django.db.models.BigAutoField'
+					name = 'todoapp'
+		
+		APP/models.py
+			from django.db import models
+
+			# Create your models here.
+
+			class Todo(models.Model):
+				title = models.CharField(max_length=200)
+				done = models.BooleanField(default=False)
+		
+		# esegui
+		python manage.py makemigrations todoapp
+		python manage.py sqlmigrate todoapp 0001
+		python manage.py check
+		python manage.py migrations
+		python manage.py shell
+			>>> from todoapp.models import Todo
+			>>> Todo.objects.all()
+			>>> todo = Todo()
+			>>> todo.title = "todo di prova"
+			>>> todo.done = False
+			>>> todo.save()
+			>>> Todo.objects.all()
+			<QuerySet [<Todo: Todo object (1)>]>
+			
+			# PROVA
+				>>> for t in Todo.objects.all():
+				...     print(t.title)
+				...     (> Enter)
+				todo di prova
+			
+			# MODIFICA
+			APP/models.py
+				...
+				done = models.BooleanField(default=False)
+				
+				def __str__(self):
+					return f"{self.title} ({self.done})"
+			
+			
+			# ESEGUI
+			>>> from todoapp.models import Todo
+			>>> Todo.objects.all()
+			<QuerySet [<Todo: todo di prova (False)>]>
+			
+			
+			# MODIFICA
+			APP/models.py
+				...
+				done = models.BooleanField(default=False)
+				
+				def is_done(self):
+					return self.done
+			
+			APP/admin.py
+			...
+			from .models import Todo
+
+			admin.site.register(Todo)
+			
+			# RICARICA IL SITO MANUALMENTE
+			# DOVRESTI VEDERE L'APP
+			# GIOCA CON L'APP
+			
+			
+			APP/views.py
+			...
+			from .models import Todo
+
+			# Create your views here.
+
+			def index(request):
+				todoapp = Todo.objects.all()
+				# give a list of what_do for each element of the list
+				todo_titles = ", " .join([x.title for x in todoapp])
+				return HttpResponse("Le cose da fare sono: " + todo_titles + ".")
+				
+			# CREA UN TEMPLATE IN 
+			
+			APP/templates/todos/index.html
+					
+				{% if todos %}
+					{% for todo in todos %}
+						<h3>{{todo.title}}</h3>
+					{% endfor %}
+				{% else %}
+				No todo
+				{% endif %}
+			
+			
+			# MODIFICA APP/views.py
+			
+			from django.shortcuts import render
+			from django.http import HttpResponse
+			from .models import Todo
+
+			# Create your views here.
+
+			def index(request):
+				todoapp = Todo.objects.all()
+				# give a list of what_do for each element of the list
+				todo_titles = ", " .join([x.title for x in todoapp])
+				context = {
+					"todos": todoapp,
+				}
+				#return HttpResponse("Le cose da fare sono: " + todo_titles + ".")
+				return render(request,"todos/index.html", context)
+				
+				
+				
+			# MODIFICA 
+			
+			..... segui il video per https://www.youtube.com/watch?v=SV1GXnJsBGs
+			
+			
+			
+	deactivate
+
+
+Tool Utili / Template Utili
+
+Git Copilot
+Chart.js https://www.chartjs.org/docs/latest/getting-started/installation.html
+	copy script with tag del budle min.js
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.3.0/chart.min.js" integrity="sha512-mlz/Fs1VtBou2TrUkGzX4VoGvybkD9nkeXWJm3rle0DPHssYYx4j+8kIS15T78ttGfmOjH0lLaBXGcShaVkdkg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+		
+	and paste it in base.html
+	
+	create a canvas
+	
+	https://www.chartjs.org/docs/latest/getting-started/usage.html
+	
+Bootstrap https://getbootstrap.com/docs/5.0/examples/
+
+
+###### To enable wireshark on Linux #######
+
+$ /etc/ssh/sshd_config
+	X11Forwarding yes
+	X11UseLocalHost yes
+
+$ sudo xauth add $(xauth -f ~ipc01/.Xauthority list | tail -1)
+# do it in root
+
+
+
+
+###### To be Admin in your Laptop ########
+
+net localgroup Administrators "EUR\SESA680124" /add
+net localgroup Administrators
+
+net user Administrator /active:yes
+net user Administrator "TrattoRINI19"
+.\Administrator 
+TrattoRINI19
+
+
+ #### EIPSCANNER how to find ip address linked ####
+ 
+ On Linux:
+ 
+ $ nmap --version
+ 
+ $ sudo apt-get install nmap
+ 
+ $ sudo nmap -sn <IP range>
+ 
+ # Replace <IP range> with the range of IP addresses you want to scan. For example, to scan all IP addresses in the range 192.168.1.1 to 192.168.1.254, you would use:
+ 
+ $ sudo nmap -sn 192.168.1.1-254 
+ (psw: cicd_root06)
+ 
+ $ sudo nmap -sn 192.168.0.0/16
+
+SWITCHES
+
+192.168.20.200
+MAC Address: A0:B0:86:6C:E6:5C (Unknown)
+
+192.168.10.100
+MAC Address: A0:B0:86:6C:E6:4A (Unknown)
+
+
+GIT
+
+# crea il nuovo branch basato su origin/main branch
+git checkout -b new_branch_2 origin/main
+
+# mostra i branch
+git branch
+
+# cancella il branch
+git branch --delete new_branch
+
+# clona il sistema
+git clone https://github.com/lucagiustini/python
+
+# aggiorna il sistema
+git pull https://github.com/lucagiustini/python
+
+# aggiungi la modifica
+git add
+git commit -m "first push python"
+git push origin main
+
+# to link remote-local
+# When you create a new local branch and want to push it to a remote repository for the first time, you use the git push --set-upstream command to specify the remote branch to which your local branch should be pushed.
+
+If you wish to set tracking information for this branch you can do so with:
+
+    git branch --set-upstream-to=origin/<branch> <branch>
+
+	<branch> = feature/OPCUA_MeamoryLeak
+
+	
+	
+	# more simple and same result: use -u instead --set-upstream
+	
+	git branch -u origin/<branch> <branch>
+	
+	git branch -u origin/feature/OPCUA_MemoryLeak feature/OPCUA_MemoryLeak
+	
+	# This command sets the upstream tracking relationship for the local branch feature/new_feature to the remote-tracking branch origin/feature/new_feature. 
+	
+	git push --set-upstream origin feature/OPCUA_MeamoryLeak
+	
+	
+	
+	
+	
+	# unset
+	
+	git branch --unset-upstream feature/OPCUA_MemoryLeak
+	
+
+
+# username e psw (token)
+luca
+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
+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
+
+# confronta diversi branch
+# confronta branch1 branch2 -- file specifico
+git diff branch1 branch2 -- ./bo/ca/path.sbura
+git diff branch1 based_main
+git checkout branch1
+# merge branch2 into branch1
+git merge branch2 
+
+# git merge branch1 into branch2 saving local changes
+git checkout branch2
+git add .
+git commit -m "Committing local changes in branch2"
+git merge --no-commit branch1
+# resolve conflicts manually if there are
+git commit
+git push origin branch2
+
+
+
+# elimina un file e fai il push su origin/branch2
+git rm merge_prova.txt 
+git push origin branch2
+# merge origin/branch2 into origin/branch1
+git checkout branch1
+git merge branch2 
+git push
+
+# cosa c'è nel branch
+git ls-files
+
+# elimina un branch in remoto / cancella /remove
+
+git branch -a
+# to delete in local
+git push origin --delete branch-name
+# to delete in remote
+git branch -d branch-name
+
+# Files added, committed, and pushed from this repository will now use LF line endings.
+# Where git is installed
+$ cd path
+$ git config core.eol lf
+$ git config core.autocrlf input
+# You can modify ".gitattributes". with the following setting
+	*.py        text eol=lf
+# to see the modifications
+$ git rm --cached -r  # Remove every file from git's index.
+$ git reset --hard    # Rewrite git's index to pick up all the new line endings.
+
+# Setting your Git username for every repository on your computer
+# Set a Git username:
+
+$ git config --global user.name "Mona Lisa"
+# To verify
+$ git config --global user.name
+> Mona Lisa
+
+# Setting your Git username for a single repository
+$ git config user.name "Mona Lisa"
+# Confirm
+$ git config user.name
+> Mona Lisa
+git config user.email
+> ..
+
+
+
+IF YOU WANT TO MERGE MASTER ON YOUR BRANCH FORCING
+
+# Make sure you are on your feature branch
+git checkout your-feature-branch
+# Fetch the latest changes from the master branch
+git fetch origin master
+# Merge the master branch into your feature branch, discarding conflicts in favor of master
+git merge -Xtheirs --no-ff origin/master
+# Commit the merge
+git commit -m "Merge changes from master into my feature branch (forced)"
+
+
+
+IF YOU HAVE PROBLEMS WITH GIT PULL
+
+$ git stash # Stashing allows you to temporarily store your changes aside and revert your working directory to a clean state
+			# This will allow you to pull the latest changes from the remote repository
+			
+$ git pull
+
+	# Now you can apply your changes or clean them:
+	
+	# to apply
+	$ git stash apply # 
+	
+	# to remove the most recent stash
+	$ git stash drop
+	
+	# if you have multiple stashes and want to remove all of them without applying any, you can use
+	$ git stash clear
+	
+$ git pull (WHEN NOT PERMITTED)
+
+$ git fetch --all
+$ git reset --hard origin/develop
+$ git pull
+
+
+
+IF YOU HAVE PROBLEMS WITH GIT PUSH
+re-install ssh 
+
+# uninstall openssh
+$ sudo apt-get purge openssh-client
+
+# install it again
+$ sudo apt install openssh-client
+$ sudo apt install openssh-server
+
+# delete create again key where you are working
+
+# FOR DEVICES
+$ ssh-keygen -t rsa
+
+	# DENTRO IL FILE authorized_keys.
+	# OPPURE COPIALA DENTRO IL FILE known_hosts.
+	
+	# ON THE CLIENT
+	$ cat ~/.ssh/id_rsa.pub
+	
+	# SWITCH ON THE SERVER
+	$ echo public_key_string >> ~/.ssh/authorized_keys
+	$ chmod -R go= ~/.ssh
+	
+	# in questo modo il device nel quale viene effettuato l'accesso (server) sa chi sei (host)
+	
+	### A volte ci sono problemi di proxy
+	
+	Configure_src_runit.bat (for India guys)
+	
+		REM git config --global http.proxy http://165.225.120.109:80
+		REM git config --global https.proxy http://165.225.120.109:80
+
+		git config --global https.proxy http://gateway.schneider.zscaler.net:9480
+		git config --global http.proxy http://gateway.schneider.zscaler.net:9480
+	
+	
+	
+# If you’re using the root account to set up keys for a user account, it’s also important that the ~/.ssh directory belongs to the user and not to root:
+
+	$ chown -R user:user ~/.ssh
+	# OR
+	$ chown -R sammy:sammy ~/.ssh
+	
+	$ sudo visudo
+	
+	user ALL=(ALL) NOPASSWD:  # for every command, not recommended
+	
+	user ALL = NOPASSWD: /usr/bin/tee, /usr/bin/ping 
+	
+	
+################## NIC Bonding REQUIREMENTS ##############
+
+	$ sudo visudo
+	
+	user ALL = NOPASSWD: /usr/bin/tee, /usr/bin/ping 
+	
+	
+	************************
+	
+	$ sudo apt-get update
+	$ sudo apt upgrade
+	$ sudo apt-get install python3.9
+	$ sudo apt install python3-pip
+	$ sudo apt install python3-virtualenv
+	$ virtualenv --python python3 NIC_environment
+	$ source NIC_environment/bin/activate
+	$ pip3 install --proxy=http://gateway.schneider.zscaler.net:80 -U paramiko
+	$ pip3 install --proxy=http://gateway.schneider.zscaler.net:80 -U pytest
+
+
+		# run the script
+		
+	$ deactivate (when you have finished)
+	$ sudo rm -rf NIC_environment
+
+
+
+##########################################################
+
+# FOR GIT
+$ ssh-keygen -t ed25519 -C "lucagiustini92@gmail.com" 
+	$ cat ~/.ssh/id_ed25519.pub
+		ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKpTAa2TYmPIfCPJL560qJuYtM55V2sCF8u9FV/XnDSF lucagiustini92@gmail.com
+		
+		ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC9OURmQcmX10HiNoKoUjrYSwHbZiNl4vPkrBbyp4JrejL7950VAG4IAzIIPwP5AbJfc7cKR/uWauNXEOha/zOoZM7Lb72hcelXhay/hdZ1Aic0+9MmxqOEmUhzySFGyYMx7AKXbKX5Lz956nhkY/4vWCGk16gkN7DZ0QzunTg7TmkfZx5PUjQlWLlS7GBwLeMz/yyiEABQERQq9hUewHVQX50WbKCMzbYLD9cINPdNzfhLK11ChNToNMEbrxyznnOtYr/NgVUdiyLApmHy1WSDvOkrQOkdJyrIqU3CIxn7ZOwvyKGr1XT8dD7ErZ85pF6nNelkJySWmJknVqRng7Yf0mJp9hVZu4RxRhD3LJ6GHkrSPQdNbXkIm3NwZGrDggochb7PtJrgj32CvQGF0k6wJ8SmBIJLedrPH01O+LnuHYOzWWTNc5HkGKQtxPIZPQLKqKvUPC7RqSb+ni+q65DY7ACXn+l2WjqYeVP3CMwUTWTZ2bq8xhDgnHxCMmbOaxM= lucagiustini92@gmail.com
+		
+	# in questo modo il device nel quale viene effettuato l'accesso sa chi sei
+	https://github.com/settings/keys
+	# New SSH key and add the key.pub or id_ed25519.pub there
+	
+# add the key.pub to the host where you want get the access/repos
+
+# delete the old known_hosts
+
+# update the following files
+
+$ sudo nano .ssh/config                                     $ sudo nano /etc/ssh/sshd_config
+	PubkeyAcceptedKeyTypes +ssh-dss                    		PasswordAuthentication yes
+	Host github.com                                    		PubkeyAuthentication yes
+		HostName ssh.github.com                        		PermitRootLogin yes
+		#Port 443                                      		RSAAuthentication yes
+		User git
+		#IdentityFile ~/.ssh/id_ed25519		OR 
+
+	Host *
+		User root
+		PasswordAuthentication no
+		PubkeyAuthentication yes
+		RSAAuthentication yes
+
+	# This way is better
+	
+
+# Enabling Password Authentication on your Server:
+
+	 yes
+	
+
+$ sudo nano .git/config
+	
+	[core]
+        repositoryformatversion = 0
+        filemode = true
+        bare = false
+        logallrefupdates = true
+	[remote "origin"]
+			url = git@github.com:lucagiustini/python.git
+			#url = https://github.com/lucagiustini/python
+			fetch = +refs/heads/*:refs/remotes/origin/*
+	[branch "main"]
+			remote = origin
+			merge = refs/heads/main
+	[branch "based"]
+			remote = origin
+			merge = refs/heads/main
+
+
+$ sudo -k
+$ service sshd restart
+$ sudo systemctl enable ssh 
+$ sudo systemctl restart ssh
+$ sudo systemctl restart sshd
+$ sudo ufw allow ssh
+$ sudo service ssh restart
+
+
+# Big issue on cicd (maybe they solved the issue in this way)
+
+	
+> the problem was caused by DHCP configuration. The server were sending more packets than what were been allowed.
+> these ports were been configured as port access to connect to PCs. So the servers need another configuration
+> They selected both ports (22 and 24 and she removed that settings)
+
+> how many network interfaces are configured? The server has 2 physical ports, and then they incresead the value to 6. So we have 6 interfaces for each port.
+	(you can't extend the interfaces number without a limit)
+
+##################################################################################################################
+
+sudo systemctl status ssh
+sudo systemctl restart ssh
+nano /etc/ssh/sshd_config
+sudo nano /etc/ssh/sshd_config
+sudo systemctl restart ssh
+sudo nano /etc/ssh/sshd_config
+sudo tail -f /var/log/auth.log
+
+sudo tcpdump -i any port 22 -n
+	15:59:46.210157 IP 10.208.175.119.22 > 10.214.230.112.55886: Flags [P.], seq 1668560:1668612, ack 1765, win 501, length 52
+
+ip route
+	default via 10.208.175.97 dev ens33 proto dhcp metric 20102
+	10.90.90.0/24 dev ens192 proto kernel scope link src 10.90.90.11 metric 101
+	10.208.175.96/27 dev ens33 proto kernel scope link src 10.208.175.119 metric 102
+	169.254.0.0/16 dev ens160 scope link metric 1000
+	172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1
+	192.168.0.0/16 dev ens160 proto kernel scope link src 192.168.1.1 metric 100
+
+sudo lsof -i :22
+	sshd        881       root    3u  IPv4    32662      0t0  TCP *:ssh (LISTEN)
+	sshd        881       root    4u  IPv6    32664      0t0  TCP *:ssh (LISTEN)
+	sshd    2370221       root    4u  IPv4 19669263      0t0  TCP cicd-agent-softdpac.aut.schneider-electric.com:ssh->10.214.230.112:55886 (ESTABLISHED)
+	sshd    2370307 sesi006576    4u  IPv4 19669263      0t0  TCP cicd-agent-softdpac.aut.schneider-electric.com:ssh->10.214.230.112:55886 (ESTABLISHED)
+	sshd    2370308       root    4u  IPv4 19669318      0t0  TCP cicd-agent-softdpac.aut.schneider-electric.com:ssh->10.214.230.112:55890 (ESTABLISHED)
+	sshd    2370363 sesi006576    4u  IPv4 19669318      0t0  TCP cicd-agent-softdpac.aut.schneider-electric.com:ssh->10.214.230.112:55890 (ESTABLISHED)
+
+	NB: > I am 10.214.230.112, if 10.214.230.112 is using that port, you can see it thanks to the previous command
+
+sudo iptables -t nat -S	
+	-P PREROUTING ACCEPT
+	-P INPUT ACCEPT
+	-P OUTPUT ACCEPT
+	-P POSTROUTING ACCEPT
+	-N DOCKER
+	-A PREROUTING -m addrtype --dst-type LOCAL -j DOCKER
+	-A OUTPUT ! -d 127.0.0.0/8 -m addrtype --dst-type LOCAL -j DOCKER
+	-A POSTROUTING -s 172.17.0.0/16 ! -o docker0 -j MASQUERADE
+	-A POSTROUTING -s 172.18.0.0/16 ! -o docker_gwbridge -j MASQUERADE
+	-A POSTROUTING -s 172.17.0.2/32 -d 172.17.0.2/32 -p tcp -m tcp --dport 9000 -j MASQUERADE
+	-A POSTROUTING -s 172.17.0.3/32 -d 172.17.0.3/32 -p tcp -m tcp --dport 9090 -j MASQUERADE
+	-A POSTROUTING -s 172.17.0.2/32 -d 172.17.0.2/32 -p tcp -m tcp --dport 8000 -j MASQUERADE
+	-A POSTROUTING -s 172.17.0.4/32 -d 172.17.0.4/32 -p tcp -m tcp --dport 8090 -j MASQUERADE
+	-A POSTROUTING -s 172.17.0.5/32 -d 172.17.0.5/32 -p tcp -m tcp --dport 8080 -j MASQUERADE
+	-A POSTROUTING -s 172.17.0.2/32 -d 172.17.0.2/32 -p tcp -m tcp --dport 8080 -j MASQUERADE
+	-A DOCKER -i docker0 -j RETURN
+	-A DOCKER ! -i docker0 -p tcp -m tcp --dport 9085 -j DNAT --to-destination 172.17.0.2:8080
+
+sudo journalctl -u ssh --since yesterday
+	Dec 04 12:04:38 cicd-agent-softdpac sshd[1979116]: rexec line 61: Deprecated option RSAAuthentication
+	Dec 04 12:04:38 cicd-agent-softdpac sshd[1979116]: error: kex_exchange_identification: Connection closed by remote host
+	Dec 04 12:07:11 cicd-agent-softdpac sshd[1979147]: rexec line 61: Deprecated option RSAAuthentication
+	Dec 04 12:07:21 cicd-agent-softdpac sshd[1979147]: Connection closed by 10.213.48.132 port 33078 [preauth]
+	Dec 04 12:07:21 cicd-agent-softdpac sshd[1979152]: rexec line 61: Deprecated option RSAAuthentication
+	Dec 04 12:07:21 cicd-agent-softdpac sshd[1979152]: reprocess config line 61: Deprecated option RSAAuthentication
+	Dec 04 12:07:21 cicd-agent-softdpac sshd[1979152]: Invalid user _STATUS_ from 10.213.48.132 port 45386
+	Dec 04 12:07:21 cicd-agent-softdpac sshd[1979152]: Failed none for invalid user _STATUS_ from 10.213.48.132 port 45386 ssh2
+	Dec 04 12:07:21 cicd-agent-softdpac sshd[1979152]: Connection closed by invalid user _STATUS_ 10.213.48.132 port 45386 [preauth]
+	Dec 05 09:58:06 cicd-agent-softdpac sshd[2283211]: rexec line 61: Deprecated option RSAAuthentication
+	Dec 05 09:58:06 cicd-agent-softdpac sshd[2283211]: reprocess config line 61: Deprecated option RSAAuthentication
+	Dec 05 09:58:16 cicd-agent-softdpac sshd[2283211]: Accepted password for sesi006576 from 10.208.39.188 port 51564 ssh2
+	Dec 05 09:58:16 cicd-agent-softdpac sshd[2283211]: pam_unix(sshd:session): session opened for user sesi006576 by (uid=0)
+
+ufw -v
+	is used to check the version of the Uncomplicated Firewall (UFW) utility installed on a Linux system
+sudo ufw disable
+sudo systemctl disable ufw
+sudo ufw status
+	Status: inactive
+	
+###################################################################################################
+
+
+
+
+In summary, the authorized_keys file is used on the server side to determine which clients are allowed to access the server using public key authentication. On the other hand, the known_hosts file is used on the client side to keep track of the server's host keys for security verification during SSH connections.
+
+
+To add another key in the same file.
+$ ssh-keygen -t ed25519 -C "sesa680124@se.com" 
+$ ssh-keygen -t ed25519 -C "sesa680124@se.com" -f ~/.ssh/id_ed25519_sesa
+$ cat ~/.ssh/id_ed25519_sesa.pub
+$ echo "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIOwC9hJdmiIXodRsh/AMmHN/CYVVB7p6bG4JbzOsxX2 sesa680124@se.com" >> ~/.ssh/id_ed25519.pub
+
+To add a "ssh-rsa DAJEEEEEEEEEEEEEEEEEEEEEEEEEE== sesa680124@se.com" in "id_rsa_sesa680124.pub"
+$ ssh-keygen -t rsa -b 4096 -C "sesa680124@se.com" -f ~/.ssh/id_rsa_sesa680124 # to create
+$ cat ~/.ssh/id_rsa_sesa680124.pub # to show
+$ echo "ssh-rsa DAJEEEEEEEEEEEEEEEEEEEEEEEEEE== sesa680124@se.com" >> ~/.ssh/id_rsa_sesa680124.pub # to add
+$ scp ~/.ssh/id_rsa_sesa680124.pub sesi006576@10.208.175.119:~/.ssh/   # to send "id_rsa_sesa680124.pub" to sesi006576@10.208.175.119
+$ ssh sesi006576@10.208.175.119 'cat >> ~/.ssh/authorized_keys' < ~/.ssh/id_rsa_sesa680124.pub   # to append the content ~\/.ssh\/id_rsa_sesa680124.pub in sesi006576@10.208.175.119:~/.ssh/authorized_keys
+
+#####################################################################################################################
+ssh-keygen -t rsa -b 4096 -C "sesa680124@se.com" -f ~/.ssh/id_rsa_sesa680124
+ssh sesi006576@10.208.175.119 'cat >> ~/.ssh/authorized_keys' < ~/.ssh/id_rsa_sesa680124.pub
+
+#####################################################################################################################
+
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDai3x+eeBM4UvPIwMWEPlaDfvYDWjB6EBctMBR16apIEf2nDjziSd+hCfIXkZ8dxxa/6OnK4x6d3zQ8Dm4f3+rCrPWVjZqOL24W4eI9urxhz4AotcHCO4LRmvjDVcTAdtZ+YcahS0lwIc/4UoMLR992X1GU4TCn6y4FB+hE8USgRsyLGf0nhIpy3KIEdjgJ95TEoFUXTcE6gGSASKiVLunqypd4nSOVijZF5CzgZDEBhqcBWkWWtCqd9ThXvMfbAw+U1KY3F6LTWUqqggqbOrHltLbYsjEAppl8Z4ufrnrZ+Ov4Q5B2E9Ws2AjgMrc4ZwIOrTRqECrWPNDMRKTmFYVHELkR1WD0J7pTQXc2d+iMSgUiPjTue6IsTmBhMxgRobWCnpMPcfT+3Vh6M8d3qCz3ePIPnu0ZLqiJ4D826o0wrYbTkm2QwAqhk50NsWZ5qVRQUdx7F09EqJ58/VneluMvBC5GFV/79yD3bZ9zeZBMommYNOEYsDWVoaYhqDRK2wmIl/mlEfn2E6gDGobdYWoNrxhO4YSRJYMlAPY4dSMfQwfRlxSgf7vEniwJkhYDO3yPIZApfDxNU7ijdA1TlvqD8UT2IKKmNatzTWwwVW9bk30+FgJGqFPGYf8j+IOoDk7gqRMqiuG41pCbVwvGNVJrJO3gI7KbdCvG5CmjUsubw== sesa680124@se.com
+
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDY/3GHSswbrFoS4oyziHO8cACB1M5ee+COoTpv6+oQszM3nHYni85SmtG9vPBX2s6JutAEl7KL3nykyUnSYmvrA5UpOXkse3xnTQ494g7b7UC82dhgyibPosmK+XRnrZmfp4xKyFW3UAS1VS5IM1xFiQi4orerrQC/UPtfa1ttRFIrjS7Lcb3CdwmXEXFCXQNZZLgkOYPjNfChbGSepIMczrKZxnF1mkSgLy/QVg5KF5i9wh+EvBSyAfM0ChUGpbnAYpxhA0pvCaWrRPgWWZXLzTJzZFaTMOmjhzUktz1J/X0QYgSNci90ESfyOOBvoKhrZEfpOmu/Xre4A53jnypsUhMqT8uWsAGfCsXCW/eYypwZCw5tTpscTrnJoxUlnrYwPHF2WOSE16FlHXnjt9M1OUfYV77bVFSPuN8cOPAm5C1cw6sTFPlKGkg37XQfYV5/h2kIYeuRxvCsSkKyTADcWlTJb8AqOoMQaq867FoxTezFhebw/nXRizPrVH9LAxc= SESA680124@WTFRLVSE265405L
+
+https://www.syntec.fr/convention-collective/resiliation-du-contrat-de-travail/
+
+
+
+#############################################################
+
+COPIARE UN FILE DA UNA CARTELLA, AD UN'ALTRA
+	cp -p path/nomeTS.tst path/nomeTS.tst
+	
+– scp nomefile username@nomeserver:/percorso/dove/mettere/il/file
+per trasferire nomefile VERSO nomeserver
+
+	cp -p 22.1.22223.36.tar
+
+	cd /mnt/d/Users/SESI006576/Downloads/22.1.22223.36/softdpac
+	
+COPIARE UNA CARTELLA DA DISPOSITIVO A UN ALTRO VIA SSH
+
+scp -r /home/user/Documents/Softdpac_packages/softdpac-v23.0.23212.01 user@192.168.1.195:/home/user/Documents/Softdpac_packages/
+
+scp softdpac-ha-v23.1.23346.04.tar user@192.168.200.21:~/ && scp softdpac-ha-v23.1.23346.04.tar user@192.168.200.22:~/ && scp softdpac-ha-v23.1.23346.04.tar user@192.168.200.23:~/ && scp softdpac-ha-v23.1.23346.04.tar user@192.168.200.24:~/
+
+
+#############################################################
+
+$ sudo apt-get update:
+
+$ sudo nano /etc/environment
+
+
+PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
+
+export http_proxy="http://192.168.1.2:8080"
+export https_proxy="http://192.168.1.2:8080"
+export no_proxy="localhost, 127.0.0.1"
+
+export HTTP_PROXY="http://192.168.1.2:8080"
+export HTTPS_PROXY="http://192.168.1.2:8080"
+export NO_PROXY="localhost, 127.0.0.1"
+
+$ sudo nano /etc/systemd/timesyncd.conf
+
+
+#  This file is part of systemd.
+#
+#  systemd is free software; you can redistribute it and/or modify it
+#  under the terms of the GNU Lesser General Public License as published by
+#  the Free Software Foundation; either version 2.1 of the License, or
+#  (at your option) any later version.
+#
+# Entries in this file show the compile time defaults.
+# You can change settings by editing this file.
+# Defaults can be restored by simply deleting this file.
+#
+# See timesyncd.conf(5) for details.
+
+[Time]
+NTP=192.168.1.2
+FallbackNTP=ntp.ubuntu.com
+RootDistanceMaxSec=5
+PollIntervalMinSec=32
+PollIntervalMaxSec=2048
+
+
+
+************************************************************************************************
+
+prepare_cmd_record_cpu_memory_load
+
+prepare_cmd_collect_cpu_memory_load
+
+*********-----------------------******************-----------------------*********
+
+test_performance_measurements
+
+test_collect_performance_measurements
+
+************************************************************************************************
+
+*checking
+
+test_Modbus_Client
+
+	# Add performance measurements
+	test_performance_measurements
+	
+	
+	
+test_OPCUA_...
+
+    > # Add performance measurements
+    def test_performance_measurements(self):
+        self.my_test_error_table.clear()
+        self.my_test_error_table = MyTestClass.test_performance_measurements(Modbus_Single_Client_Multiple_Servers_Configuration.TARGETS, Modbus_Single_Client_Multiple_Servers_Configuration.TESTED_VARIABLES, Modbus_Single_Client_Multiple_Servers_Configuration.PERFORMANCE_RECORD_PERIOD, Modbus_Single_Client_Multiple_Servers_Configuration.PERFORMANCE_RECORD_TIME)
+        if self.my_test_error_table:
+            for errors in self.my_test_error_table:
+                print("Target : {} : {}".format(errors['target_name'], errors['error_mes']))
+        assert (not self.my_test_error_table)
+
+
+	def test_package_scripts(self):
+	...
+	
+	# Check containers restarted
+    def test_check_containers_restarted(self):
+	
+	> time.sleep(60)
+
+    # Check application end
+    def test_check_application_end(self):
+	
+	...
+	
+	def test_check_containers_tests_results(self):
+	
+    > # Add performance measurements
+    def test_performance_measurements(self):
+
+
+
+***********************************************************************************************
+
+SE.TESTdPAC,21.1.0.1
+
+FRONT END
+
+'OPCUA Client Server Test'
+'OPCUA Memory Leak Test'
+
+'ConnectionProsys_11'
+'opc.tcp://192.168.1.254:53530/OPCUA/SimulationServer'
+
+'disabled'
+
+
+Fai partire il disconnect connect dopo 10 secondi che parte il container. E_DELAY maybe
+
+test library issues
+
+23.1 issues with some basic function block
+
+check background run
+
+C:\Users\SESA680124\Documents\Schneider Electric\OPCUAClient-Sprint49-Demo_20230922-140600192.sln.zip
+
+
+C:\ProgramData\Schneider Electric\Libraries
+C:\ProgramData\CATLibraries\Shared
+
+******************************* JS JavaScript ************************************************
+
+##### Installation #####
+
+
+VS Code Ext: Path intellisense
+
+sudo apt install nodejs
+
+sudo apt install npm
+
+(if you have issues when executing script.js) rm -rf node_modules package-lock.json 
+
+npm install
+
+npm start
+
+node hello_world.js
+
+
+
+
+-----------------------------------------------
+REQUIREMENTS
+
+sudo apt-get update
+sudo apt upgrade
+sudo apt-get install dphys-swapfile
+sudo apt install trace-cmd
+sudo apt install kernelshark
+
+TEST
+sudo dphys-swapfile swapoff
+(starting the recording)
+sudo trace-cmd record -e sched -s 0.3 -o ~/sched_trace_UC1.dat
+(after recording) -> CTRL + C
+kernelshark -i ~/sched_trace_UC1.dat
+
+-----------------------------------------------
+
+
+swap / #swap
+
+grep -l 'swapfile' /etc/fstab | xargs sed -i 's/swapfile/#swapfile/g'
+
+grep -l '#swapfile' /etc/fstab | xargs sed -i 's/#swapfile/swapfile/g'
+
+perl -pi -e 's/swapfile/#swapfile/g' /etc/fstab
+
+
+
+
+
+Ok you can use this to replace the 
+
+swap / #swap
+
+grep -l '#/swapfile ' merge.txt | xargs sed -i 's/#/swapfile //swapfile /g'
+
+result=re.sub(r'India','the World','TP is the most popular Tutorials site of India')
+print result
+
+
+-------
+
+
+07 66 25 41 47
+
+
+g++ -g create_leak.cpp -o create_leak
+
+script.pl - compile
+
+
+
+valgrind --leak-check=full ./create_leak
+
+
+
+
+############# debug pipeline ###################
+
+
+Download latest package from softdpac-docker builds package + unzip
+
+
+azure.py
+
+        artifacts = response.json()
+        print('artifacts *** \n' + json.dumps(artifacts, indent=2))
+
+
+
+
+
+
+
+docker cp softdpac_1:\/var\/lib\/nxtSRT61499N\/data\/boot\/boot_memoryleak.tar .\/
+
+docker cp Softdpac_5:/var/lib/nxtSRT61499N/data/boot/boot_memoryleak.tar ./
+
+
+docker cp softdpac_1:\/var\/lib\/nxtSRT61499N\/data\/boot .\/workspace\/UBUNTU_RT\/boot_memoryleak.tar
+
+docker cp .\/workspace\/UBUNTU_RT\/boot_memoryleak.tar softdpac_1:\/var\/lib\/nxtSRT61499N\/data\/boot 
+
+
+docker cp mycontainer:/tmp < ./path/file.tar
+
+
+docker cp - softdpac_1:\/var\/lib\/nxtSRT61499N\/data\/boot < .\/boot_memoryleak.tar
+
+
+
+docker exec -it mycontainer tar -xvf /tmp/file.tar -C /tmp/
+
+docker exec -it softdpac_1 tar -xvf /var/lib/nxtSRT61499N/data/boot/boot_memoryleak.tar -C /var/lib/nxtSRT61499N/data/boot/
+
+
+
+scp -r -p ./softdpac-applications/SoftdPAC-OPCUA_MemoryLeak/OPCUA_MemoryLeak_Test/config_files/UBUNTU user@192.168.1.100:./workspace_trial
+
+
+docker exec -it -u root Softdpac_6 sh
+
+docker cp Softdpac_6:/var/lib/nxtSRT61499N/data/boot/boot_memoryleak.tar ./
+
+
+
+
+
+################################################
+
+Setup C# EAE APP
+
+install perl
+
+	http://strawberryperl.com/ 
+
+	Strawberry Perl for Windows
+
+
+
+To open studio project
+
+	$ git clean -fxd (OPTIONAL)
+	
+	$ cd Users\SESA680124\source\repos\studio
+
+	$ update -oem SEUAP -buildbinlog -norelease -skipsonarq
+
+	$ source\repos\studio\OEM\SEUAP\Studio\Solution\StartStudio - SkipSonarQ.bat
+	
+	$ ./StudioMain.cs > NO (when the POP-UP asks to use different files for the new version)
+
+	$ https://dev.azure.com/se-devops/All-In/_wiki/wikis/All-In.wiki/1400/EAE-Licensing-V21.2-and-above?anchor=**2.2-developer-license-file**
+	
+	
+	$ studio\OEM\SEUAP\LicenseManager\Solution > run StartGSELicensing.bat
+		C:\Users\SESA680124\source\repos\studio\OEM\SEUAP\LicenseManager\Solution
+
+	$ Workbench
+
+    $ studio\Source\NxtControl_NET\Studio\StudioMain.cs
+
+################################################
+
+	  
+############################################	  
+	  
+noprox() {
+    http_proxy='' https_proxy='' HTTP_PROXY='' HTTPS_PROXY='' $@
+}
+
+############################################
+
+
+
+########### sudo apt-get update NTP ###########
+
+
+
+sudo nano /etc/systemd/timesyncd.conf
+
+
+#  This file is part of systemd.
+#
+#  systemd is free software; you can redistribute it and/or modify it
+#  under the terms of the GNU Lesser General Public License as published by
+#  the Free Software Foundation; either version 2.1 of the License, or
+#  (at your option) any later version.
+#
+# Entries in this file show the compile time defaults.
+# You can change settings by editing this file.
+# Defaults can be restored by simply deleting this file.
+#
+# See timesyncd.conf(5) for details.
+
+[Time]
+NTP=192.168.32.1
+FallbackNTP=ntp.ubuntu.com
+RootDistanceMaxSec=5
+PollIntervalMinSec=32
+PollIntervalMaxSec=2048
+
+
+
+sudo nano /etc/systemd/system/docker.service.d/https-proxy.conf
+
+[Service]
+Environment="HTTP_PROXY=http://192.168.32.1:8080"
+Environment="HTTPS_PROXY=http://192.168.32.1:8080"
+Environment="NO_PROXY=localhost, 127.0.0.1, ::1"
+
+Or
+                                                                
+[Service]
+Environment="HTTP_PROXY=http://gateway.schneider.zscaler.net:80"
+Environment="HTTPS_PROXY=http://gateway.schneider.zscaler.net:80"
+Environment="NO_PROXY=localhost, 127.0.0.0/8, ::1, schneider-electric.com, 10.0.0.0/8, 192.168.0.0/16"
+
+
+
+sudo nano /etc/environment
+
+
+export http_proxy="http://192.168.32.1:8080"
+export https_proxy="http://192.168.32.1:8080"
+export no_proxy="localhost, 127.0.0.1"
+
+export HTTP_PROXY="http://192.168.32.1:8080"
+export HTTPS_PROXY="http://192.168.32.1:8080"
+export NO_PROXY="localhost, 127.0.0.1"
+
+
+
+sudo nano /etc/apt/apt.conf
+
+Acquire::http::Proxy "http://192.168.32.2:8080";
+Acquire::https::Proxy "http://192.168.32.2:8080";
+
+
+
+
+export http_proxy="http://192.168.32.1:8080"
+export https_proxy="http://192.168.32.1:8080"
+export no_proxy="localhost, 127.0.0.1"
+
+
+
+
+###### SVELTE - CLIMBING ##########
+
+apt-get update
+apt upgrade
+git clone https://github.com/nkwib/street_climbing
+	lucagiustini92@gmail.com
+	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
+apt install npm
+npm i -g n
+n stable
+npm create svelte@latest
+
+sudo npm cache clean -f
+sudo npm install -g n
+sudo n stable
+
+# inside the repo project
+npm install 
+# npm i
+
+# configure supabase/.env
+	SUPABASE_PASS=
+	ENVIROMENT=local
+	SUPABASE_NAME=street_climbing
+	PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0
+	PRIVATE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImV4cCI6MTk4MzgxMjk5Nn0.EGIM96RAZx35lJzdJsyH-qQwv8Hdp7fsn3W0YpN81IU
+	PUBLIC_SUPABASE_URL=http://localhost:54321
+
+# start docker
+service docker start
+
+# if not initialized , initialize supabase
+npx supabase init
+
+npx supabase db start # solo la prima volta che lanci il db
+
+# if it's already initialized
+npx supabase stop
+
+npx supabase start # runna il seed.sql + le migrations
+
+
+
+/mnt/c/Users/SESA680124/source/repos/street_climbing
+
+
+
+me sa te devi fa l'account
+poi npx supabase login
+poi npx supabase seed (questo dovrebbe inizializzare la tabella 'profiles', pe mo ci sta solo il profilo mio
+
+
+
+
