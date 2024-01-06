@@ -3,7 +3,7 @@ myTuple = ("grapes", "banana", "apple", "mango") # simple tuple
 print(myTuple)  # to display simple tuple
 
 # to display tuple to some range
-print(myTuple[1:4])
+print(myTuple[1:5])
 print(myTuple)
 
 print(myTuple.count("apple"))
@@ -17,7 +17,7 @@ newTuple = ("oranges", "pineapple")
 concatenation = newTuple+myTuple
 print(concatenation)
 
-# we can also assign dferent variables to diferent values in tuple
+# we can also assign different variables to diferent values in tuple
 #like this one
 a, b, c, e = myTuple
 print(a)

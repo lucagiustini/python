@@ -42,3 +42,14 @@ array = np.full((3, 3), 5)
 print(array)
 array = np.zeros([3, 3])
 print(array)
+
+array = (1, 2, 3, 4, 5)
+print(type(array))
+print(array[0])
+array = [1, 2, 3, 4, 5]
+print(type(array))
+array = {1, 2, 3, 4, 5}
+print(type(array))
+array = {1: "a", 2: "b", 3: "c", 4: "d", 5: "e"}
+print(type(array))
+
