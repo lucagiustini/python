@@ -32,3 +32,30 @@ for key in student.keys():
 print()
 for key, value in student.items():
     print(key, "=", value)
+
+
+# I want to define a list of dictionaries, each dictionary containing the variables of each target
+TARGETS = [
+    {"ip_address": "ok", "user_name": "ok", "psw": "ok"},
+    {"ip_address": "ok", "user_name": "ok", "psw": "ok"},
+    {"ip_address": "ok", "user_name": "ok", "psw": "ok"},
+    {"ip_address": "ok", "user_name": "ok", "psw": "ok"},
+    {"ip_address": "ok", "user_name": "ok", "psw": "ok"},
+    {"ip_address": "ok", "user_name": "ok", "psw": "ok"}
+]
+# to call the ip address of the first target, I can use the following syntax:
+# variable = TARGETS[0]["ip_address"]
+
+# I want to define a dictionary containing key-value pairs, 
+# where each key represents a target name and the corresponding value is another dictionary with IP address, username, and password information.
+
+TARGETS = {
+    "HA_Left" : {"ip_address": "ok", "user_name": "ok", "psw": "ok"},
+    "HA_Right" : {"ip_address": "ok", "user_name": "ok", "psw": "ok"},
+    "CRD" : {"ip_address": "ip_address", "user_name": "ok", "psw": "ok"},
+    "SWITCH_1" : {"ip_address": "ok", "user_name": "ok", "psw": "ok"},
+    "SWITCH_2" : {"ip_address": "ok", "user_name": "ok", "psw": "ok"}
+}
+
+# to call the ip address of the HA_Left, I can use the following syntax:
+# variable = TARGETS["HA_Left"]["ip_address"]
