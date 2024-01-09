@@ -44,18 +44,38 @@ TARGETS = [
     {"ip_address": "ok", "user_name": "ok", "psw": "ok"}
 ]
 # to call the ip address of the first target, I can use the following syntax:
-# variable = TARGETS[0]["ip_address"]
-
-# I want to define a dictionary containing key-value pairs, 
-# where each key represents a target name and the corresponding value is another dictionary with IP address, username, and password information.
+variable = TARGETS[0]["ip_address"]
 
 TARGETS = {
-    "HA_Left" : {"ip_address": "ok", "user_name": "ok", "psw": "ok"},
-    "HA_Right" : {"ip_address": "ok", "user_name": "ok", "psw": "ok"},
-    "CRD" : {"ip_address": "ip_address", "user_name": "ok", "psw": "ok"},
-    "SWITCH_1" : {"ip_address": "ok", "user_name": "ok", "psw": "ok"},
-    "SWITCH_2" : {"ip_address": "ok", "user_name": "ok", "psw": "ok"}
+    "Left" : {"ip_address": "ok", "user_name": "ok", "psw": "ok"},
+    "Right" : {"ip_address": "ok", "user_name": "ok", "psw": "ok"},
+    "W" : {"ip_address": "ip_address", "user_name": "ok", "psw": "ok"},
+    "daje" : {"ip_address": "ok", "user_name": "ok", "psw": "ok"},
+    "T" : {"ip_address": "ok", "user_name": "ok", "psw": "ok"}
 }
 
 # to call the ip address of the HA_Left, I can use the following syntax:
-# variable = TARGETS["HA_Left"]["ip_address"]
+variable = TARGETS["Left"]["ip_address"]
+
+TARGETS = [{
+    'Server':{'target_name': 'UBUNTU', 'ip': '192.168.1.100', 'user_name': 'user', 'arch_type': 'x86',
+    'containers_ip_base': '192.168.1.23', 'it_name': 'ens33', 'network_lan':'ipvlan', 'nb_container': '1'},
+    'Client':{'target_name': 'UBUNTU_RT', 'ip': '192.168.2.200', 'user_name': 'user', 'arch_type': 'x86',
+    'containers_ip_base': '192.168.1.26', 'it_name': 'eno1', 'network_lan':'ipvlan', 'nb_container': '1'}
+}]
+# I want to call the ip of the Server
+for element in TARGETS:
+    print(element['Server']['ip'])
+
+TARGETS_SERVER = [
+    {'target_name': 'UBUNTU', 'ip': '192.168.1.100', 'user_name': 'user', 'arch_type': 'x86',
+    'containers_ip_base': '192.168.1.23', 'it_name': 'ens33', 'network_lan':'ipvlan', 'nb_container': '1'},
+]
+# I want to call the ip of the Server
+for element in TARGETS_SERVER:
+    print(element['ip'])
+
+TARGETS_CLIENT = [
+    {'target_name': 'UBUNTU_RT', 'ip': '192.168.2.200', 'user_name': 'user', 'arch_type': 'x86',
+    'containers_ip_base': '192.168.1.26', 'it_name': 'eno1', 'network_lan':'ipvlan', 'nb_container': '1'}
+]
